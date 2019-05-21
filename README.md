@@ -7,9 +7,9 @@ Segundo trabalho da disciplina de Algoritmos e Programação Orientada a Objetos
 
 ## Tarefas restantes
 * [X] Criação das classes com seus atributos e métodos referentes ao diagrama de classe do trabalho
-* [ ] Implementação da classe Algoritmo
-* [ ] Implementação da classe MedidaAvaliacao
-* [ ] Implementação da classe Dataset
+* [X] Implementação da classe Algoritmo
+* [X] Implementação da classe MedidaAvaliacao
+* [X] Implementação da classe Dataset
 * [ ] Implementação da classe ValorAvaliacao
 * [ ] Implementação da classe Resultado
 * [ ] Implementação da classe Experimento
