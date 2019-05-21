@@ -5,9 +5,7 @@ Segundo trabalho da disciplina de Algoritmos e Programação Orientada a Objetos
 
 **Critérios de avaliação:** Completude do modelo (peso 4), corretude de funcionalidades (peso 5), classe de teste com todos os métodos sendo testados (peso 1).
 
-<br />
-
-## TODO
+## Tarefas restantes
 * [X] Criação das classes com seus atributos e métodos referentes ao diagrama de classe do trabalho
 * [ ] Implementação da classe Algoritmo
 * [ ] Implementação da classe MedidaAvaliacao
@@ -16,6 +14,8 @@ Segundo trabalho da disciplina de Algoritmos e Programação Orientada a Objetos
 * [ ] Implementação da classe Resultado
 * [ ] Implementação da classe Experimento
 * [ ] Implementação da classe de teste
+
+<br />
 
 ## Descrição das classes
 
