@@ -36,8 +36,8 @@ Neste classe, temos a abstração de uma medida de avaliação que poderá ser u
 
 São atributos desta classe:
 * **nome:**  variável textual que armazena o nome da medida de avaliação.
-* **menorValor:**   variável  em  ponto  flutuante  que  armazena  o  menor  valor  que  a  medida  deavaliação pode assumir.
-* **maiorValor:**   variável  em  ponto  flutuante  que  armazena  o  maior  valor  que  a  medida  deavaliação pode assumir.
+* **menorValor:**   variável  em  ponto  flutuante  que  armazena  o  menor  valor  que  a  medida  de avaliação pode assumir.
+* **maiorValor:**   variável  em  ponto  flutuante  que  armazena  o  maior  valor  que  a  medida  de avaliação pode assumir.
 
 Além disso, a classe tem os seguintes métodos:
 * **Construtor:**   deve  receber  como  parâmetros  o  nome  da  medida  de  avaliação,  seumenor valor e seu maior valor, respectivamente.  Deve inicializar, de maneira adequada, asvariáveis de instância.
@@ -49,12 +49,12 @@ Além disso, a classe tem os seguintes métodos:
 Classe responsável por representar um valor de avaliação obtida por um algoritmo em uma deter-minada medida de avaliação.
 
 São seus atributos:
-* **valor:**  variável de ponto flutuante que armazena o score obtido pelo algoritmo na medida deavaliação utilizada.
+* **valor:**  variável de ponto flutuante que armazena o score obtido pelo algoritmo na medida de avaliação utilizada.
 * **medida:**   variável  do  tipo  MedidaAvaliacao  que  armazena  a  medida  de  avaliação  à  qualpertence este valor obtido.
 
 São métodos desta classe:
 * **Método construtor:**  deve receber uma instância da classe MedidaAvaliação, que representaa  medida  de  avaliação  à  qual  pertence  este  valor.   Deve,  também,  inicializar,  de  maneiraadequada, as variáveis de instância.
-* **setValor:**  método responsável por armazenar o valor obtido pelo algoritmo na medida deavaliação.  Deve receber como parâmetro o valor da medida.  Este valor deve ser validado,de  acordo  com  os  limites  aceitos  pela  medida  utilizada.   Caso  o  valor  seja  aceito,  deve-se  guardá-lo  na  variável  de  instância  correspondente  e  retornar  o  valortrue,  assinalandoque a atribuição foi bem sucedida.  Caso contrário, deve imprimir uma mensagem na telainformando da impossibilidade de atribuição e retornar o valorfalse.
+* **setValor:**  método responsável por armazenar o valor obtido pelo algoritmo na medida de avaliação.  Deve receber como parâmetro o valor da medida.  Este valor deve ser validado,de  acordo  com  os  limites  aceitos  pela  medida  utilizada.   Caso  o  valor  seja  aceito,  deve-se  guardá-lo  na  variável  de  instância  correspondente  e  retornar  o  valortrue,  assinalandoque a atribuição foi bem sucedida.  Caso contrário, deve imprimir uma mensagem na telainformando da impossibilidade de atribuição e retornar o valorfalse.
 * **getMedida:**  deve retornar a medida de avaliação utilizada.
 * **getValor:**  deve retornar o valor da medida de avaliação armazenada no objeto.
 
