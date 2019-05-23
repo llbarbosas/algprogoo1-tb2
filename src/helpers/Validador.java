@@ -1,4 +1,4 @@
-package aux;
+package helpers;
 
 public class Validador {
     
@@ -9,7 +9,7 @@ public class Validador {
 	// Verifica se uma string eh valida
     public static boolean verificaStringValida(String str) {
         if (Validador.verificaStringPreenchida(str) 
-            || Validador.verificaObjetoValido(str))
+            && Validador.verificaObjetoValido(str))
             return true;
         else 
             return false;
