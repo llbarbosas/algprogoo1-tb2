@@ -15,7 +15,7 @@ public class AlgoritmoTeste {
 
         /*
          * Criação dos casos de teste
-         * Métodos: String getNome(), float getParametros()  
+         * Métodos: String getNome(), float[] getParametros()  
          */
         for(Algoritmo teste: casos){
             System.out.printf("getNome(): %s\n", teste.getNome());
