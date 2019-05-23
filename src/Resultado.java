@@ -35,7 +35,7 @@ public class Resultado {
     
     }
 
-    public boolean verificarVetor(){
+    private  boolean verificarVetor(){
 	    for(int i = 0; i < ValorAvalicao.length; i++){
 		    if(ValorAvaliacao[i] == null){
 			    return false;
