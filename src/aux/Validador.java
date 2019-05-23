@@ -1,35 +1,59 @@
 package aux;
 
 public class Validador {
-	
-	// STRINGS - Metodos auxiliares para validacao de Strings
+    
+    /*
+	 * STRINGS - Metodos auxiliares para validacao de Strings
+     */
 
-	// Descricao: Verifica se uma string e valida
+	// Verifica se uma string eh valida
     public static boolean verificaStringValida(String str) {
-        if (!this.verificaStringVazia(str) && !this.verificaObjetoNulo(str)) {
+        if (Validador.verificaStringPreenchida(str) 
+            || Validador.verificaObjetoValido(str))
             return true;
-        } else {
+        else 
             return false;
-        }
     }
 
-	// Descricao: Verifica se uma string nao possui nenhum caractere alem do espaco
-    public static boolean verificaStringVazia(String str) {
-        if (str.replaceAll(" ", "").equals("")) {
-            return true;
-        } else {
+	// Verifica se uma string nao possui nenhum caractere alem do espaco
+    public static boolean verificaStringPreenchida(String str) {
+        if (str.replaceAll(" ", "").equals(""))
             return false;
-        }
+        else
+            return true;
     }
 
-    // OBJETOS - Metodos auxiliares para validacao de objetos
+    /*
+     * OBJETOS - Metodos auxiliares para validacao de objetos
+     */
 
-    // Descricao: Verifica se um objeto e nulo
-    public static boolean verificaObjetoNulo(Object obj) {
-        if (obj == null) {
+    // Verifica se um objeto e nulo
+    public static boolean verificaObjetoValido(Object obj) {
+        if (obj != null)
             return true;
-        } else {
+        else
             return false;
-        }
+    }
+
+    /*
+     * ARRAYS - Metodos auxiliares para validacao de arrays
+     */
+
+    // Verifica se um array de objetos está cheio
+    public static boolean verificaArrayCheio(Object[] array) {
+        for(Object obj: array)
+            if(Validador.verificaObjetoValido(obj))
+                return false;
+
+        return true;
+    }
+
+    // Verifica se um array de float não possui o valor curinga Float.MAX_VALUE
+    public static boolean verificaArrayCheio(float[] array) {
+        for(float valor: array)
+            if(valor == Float.MAX_VALUE)
+                return false;
+
+        return true;
     }
 }
