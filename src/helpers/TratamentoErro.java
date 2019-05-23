@@ -1,4 +1,4 @@
-package aux;
+package helpers;
 
 public class TratamentoErro {
 	private static final String RESET = "\u001B[0m";

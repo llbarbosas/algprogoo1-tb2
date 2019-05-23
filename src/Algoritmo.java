@@ -1,5 +1,5 @@
-import aux.Validador;
-import aux.TratamentoErro;
+import helpers.Validador;
+import helpers.TratamentoErro;
 
 public class Algoritmo {
     private String nome;
