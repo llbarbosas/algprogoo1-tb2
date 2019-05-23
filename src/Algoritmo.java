@@ -1,5 +1,6 @@
-import helpers.Validador;
-import helpers.TratamentoErro;
+package src;
+import src.util.Validador;
+import src.util.TratamentoErro;
 
 public class Algoritmo {
     private String nome;

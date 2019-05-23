@@ -1,3 +1,5 @@
+package src;
+
 public class ValorAvaliacao {
     private float valor;
     private MedidaAvaliacao medida;

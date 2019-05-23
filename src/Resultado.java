@@ -1,3 +1,5 @@
+package src;
+
 public class Resultado {
     private Algoritmo algoritmo;
     private Dataset dataset;

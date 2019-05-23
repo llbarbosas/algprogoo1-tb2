@@ -1,3 +1,5 @@
+package src;
+
 public class Dataset {
     private int numExemplos;
     private int numAtributos;

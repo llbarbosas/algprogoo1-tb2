@@ -1,3 +1,5 @@
+package src;
+
 public class MedidaAvaliacao {
     private String nome;
     private float menorValor;

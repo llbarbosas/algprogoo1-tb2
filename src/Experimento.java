@@ -1,3 +1,5 @@
+package src;
+
 public class Experimento {
     private int dia;
     private int mes;
