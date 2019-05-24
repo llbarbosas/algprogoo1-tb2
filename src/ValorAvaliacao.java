@@ -15,12 +15,15 @@ public class ValorAvaliacao {
     }
 
     public boolean setValor(float valor){
-        if (this.verificaValorIntervalo(valor)) {
+        float menorValor = this.medida.getMenorValor();
+        float maiorValor = this.medida.getMaiorValor();
+        
+        if (Validador.verificaValorIntervalo(valor, menorValor, maiorValor)) {
             this.valor = valor;
             return true;
         } else {
-            System.out.println("Nao e possivel atribuir o valor informado pois nao"
-                + " esta dentro do intervalo permitido.\n");
+            TratamentoErro.erroSimples("Nao e possivel atribuir o valor informado pois nao"
+                + " esta dentro do intervalo permitido.");
             return false;
         }
     }
@@ -31,16 +34,5 @@ public class ValorAvaliacao {
 
     public MedidaAvaliacao getMedida(){
         return this.medida;
-    }
-
-    private boolean verificaValorIntervalo(float valor) {
-        float menorValor = this.medida.getMenorValor();
-        float maiorValor = this.medida.getMaiorValor();
-
-        if (valor >= menorValor && valor <= maiorValor) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }
