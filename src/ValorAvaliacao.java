@@ -1,11 +1,17 @@
 package src;
+import src.util.Validador;
+import src.util.TratamentoErro;
 
 public class ValorAvaliacao {
     private float valor;
     private MedidaAvaliacao medida;
 
     public ValorAvaliacao(MedidaAvaliacao medida){
-        this.medida = medida;
+        // Verifica se a medida não é nula
+        if(Validador.verificaObjetoValido(medida))
+            this.medida = medida;
+        else
+            TratamentoErro.erro("O objeto informado não pode ser nulo.");
     }
 
     public boolean setValor(float valor){

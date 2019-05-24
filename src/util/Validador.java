@@ -64,4 +64,17 @@ public class Validador {
 
         return true;
     }
+
+    /*
+     *  OUTROS - Metodos auxiliares para outros casos
+     */
+
+    // Verifica se o valor informado esta dentro do intervalo especificado
+    public static boolean verificaValorIntervalo(float valor, float menorValor, float maiorValor) {
+        if (valor >= menorValor && valor <= maiorValor) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
