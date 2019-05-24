@@ -8,8 +8,8 @@ public class Validador {
 
 	// Verifica se uma string eh valida
     public static boolean verificaStringValida(String str) {
-        if (Validador.verificaStringPreenchida(str) 
-            && Validador.verificaObjetoValido(str))
+        if (Validador.verificaObjetoValido(str)
+            && Validador.verificaStringPreenchida(str))
             return true;
         else 
             return false;
@@ -30,6 +30,14 @@ public class Validador {
     // Verifica se um objeto e nulo
     public static boolean verificaObjetoValido(Object obj) {
         if (obj != null)
+            return true;
+        else
+            return false;
+    }
+
+    // Verifica se há um valor maior e outro menor
+    public static boolean verificaExistenciaMenorMaiorValor(float menorValor, float maiorValor) {
+        if (menorValor < maiorValor)
             return true;
         else
             return false;
