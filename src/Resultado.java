@@ -38,7 +38,7 @@ public class Resultado {
             }
         }else
 		TratamentoErro.erroSimples(mensagem);
-		return true;
+		return false;
     }
 	
     
