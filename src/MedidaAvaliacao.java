@@ -1,4 +1,6 @@
 package src;
+import src.util.Validador;
+import src.util.TratamentoErro;
 
 public class MedidaAvaliacao {
     private String nome;
@@ -6,9 +8,18 @@ public class MedidaAvaliacao {
     private float maiorValor;
 
     public MedidaAvaliacao(String nome, float menorValor, float maiorValor){
-        this.nome = nome;
-        this.menorValor = menorValor;
-        this.maiorValor = maiorValor; 
+        // Verifica se o nome da medida de avaliação é válido
+        if (Validador.verificaStringValida(nome))
+            this.nome = nome;
+        else
+            TratamentoErro.erro("Nome da medida de avaliação inválido.");
+        
+        if (Validador.verificaExistenciaMenorMaiorValor(menorValor, maiorValor)) {
+            this.menorValor = menorValor;
+            this.maiorValor = maiorValor;
+        } else {
+            TratamentoErro.erro("O primeiro valor não é maior do que o segundo.");
+        }
     }
 
     public String getNome(){
