@@ -1,7 +1,6 @@
 package test;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import static util.Cores.*;
 
 public class Teste {
@@ -42,13 +41,12 @@ public class Teste {
 	
 	private void callMethod(String nome, Object[] parametros){
 		try {
-			Method method = this.objeto.getClass().getMethod(nome);
+			Method method = this.objeto.getClass().getMethod(nome); // getMethod(nome, param1.class, ...);
 
 			System.out.println(
 				"|\t\t" 
-				+ "Retorno: " + method.invoke(objeto) + RESET
+				+ "Retorno: " + method.invoke(objeto) + RESET // invoke(obj, param1, ...);
 			);
-			// (resultado.getClass().isArray() ? Arrays.deepToString(resultado) : resultado)
 
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
@@ -61,8 +59,4 @@ public class Teste {
 		}
 		
 	}
-
-	private boolean isArray(Object obj){
-    	return obj!=null && obj.getClass().isArray();
-	} 
 }
