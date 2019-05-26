@@ -1,4 +1,5 @@
-import src.Dataset;
+package test;
+import sisapam.Dataset;
 
 public class DatasetTeste {
     public static void main(String[] args) {

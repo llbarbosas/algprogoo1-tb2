@@ -1,6 +1,6 @@
-package src;
-import src.util.Validador;
-import src.util.TratamentoErro;
+package sisapam;
+import util.Validador;
+import util.TratamentoErro;
 
 public class Algoritmo {
     private String nome;

@@ -1,4 +1,4 @@
-package src;
+package sisapam;
 
 public class Dataset {
     private int numExemplos;
