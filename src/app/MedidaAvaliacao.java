@@ -12,8 +12,9 @@ public class MedidaAvaliacao {
         if (Validador.verificaStringValida(nome))
             this.nome = nome;
         else
-            TratamentoErro.erro("Nome da medida de avaliação inválido.");
+            TratamentoErro.erro("Nome da medida de avaliação inválido: " + nome);
         
+        // Verifica se existe um menor e um maior valor
         if (Validador.verificaExistenciaMenorMaiorValor(menorValor, maiorValor)) {
             this.menorValor = menorValor;
             this.maiorValor = maiorValor;
@@ -33,5 +34,4 @@ public class MedidaAvaliacao {
     public float getMaiorValor(){
         return maiorValor;
     }
-    
 }

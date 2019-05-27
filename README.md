@@ -1,6 +1,8 @@
 # algprogoo1-tb2
 Segundo trabalho da disciplina de Algoritmos e Programação Orientada a Objetos 1 da UFMS. O trabalho visa o desenvolvimento de um sistema fictício de apoio a pesquisadores de Aprendizado de Máquina em java.
 
+**Grupo:** @EduardoGiacomini, @JorgeDullius, @LucasMoro01, @llbarbosas.
+
 **Data de entrega:** 14/06/2019 às 23h55.
 
 **Critérios de avaliação:** Completude do modelo (peso 4), corretude de funcionalidades (peso 5), classe de teste com todos os métodos sendo testados (peso 1).
@@ -11,9 +13,9 @@ Segundo trabalho da disciplina de Algoritmos e Programação Orientada a Objetos
 * [X] Implementação da classe MedidaAvaliacao
 * [X] Implementação da classe Dataset
 * [X] Implementação da classe ValorAvaliacao
-* [ ] Implementação da classe Resultado
+* [X] Implementação da classe Resultado
 * [ ] Implementação da classe Experimento
-* [ ] Implementação da classe de teste
+* [X] Implementação da classe de teste
 
 <br />
 
