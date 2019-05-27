@@ -1,6 +1,5 @@
-package src;
-import src.util.Validador;
-import src.util.TratamentoErro;
+import util.Validador;
+import util.TratamentoErro;
 
 public class ValorAvaliacao {
     private float valor;
@@ -12,12 +11,16 @@ public class ValorAvaliacao {
             this.medida = medida;
         else
             TratamentoErro.erro("O objeto informado não pode ser nulo.");
+
+        // Inicializando
+        this.valor = 0.0f;
     }
 
     public boolean setValor(float valor){
         float menorValor = this.medida.getMenorValor();
         float maiorValor = this.medida.getMaiorValor();
         
+        // Verificando se o valor está entre o intervalo permitido
         if (Validador.verificaValorIntervalo(valor, menorValor, maiorValor)) {
             this.valor = valor;
             return true;

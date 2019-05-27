@@ -1,4 +1,4 @@
-package src.util;
+package util;
 
 public class TratamentoErro {
 	private static final String RESET = "\u001B[0m";
