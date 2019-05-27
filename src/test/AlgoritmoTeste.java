@@ -16,7 +16,7 @@ public class AlgoritmoTeste {
                 new Algoritmo(nomesTeste[i], parametrosTeste[i]), // Objeto instanciado da classe
                 new Object[]{ 
                     "getNome", // Nome do método
-                    new Object[]{"isto", "é", "um", "teste"} // Parametros
+                    new Object[]{} // Parametros
                 },
                 new Object[]{ "getParametros", new Object[]{} }
             );

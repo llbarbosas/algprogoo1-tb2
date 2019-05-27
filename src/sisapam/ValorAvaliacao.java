@@ -15,8 +15,8 @@ public class ValorAvaliacao {
     }
 
     public boolean setValor(float valor){
-        float menorValor = this.medida.getMenorValor();
-        float maiorValor = this.medida.getMaiorValor();
+        float menorValor = this.medida.getMenorValor(), 
+        maiorValor = this.medida.getMaiorValor();
         
         if (Validador.verificaValorIntervalo(valor, menorValor, maiorValor)) {
             this.valor = valor;
