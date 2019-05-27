@@ -1,5 +1,5 @@
 package test;
-import sisapam.Experimento;;
+import app.Experimento;;
 
 public class ExperimentoTeste {
     public static void main(String[] args) {

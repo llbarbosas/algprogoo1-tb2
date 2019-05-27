@@ -1,6 +1,6 @@
 package test;
-import sisapam.ValorAvaliacao;
-import sisapam.MedidaAvaliacao;
+import app.ValorAvaliacao;
+import app.MedidaAvaliacao;
 
 public class ValorAvaliacaoTeste {
     public static void main(String[] args) {

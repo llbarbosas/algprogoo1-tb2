@@ -1,4 +1,4 @@
-package sisapam;
+package app;
 
 public class Dataset {
     private int numExemplos;

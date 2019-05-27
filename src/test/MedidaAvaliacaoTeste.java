@@ -1,5 +1,5 @@
 package test;
-import sisapam.MedidaAvaliacao;
+import app.MedidaAvaliacao;
 
 public class MedidaAvaliacaoTeste {
     public static void main(String[] args) {

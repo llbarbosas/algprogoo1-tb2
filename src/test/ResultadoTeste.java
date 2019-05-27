@@ -1,7 +1,7 @@
 package test;
-import sisapam.Resultado;
-import sisapam.Algoritmo;
-import sisapam.Dataset;
+import app.Resultado;
+import app.Algoritmo;
+import app.Dataset;
 
 public class ResultadoTeste {
     public static void main(String[] args) {

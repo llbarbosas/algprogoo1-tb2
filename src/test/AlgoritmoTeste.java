@@ -1,5 +1,5 @@
 package test;
-import sisapam.Algoritmo;
+import app.Algoritmo;
 
 public class AlgoritmoTeste {
     public static void main(String[] args) {

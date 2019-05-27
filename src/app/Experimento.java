@@ -1,4 +1,4 @@
-package sisapam;
+package app;
 
 public class Experimento {
     private int dia;
