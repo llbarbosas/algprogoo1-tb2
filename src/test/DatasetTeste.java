@@ -13,15 +13,12 @@ public class DatasetTeste {
         int[] nAtributosTeste = {4, 6, 5, 2};
         int[] nClassesTeste = {0, 2, 11, 9};
         String[] nomesTeste = {"Dataset 1", "Dataset 2", "\n", ""};
+        Teste teste = new Teste(Dataset.class);
 
         for(int i=0; i<casos; i++)
-            new Teste(
+            teste.run(
                 new Dataset(nExemplosTeste[i], nAtributosTeste[i],
-                nClassesTeste[i], nomesTeste[i]),
-                new Object[]{ "getNumExemplos", new Object[]{} },
-                new Object[]{ "getNumAtributos", new Object[]{} },
-                new Object[]{ "getNumClasses", new Object[]{} },
-                new Object[]{ "getNome", new Object[]{} }
+                nClassesTeste[i], nomesTeste[i])
             );
 
     }

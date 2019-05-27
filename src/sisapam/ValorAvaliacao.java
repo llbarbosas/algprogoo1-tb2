@@ -22,7 +22,7 @@ public class ValorAvaliacao {
             this.valor = valor;
             return true;
         } else {
-            TratamentoErro.erroSimples("Nao e possivel atribuir o valor informado pois nao"
+            TratamentoErro.alerta("Nao eh possivel atribuir o valor informado pois nao"
                 + " esta dentro do intervalo permitido.");
             return false;
         }

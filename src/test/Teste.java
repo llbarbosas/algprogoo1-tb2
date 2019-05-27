@@ -1,60 +1,156 @@
 package test;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Random;
 import static util.Cores.*;
 
 public class Teste {
-	Object objeto;
+	private Class classeTestada;
+	private static final String[] DEFAULT_STRINGS = {
+		"DEFAULT_STR1", "DEFAULT_STR2", "DEFAULT_STR3", "DEFAULT_STR4"
+	};
 
-	public Teste(Object objeto, Object[]... metodos){
+	public Teste(Class classeTestada){
+		this.classeTestada = classeTestada;
+		java.lang.reflect.Field[] atributos = classeTestada.getDeclaredFields();
+		Method[] metodos = classeTestada.getDeclaredMethods();
+
 		System.out.println(
-			FUNDO_ROXO + "[Teste]" + RESET
-			+ " Iniciando teste de " 
-			+ FUNDO_AZUL + objeto.getClass() + RESET
+			FUNDO_ROXO.on("[Teste.java]")
+			+ " Iniciando teste da classe " 
+			+ ROXO.on(classeTestada.getName())
 		);
 
-		this.objeto = objeto;
+		/*
+	     * ATRIBUTOS
+		 */
 
-		for(Object[] metodo: metodos){
-			String nome = (String) metodo[0];
-			Object[] parametros = (Object[]) metodo[1];
+		System.out.println("\t"
+			+ FUNDO_VERDE.on("[Atributos]")
+			+ " Identificando atributos"
+		);
 
-			String param = "";
-			int index = parametros.length;
-
-			for(Object o: parametros)
-				param += o + (--index==0 ? "" : ", ");
-
-			System.out.println(
-				"|\t" + FUNDO_CIANO + "[" + nome + "(" + param +")]" + RESET
-				+ " Chamando metodo"
+		for(java.lang.reflect.Field atributo: atributos)
+			System.out.println("\t\t" 
+				+ VERDE.on(atributo.getType().getSimpleName()) 
+				+ " " + atributo.getName()
 			);
 
-			callMethod(nome, parametros);
+		/*
+	     * METODOS
+		 */
+
+		System.out.println(
+			"\t"
+			+ FUNDO_AMARELO.on("[Metodos]")
+			+ " Identificando metodos"
+		);
+
+		for(Method metodo: metodos){
+			System.out.print("\t\t" 
+				+ AMARELO.on(metodo.getReturnType().getSimpleName()) 
+				+ " " + metodo.getName()
+				+ "(" + (metodo.getParameterTypes().length==0?")\n":"")
+			);
+			
+			int index = metodo.getParameterTypes().length;
+
+			for(Class parametro: metodo.getParameterTypes())
+				System.out.print(AMARELO.on(parametro.getSimpleName()) + (--index==0 ? ")\n" : ", "));
 		}
 
-		System.out.println(
-			FUNDO_ROXO + "[Teste]" + RESET
-			+ " Finalizando teste\n"
-		);
 	}
 	
-	private void callMethod(String nome, Object[] parametros){
-		try {
-			Class[] classes = new Class[parametros.length];
+	public void run(Object objetoTestado){
+		Method[] metodos = objetoTestado.getClass().getDeclaredMethods();
+		java.lang.reflect.Field[] atributos = objetoTestado.getClass().getDeclaredFields();
 
-			for(int i=0; i<classes.length; i++)
-				classes[i] = getPrimitiveClass(parametros[i].getClass());
+		System.out.println(
+			"\t"
+			+ FUNDO_AZUL.on("[Objetos]")
+			+ " Iniciando teste num objeto instanciado da classe"
+		);
 
-			Method method = this.objeto.getClass().getMethod(nome, classes); // getMethod(nome, param1.class, ...);
+		System.out.println(
+			"\t\t"
+			+ FUNDO_VERDE.on("[Atributos]")
+			+ " Visibilidade dos atributos da instância"
+		);
 
-			System.out.println(
-				"|\t\t" 
-				+ "Retorno: " + method.invoke(objeto, parametros) + RESET // invoke(obj, param1, ...);
+		for(java.lang.reflect.Field atributo: atributos)
+			System.out.println("\t\t\t"
+				+ VERDE.on(atributo.getType().getSimpleName()) 
+				+ " " + atributo.getName() + ": "
+				+ (atributo.canAccess(objetoTestado) ? 
+				FUNDO_VERDE.on("public")
+				: FUNDO_VERMELHO.on("private")) 
 			);
 
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
+		System.out.println(
+			"\t\t"
+			+ FUNDO_AMARELO.on("[Metodos]")
+			+ " Chamando metodos"
+		);
+
+		for(Method metodo: metodos){
+			String nome = metodo.getName();
+			Class[] tipoParametros = metodo.getParameterTypes();
+			Object[] parametros = parametrosDefault(tipoParametros);
+			String parametrosString = "";
+			int index = tipoParametros.length;
+
+			for(Object tipo: parametros)
+				parametrosString += tipo + (--index==0 ? "" : ", ");
+
+			System.out.print(
+				"\t\t\t" + AMARELO.on(nome + "(" + parametrosString +"): ")
+			);
+
+			chamarMetodo(objetoTestado, metodo, parametros);
+		}
+
+		System.out.println("\t"
+			+ FUNDO_AZUL.on("[Objetos]")
+			+ " Fim do teste no objeto"
+		);
+	}
+
+	private Object[] parametrosDefault(Class[] tipos){
+		Object[] parametros = new Object[tipos.length];
+
+		for(int i=0; i<tipos.length; i++)
+			parametros[i] = getRandom(tipos[i]);
+
+		return parametros;
+	}
+
+	private Object getRandom(Class classe){
+		Random random = new Random();
+
+		if(classe.equals(String.class))
+			return DEFAULT_STRINGS[random.nextInt(DEFAULT_STRINGS.length)];
+		else if(classe.equals(float.class))
+			return random.nextFloat();
+		else if(classe.equals(double.class))
+			return random.nextDouble();
+		else if(classe.equals(boolean.class))
+			return random.nextBoolean();
+		else if(classe.equals(long.class))
+			return random.nextLong();
+		else if(classe.equals(int.class))
+			return random.nextInt();
+		else
+			return new Object();
+	}
+
+	private void chamarMetodo(Object objetoTestado, Method metodo, Object[] parametros){		
+		try {
+			Object retorno = metodo.invoke(objetoTestado, parametros);
+
+			System.out.println( 
+				AMARELO.on(retorno.getClass().getSimpleName())
+				+ " " + retorno
+			);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
@@ -63,30 +159,5 @@ public class Teste {
 			e.printStackTrace();
 		}
 		
-	}
-
-	private final Class<?> getPrimitiveClass(Class clazz) {
-		String typeName = clazz.getName();
-
-		if (typeName.equals("java.lang.Byte"))
-			return byte.class;
-		if (typeName.equals("java.lang.Short"))
-			return short.class;
-		if (typeName.equals("java.lang.Integer"))
-			return int.class;
-		if (typeName.equals("java.lang.Long"))
-			return long.class;
-		if (typeName.equals("java.lang.Character"))
-			return char.class;
-		if (typeName.equals("java.lang.Float"))
-			return float.class;
-		if (typeName.equals("java.lang.Double"))
-			return double.class;
-		if (typeName.equals("java.lang.Boolean"))
-			return boolean.class;
-		if (typeName.equals("java.lang.Void"))
-			return void.class;
-		else
-			return clazz;
 	}
 }

@@ -12,7 +12,7 @@ public class Resultado {
     }
 
     public Algoritmo getAlgoritmo(){
-   	return Algoritmo; 
+   	    return Algoritmo; 
     }
 
     public Dataset getDataset(){
