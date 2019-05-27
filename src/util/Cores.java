@@ -1,8 +1,15 @@
 package util;
 
+/*
+ * Uso:
+ *  import static util.Cores.*;
+ *  ...
+ *  System.out.println(VERMELHO.on("Essa string eh vermelha!"));
+ */
+
 public final class Cores{
-	public static final String _RESET = "\u001B[0m";
-	public static final String _AMARELO = "\u001B[33m";
+    public static final String _RESET = "\u001B[0m";
+    public static final String _AMARELO = "\u001B[33m";
     public static final String _VERMELHO = "\u001B[31m";
     public static final String _PRETO = "\u001B[30m";
     public static final String _BRANCO = "\u001B[37m";
@@ -40,7 +47,5 @@ public final class Cores{
     public static final Colorir FUNDO_CIANO = (String str) -> _FUNDO_CIANO + str + _RESET;
     public static final Colorir FUNDO_BRANCO = (String str) -> _FUNDO_BRANCO + str + _RESET;
     
-    // Uso: System.out.println(VERMELHO.on("Essa string é vermelha"));
-
     private Cores() {}
 }
