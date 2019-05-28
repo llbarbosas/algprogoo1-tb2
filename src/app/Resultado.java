@@ -13,7 +13,7 @@ public class Resultado {
     }
 
     public Algoritmo getAlgoritmo(){
-   	    return Algoritmo; 
+   	    return algoritmo; 
     }
 
     public Dataset getDataset(){
@@ -39,7 +39,7 @@ public class Resultado {
                 }
             }
         }else
-            TratamentoErro.erroSimples(mensagem);
+            TratamentoErro.alerta("Não foi possível adicionar avaliação");
             return false;// Caso o array de avaliacao estiver cheio, então retorna false.
     }            
  
@@ -48,10 +48,11 @@ public class Resultado {
     }
 
     public ValorAvaliacao getAvaliacaoPorMedida(String medida){
-    	for(int i = 0; i < avaliacoes.length; i++){
-            if(avaliacoes[i].equalsIgnoreCase(medida){
+    	for(int i = 0; i < avaliacao.length; i++){
+            // Adicionar metodo equals() na MedidaAvaliacao
+            if(avaliacao[i].getMedida().equals(medida)){
                 return avaliacao[i];
-            }else
+            } else
                 return null;
         }
     
