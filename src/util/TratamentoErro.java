@@ -1,16 +1,25 @@
 package util;
+import static util.Cores.*;
 
 public class TratamentoErro {
-	private static final String RESET = "\u001B[0m";
-	private static final String AMARELO = "\u001B[33m";
-	private static final String VERMELHO = "\u001B[31m";
-
 	public static void erro(String mensagem){
-		System.out.printf("%s[ERRO] %s%s\n", VERMELHO, mensagem, RESET);
+		StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+
+		System.out.println(
+			VERMELHO.on("[ERRO] em ") 
+			+ stackTraceElements[2] + ": "
+			+ VERMELHO.on(mensagem)
+		);
 		System.exit(0);
 	}	
 
-	public static void erroSimples(String mensagem){
-		System.out.printf("%s[ERRO] %s%s\n", AMARELO, mensagem, RESET);
+	public static void alerta(String mensagem){
+		StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+
+		System.out.println(
+			AMARELO.on("[ALERTA] em ")
+			+ stackTraceElements[2] + ": "
+			+ AMARELO.on(mensagem)
+		);
 	}
 }

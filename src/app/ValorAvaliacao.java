@@ -1,3 +1,4 @@
+package app;
 import util.Validador;
 import util.TratamentoErro;
 
@@ -17,15 +18,15 @@ public class ValorAvaliacao {
     }
 
     public boolean setValor(float valor){
-        float menorValor = this.medida.getMenorValor();
-        float maiorValor = this.medida.getMaiorValor();
+        float menorValor = this.medida.getMenorValor(), 
+        maiorValor = this.medida.getMaiorValor();
         
         // Verificando se o valor está entre o intervalo permitido
         if (Validador.verificaValorIntervalo(valor, menorValor, maiorValor)) {
             this.valor = valor;
             return true;
         } else {
-            TratamentoErro.erroSimples("Nao e possivel atribuir o valor informado pois nao"
+            TratamentoErro.alerta("Nao eh possivel atribuir o valor informado pois nao"
                 + " esta dentro do intervalo permitido.");
             return false;
         }

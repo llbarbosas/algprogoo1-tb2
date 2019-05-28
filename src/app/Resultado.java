@@ -1,6 +1,6 @@
-package src;
-import src.util.Validador;
-import src.util.TratamentoErro;
+package app;
+import util.Validador;
+import util.TratamentoErro;
 
 public class Resultado {
     private Algoritmo algoritmo;
@@ -13,7 +13,7 @@ public class Resultado {
     }
 
     public Algoritmo getAlgoritmo(){
-   	return Algoritmo; 
+   	    return Algoritmo; 
     }
 
     public Dataset getDataset(){
