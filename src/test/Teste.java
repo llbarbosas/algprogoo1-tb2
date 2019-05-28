@@ -78,13 +78,19 @@ public class Teste {
 		);
 
 		for(java.lang.reflect.Field atributo: atributos)
-			System.out.println("\t\t\t"
-				+ VERDE.on(atributo.getType().getSimpleName()) 
-				+ " " + atributo.getName() + ": "
-				+ (atributo.canAccess(objetoTestado) ? 
-				FUNDO_VERDE.on("public")
-				: FUNDO_VERMELHO.on("private")) 
-			);
+			try {
+				System.out.println("\t\t\t"
+					+ VERDE.on(atributo.getType().getSimpleName()) 
+					+ " " + atributo.getName() + ": "
+					+ (atributo.canAccess(objetoTestado) ? 
+					FUNDO_VERDE.on("public")
+					: FUNDO_VERMELHO.on("private")) 
+				);
+			} catch (IllegalArgumentException e){
+				System.out.println("\t\t\t"
+					+ FUNDO_VERMELHO.on("erro ao obter atributo")
+				);
+			}
 
 		System.out.println(
 			"\t\t"
