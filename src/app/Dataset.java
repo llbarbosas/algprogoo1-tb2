@@ -9,9 +9,26 @@ public class Dataset {
     private String nome;
 
     public Dataset(int nExemplos, int nAtributos, int nClasses, String nome){
-        this.numExemplos = nExemplos;
-        this.numAtributos = nAtributos;
-        this.numClasses = nClasses;
+        // Verifica se o nExemplos é maior ou igual à zero
+        if (Validador.verificaValorInteiroMaiorIgualAZero(nExemplos)) {
+            this.numExemplos = nExemplos;
+        } else {
+            TratamentoErro.erro("Número de exemplos deve ser maior/igual à zero.");
+        }
+        
+        // Verifica se o nAtributos é maior ou igual à zero
+        if (Validador.verificaValorInteiroMaiorIgualAZero(nExemplos)) {
+            this.numAtributos = nAtributos;
+        } else {
+            TratamentoErro.erro("Número de atributos deve ser maior/igual à zero.");
+        }
+
+        // Verifica se o nClasses é maior ou igual à zero
+        if (Validador.verificaValorInteiroMaiorIgualAZero(nExemplos)) {
+            this.numClasses = nClasses;
+        } else {
+            TratamentoErro.erro("Número de classes deve ser maior/igual à zero.");
+        }
 
         // Verifica se o nome do dataset é válido
         if(Validador.verificaStringValida(nome))

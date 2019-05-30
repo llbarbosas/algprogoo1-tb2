@@ -1,6 +1,20 @@
 package util;
 
 public class Validador {
+
+    /*
+     * INTS - Metodos auxiliares para verificacao de valores inteiros
+     */
+
+    //  Verifica se um valor inteiro é maior ou igual à zero
+    public static boolean verificaValorInteiroMaiorIgualAZero(int numero) {
+        if (numero >= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    } 
+    
     
     /*
 	 * STRINGS - Metodos auxiliares para validacao de Strings
