@@ -53,6 +53,7 @@ public class Validador {
             if(!Validador.verificaObjetoValido(obj))
                 return false;// Array não está cheio
 
+
         return true;
     }
 
