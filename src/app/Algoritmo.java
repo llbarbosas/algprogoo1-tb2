@@ -19,7 +19,7 @@ public class Algoritmo {
             this.parametros = parametros.clone();
         } else {
             TratamentoErro.erro(parametros.length + " foram passados. "
-                + 3 + " parametros eram esperados.");
+                + "3 parametros eram esperados.");
         }
     }
 
@@ -35,7 +35,7 @@ public class Algoritmo {
 
         if(algoritmo.getNome() == this.nome){
             int parametrosIguais=0;
-            for(int i=0; int i< 3; i++){
+            for(int i=0; i < 3; i++){
                 if(algoritmo.getParametros()[i] == this.parametros[i]){
                     parametrosIguais++;
                 }

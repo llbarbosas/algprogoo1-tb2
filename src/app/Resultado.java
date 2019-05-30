@@ -21,6 +21,8 @@ public class Resultado {
         } else {
             TratamentoErro.erro("O objeto informado não pode ser nulo.");
         }
+
+        this.avaliacao = new ValorAvaliacao[3];
     }
 
     public Algoritmo getAlgoritmo(){
