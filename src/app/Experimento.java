@@ -20,13 +20,13 @@ public class Experimento {
     }
 
     public boolean addResultado(Resultado resultado){
-
         if(!Validador.verificaArrayCheio(this.resultados)){//verifica se há campo vazio
             if(!Validador.verificaObjetoNoArray(resultado, this.resultados)){//verifica se o objeto já existe no array
                 for(int i=0; i<10; i++){//percorre o vetor até o campo vazio encontrado
                     if(this.resultados[i]==null){
-                        this.resultados[i] = resultado;
-                        return true;
+                        if(this.resultados[i].equals(resultado)){
+                            return true;
+                        }
                     }
                 }
             }

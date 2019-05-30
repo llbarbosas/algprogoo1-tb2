@@ -30,4 +30,24 @@ public class Algoritmo {
     public float[] getParametros(){
         return this.parametros;
     }
+
+    public boolean equals(Algoritmo algoritmo){
+
+        if(algoritmo.getNome() == this.nome){
+            int parametrosIguais=0;
+            for(int i=0; int i< 3; i++){
+                if(algoritmo.getParametros()[i] == this.parametros[i]){
+                    parametrosIguais++;
+                }
+            }
+            if(parametrosIguais == 3){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false; 
+        
+    }
+
 }

@@ -35,4 +35,14 @@ public class Dataset {
     public String getNome(){
         return nome; 
     }
+
+    public boolean equals(Dataset dataSet){
+
+        if(dataSet.getNumExemplos() == this.numExemplos && dataSet.getNumAtributos() == this.numAtributos && dataSet.getNumClasses() == this.numClasses && dataSet.getNome() == this.nome){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 }
