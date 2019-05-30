@@ -8,20 +8,21 @@ public class ValorAvaliacao {
 
     public ValorAvaliacao(MedidaAvaliacao medida){
         // Verifica se a medida não é nula
-        if(Validador.verificaObjetoValido(medida))
+        if(Validador.verificaObjetoValido(medida)) {
             this.medida = medida;
-        else
+        } else {
             TratamentoErro.erro("O objeto informado não pode ser nulo.");
+        }
 
-        // Inicializando
+        // Inicializando com valor default: 0.0
         this.valor = 0.0f;
     }
 
     public boolean setValor(float valor){
         float menorValor = this.medida.getMenorValor(), 
-        maiorValor = this.medida.getMaiorValor();
+              maiorValor = this.medida.getMaiorValor();
         
-        // Verificando se o valor está entre o intervalo permitido
+        // Verificando se o valor informado está entre o intervalo permitido
         if (Validador.verificaValorIntervalo(valor, menorValor, maiorValor)) {
             this.valor = valor;
             return true;
@@ -32,11 +33,11 @@ public class ValorAvaliacao {
         }
     }
 
-    public float getValor(){
-        return this.valor;
-    }
-
     public MedidaAvaliacao getMedida(){
         return this.medida;
+    }
+
+    public float getValor(){
+        return this.valor;
     }
 }

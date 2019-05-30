@@ -7,26 +7,27 @@ public class Algoritmo {
     private float[] parametros;
 
     public Algoritmo(String nome, float[] parametros){
-
         // Verifica se o nome do algoritmo é válido
-        if(Validador.verificaStringValida(nome))
+        if(Validador.verificaStringValida(nome)) {
             this.nome = nome;
-        else
+        } else {
             TratamentoErro.erro("Nome do algoritmo inválido: " + nome);
+        }
 
-        // Verifica se a quantidade de parâmetros é valido
-        if(parametros.length == 3)
+        // Verifica se a quantidade de parâmetros é valida
+        if(parametros.length == 3) {
             this.parametros = parametros.clone();
-        else
+        } else {
             TratamentoErro.erro(parametros.length + " foram passados. "
                 + 3 + " parametros eram esperados.");
+        }
     }
 
     public String getNome(){
-        return nome;
+        return this.nome;
     }
 
     public float[] getParametros(){
-        return parametros;
+        return this.parametros;
     }
 }

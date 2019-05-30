@@ -8,8 +8,19 @@ public class Resultado {
     private ValorAvaliacao[] avaliacao;
 
     public Resultado(Algoritmo algoritmo, Dataset dataset){
-        this.algoritmo = algoritmo;
-        this.dataset = dataset;
+        // Verifica se o algoritmo não é nulo
+        if(Validador.verificaObjetoValido(algoritmo)) {
+            this.algoritmo = algoritmo;
+        } else {
+            TratamentoErro.erro("O objeto informado não pode ser nulo.");
+        }
+
+        // Verifica se o dataset não é nulo
+        if(Validador.verificaObjetoValido(dataset)) {
+            this.dataset = dataset;
+        } else {
+            TratamentoErro.erro("O objeto informado não pode ser nulo.");
+        }
     }
 
     public Algoritmo getAlgoritmo(){
