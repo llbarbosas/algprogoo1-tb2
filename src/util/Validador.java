@@ -113,4 +113,13 @@ public class Validador {
             return false;
         }
     }
+    //retornar true se o objeto já está cadastrado no array e false caso não esteja;
+    public static boolean verificaObjetoNoArray(Object objeto, Object[] array){
+        for(Object obj: array){
+            if(objeto == obj){
+                return true;
+            }
+        }
+        return false;    
+    }
 }
