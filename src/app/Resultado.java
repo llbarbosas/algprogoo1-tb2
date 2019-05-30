@@ -30,19 +30,29 @@ public class Resultado {
     
     public boolean addAvaliacao(ValorAvaliacao avaliacao){
 	//Validar se o vetor avaliacao está cheio, se o vetor estiver cheio return false
-        //Validar se ja possui uma medida de avaliacao igual, se caso possuir return false.
-    	if(!Validador.verificaArrayCheio(this.avaliacao)){ //Verificar se o vetor está cheio
+    	if(!Validador.verificaArrayCheio(this.avaliacao)){
+            for(int i = 0; i < this.avaliacao.length; i++){//Array para percorrer as avaliacões.
+                for(int j = 0; j < this.avaliacao.length; i++){//Array para percorrer as medidas de cada avaliação.
+                    if(this.avaliacao.getMedida[i].equals(avaliacao.getMedida[j])){
+                        System.out.println("Impossivel adicionar avaliacao, pois ja existe esta medida de avaliacao");
+                        return false;
+                    }
+                }
+            }
+
             for(int i = 0; i < this.avaliacao.length; i++){
-                if(this.avaliacao[i] != null){
+                if(this.avaliacao[i] == null){
                     this.avaliacao[i] = avaliacao;
                     return true;
                 }
             }
-        }else
+        }else{
             TratamentoErro.alerta("Não foi possível adicionar avaliação");
             return false;// Caso o array de avaliacao estiver cheio, então retorna false.
+        }
     }            
  
+
     public ValorAvaliacao[] getAvaliacoes(){
     	return avaliacao;
     }
@@ -55,6 +65,6 @@ public class Resultado {
             } else
                 return null;
         }
-    
     }
+   
 }
