@@ -1,5 +1,5 @@
 package app;
-
+import util.Validador;
 public class Experimento {
     private int dia;
     private int mes;
@@ -7,11 +7,15 @@ public class Experimento {
     private Resultado[] resultados;
 
     public Experimento(int dia, int mes, int ano){
-    
-        resultados = new Resultado[10];
-        this.dia = dia;
-        this.mes = mes;
-        this.ano = ano;
+        if(Validador.verificaData(dia,mes,ano)){
+            resultados = new Resultado[10];
+            this.dia = dia;
+            this.mes = mes;
+            this.ano = ano;
+        }else{
+            System.out.println("Data inválida.");
+            System.exit(0);
+        }
 
     }
 

@@ -77,4 +77,40 @@ public class Validador {
             return false;
         }
     }
+
+    //retorna true se a data for válida e false caso seja inválida
+    public static boolean verificaData(int dia, int mes, int ano){
+        if(dia > 0 && mes <= 12 ){//não existe datas com dia menor que 0 ou mes maior que 12
+            if(mes == 1 || mes == 3 || mes == 5 || mes ==7 || mes == 8 || mes == 10 || mes == 12 ){//meses com 31 dias
+                if(dia < 32) {
+                    return true;
+                }else{
+                    return false;
+                }
+            }else if(mes == 2){//pode ter 29 ou 28 dias
+                if((ano % 400 == 0) || ((ano % 4 == 0) && (ano % 100 != 0))){//se for um ano bissexto
+                    if(dia < 30){//em anos bissextos fevereiro tem 29 dias
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else{//se nao for um ano bissexto
+                    if(dia < 29){//em anos não-bissexto, fevereiro tem 28 dias
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+            }else{//meses com 30 dias
+                if(dia < 31) {
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+        }else{
+            return false;
+        }
+    }
 }
