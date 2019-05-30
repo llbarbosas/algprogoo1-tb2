@@ -1,5 +1,7 @@
 package app;
 import util.Validador;
+import util.TratamentoErro;
+
 public class Experimento {
     private int dia;
     private int mes;
@@ -7,15 +9,14 @@ public class Experimento {
     private Resultado[] resultados;
 
     public Experimento(int dia, int mes, int ano){
-        if(Validador.verificaData(dia,mes,ano)){
-            resultados = new Resultado[10];
+        resultados = new Resultado[10];
+
+        if(Validador.verificaData(dia, mes, ano)){
             this.dia = dia;
             this.mes = mes;
             this.ano = ano;
-        }else{
-            System.out.println("Data inválida.");
-            System.exit(0);
-        }
+        } else
+            TratamentoErro.erro("Data inválida.");
 
     }
 
@@ -38,11 +39,36 @@ public class Experimento {
     }
 
     public float[] getValoresResultados(String medida){
-    
+        // Percorrer this.resultados procurando pelo ValorAvaliacao com 
+        // medida igual a medida do parametro.
+        float[] valores;
+        int numeroDeValores = 0;
+
+        // Percorre os resultados procurando por avaliacoes com a medida passada
+        for(Resultado resultado: resultados)
+            if(resultado.getAvaliacaoPorMedida(medida) != null)
+                numeroDeValores++;
+
+        // Se nenhuma avaliacao foi encontrada, retorna um float[] vazio
+        if(numeroDeValores == 0)
+            return new float[]{};
+        else
+            // Senão, inicializa o vetor de valores que será retornado com o
+            // numero de valores encontrados
+            valores = new float[numeroDeValores];
+ 
+        // Percorre os resultados novamente, incluindo os valores no vetor que será retornado
+        for(Resultado resultado: resultados)
+            if(resultado.getAvaliacaoPorMedida(medida) != null){
+                valores[valores.length - numeroDeValores] = 
+                    resultado.getAvaliacaoPorMedida(medida).getValor();
+                numeroDeValores--;
+            }
+
+        return valores;
     }
 
     public float getMediaResultadosPorAlgoritmo(String algoritmo, String medida){
-    
     }
 
     public float getMediaResultadosPorDataset(String dataset, String medida){
@@ -82,7 +108,12 @@ public class Experimento {
     }
 
     public String[] getNomesAlgoritmosUtilizados(){
-    
+        String[] nomesAlgoritmos = new String[resultados.length];
+
+        for(int i=0; i<nomesAlgoritmos.length; i++)
+            nomesAlgoritmos[i] = resultados[i].getNomeDoAlgoritmo();
+
+        return nomesAlgoritmos;
     }
 
     public Algoritmo getAlgoritmoMelhorResultado(String medida){

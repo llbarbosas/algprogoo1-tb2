@@ -8,11 +8,10 @@ public class ValorAvaliacao {
 
     public ValorAvaliacao(MedidaAvaliacao medida){
         // Verifica se a medida não é nula
-        if(Validador.verificaObjetoValido(medida)) {
+        if(Validador.verificaObjetoValido(medida))
             this.medida = medida;
-        } else {
+        else
             TratamentoErro.erro("O objeto informado não pode ser nulo.");
-        }
 
         // Inicializando com valor default: 0.0
         this.valor = 0.0f;
