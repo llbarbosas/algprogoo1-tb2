@@ -24,58 +24,69 @@ public class Resultado {
     }
 
     public Algoritmo getAlgoritmo(){
-   	    return algoritmo; 
+   	    return this.algoritmo; 
     }
 
     public Dataset getDataset(){
-    	return dataset;
+    	return this.dataset;
     }
 
     public String getNomeDoAlgoritmo(){
-        return algoritmo.getnome();
+        return this.algoritmo.getNome();
     }
 
     public String getNomeDoDataset(){
-        return dataset.getNome();
+        return this.dataset.getNome();
     }
     
     public boolean addAvaliacao(ValorAvaliacao avaliacao){
-	//Validar se o vetor avaliacao está cheio, se o vetor estiver cheio return false
-    	if(!Validador.verificaArrayCheio(this.avaliacao)){
-            for(int i = 0; i < this.avaliacao.length; i++){//Array para percorrer as avaliacões.
-                for(int j = 0; j < this.avaliacao.length; i++){//Array para percorrer as medidas de cada avaliação.
-                    if(this.avaliacao.getMedida[i].equals(avaliacao.getMedida[j])){
-                        System.out.println("Impossivel adicionar avaliacao, pois ja existe esta medida de avaliacao");
-                        return false;
-                    }
-                }
+    	if(!Validador.verificaArrayCheio(this.avaliacao)){ // Verifica se o vetor está cheio
+            if(this.verificaMedidaAvaliacaoIgual(avaliacao)){ // Verifica se possui medida de avaliação igual.
+                System.out.println("Impossivel adicionar avaliacao, pois ja existe esta medida de avaliacao");
+                return false;
             }
 
-            for(int i = 0; i < this.avaliacao.length; i++){
-                if(this.avaliacao[i] == null){
-                    this.avaliacao[i] = avaliacao;
-                    return true;
-                }
+            int posicaoDeInsercao = this.verificaPosicaoDeInsercao();// Auxiliar para receber qual a primeira posição vazia do vetor.
+            if (posicaoDeInsercao > -1){
+                this.avaliacao[posicaoDeInsercao] = avaliacao;
+                return true;
             }
-        }else{
-            TratamentoErro.alerta("Não foi possível adicionar avaliação");
-            return false;// Caso o array de avaliacao estiver cheio, então retorna false.
         }
+        TratamentoErro.alerta("Não foi possível adicionar avaliação, pois o vetor esta cheio.");
+        return false;// Caso o array de avaliacao estiver cheio, então retorna false.
+    }
+
+    private int verificaPosicaoDeInsercao(){
+        for(int i = 0; i < this.avaliacao.length; i++){
+            if(this.avaliacao[i] == null){
+                return i;// Retorna qual a posição do vetor esta livre
+            }
+        }
+        return -1;// Retorna valor coringa caso vetor esteja cheio.
     }            
- 
+    
+    private boolean verificaMedidaAvaliacaoIgual(ValorAvaliacao avaliacao){
+        for(int i = 0; i < this.avaliacao.length; i++){//Laço de repetição para percorrer as avaliacões.
+            if(Validador.verificaObjetoValido(this.avaliacao[i]) &&
+                this.avaliacao[i].getMedida().equals(avaliacao.getMedida())){// Verifica se possui medidade de avaliação igual.
+                return true;// Existe medida de avaliação igual.
+            }
+        }
+        return false;
+    }
 
     public ValorAvaliacao[] getAvaliacoes(){
-    	return avaliacao;
+    	return this.avaliacao;
     }
 
     public ValorAvaliacao getAvaliacaoPorMedida(String medida){
-    	for(int i = 0; i < avaliacao.length; i++){
-            // Adicionar metodo equals() na MedidaAvaliacao
-            if(avaliacao[i].getMedida().equals(medida)){
-                return avaliacao[i];
-            } else
-                return null;
+    	for(int i = 0; i < this.avaliacao.length; i++){// Laço para percorrer o vetor de avaliações.
+            if(Validador.verificaObjetoValido(this.avaliacao) && // Verifica se o objeto é valido e Verificar se existe a medida, caso exista retorna a avaliação.
+                this.avaliacao[i].getMedida().getNome().equalsIgnoreCase(medida)){ 
+                return avaliacao[i];// Retorna a avaliação.
+            }
         }
+        return null;
     }
    
 }

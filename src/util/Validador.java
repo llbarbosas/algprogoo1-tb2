@@ -48,10 +48,10 @@ public class Validador {
      */
 
     // Verifica se um array de objetos está cheio
-    public static boolean verificaArrayCheio(Object[] array) {
+    public static boolean verificaArrayCheio(Object[] array) { 
         for(Object obj: array)
-            if(Validador.verificaObjetoValido(obj))
-                return false;
+            if(!Validador.verificaObjetoValido(obj))
+                return false;// Array não está cheio
 
         return true;
     }
