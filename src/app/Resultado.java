@@ -32,7 +32,7 @@ public class Resultado {
     }
 
     public String getNomeDoAlgoritmo(){
-        return algoritmo.getnome();
+        return algoritmo.getNome();
     }
 
     public String getNomeDoDataset(){
@@ -40,10 +40,10 @@ public class Resultado {
     }
     
     public boolean addAvaliacao(ValorAvaliacao avaliacao){
-	//Validar se o vetor avaliacao está cheio, se o vetor estiver cheio return false
+    //Validar se o vetor avaliacao está cheio, se o vetor estiver cheio return false
     	if(!Validador.verificaArrayCheio(this.avaliacao)){
             for(int i = 0; i < this.avaliacao.length; i++){//Array para percorrer as avaliacões.
-                for(int j = 0; j < this.avaliacao.length; i++){//Array para percorrer as medidas de cada avaliação.
+                for(int j = 0; j < this.avaliacao.length; j++){//Array para percorrer as medidas de cada avaliação.
                     if(this.avaliacao.getMedida[i].equals(avaliacao.getMedida[j])){
                         System.out.println("Impossivel adicionar avaliacao, pois ja existe esta medida de avaliacao");
                         return false;
@@ -69,13 +69,11 @@ public class Resultado {
     }
 
     public ValorAvaliacao getAvaliacaoPorMedida(String medida){
-    	for(int i = 0; i < avaliacao.length; i++){
-            // Adicionar metodo equals() na MedidaAvaliacao
-            if(avaliacao[i].getMedida().equals(medida)){
+    	for(int i = 0; i < avaliacao.length; i++)
+            if(avaliacao[i].getMedida().getNome().equals(medida))
                 return avaliacao[i];
-            } else
-                return null;
-        }
+
+        return null;
     }
    
 }
