@@ -8,6 +8,11 @@ public class Experimento {
 
     public Experimento(int dia, int mes, int ano){
     
+        resultados = new Resultado[10];
+        this.dia = dia;
+        this.mes = mes;
+        this.ano = ano;
+
     }
 
     public boolean addResultado(Resultado resultado){
