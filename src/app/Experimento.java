@@ -69,7 +69,6 @@ public class Experimento {
     }
 
     public float getMediaResultadosPorAlgoritmo(String algoritmo, String medida){
-    
     }
 
     public float getMediaResultadosPorDataset(String dataset, String medida){
@@ -109,7 +108,12 @@ public class Experimento {
     }
 
     public String[] getNomesAlgoritmosUtilizados(){
-    
+        String[] nomesAlgoritmos = new String[resultados.length];
+
+        for(int i=0; i<nomesAlgoritmos.length; i++)
+            nomesAlgoritmos[i] = resultados[i].getNomeDoAlgoritmo();
+
+        return nomesAlgoritmos;
     }
 
     public Algoritmo getAlgoritmoMelhorResultado(String medida){
