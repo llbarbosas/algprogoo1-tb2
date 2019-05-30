@@ -39,4 +39,19 @@ public class ValorAvaliacao {
     public float getValor(){
         return this.valor;
     }
+    
+    public boolean equals(ValorAvaliacao valorAvaliacao){
+        
+        if(valorAvaliacao.getValor() == this.valor && valorAvaliacao.getMedida().equals(this.medida)){
+
+            return true;
+
+        }else{
+
+            return false;
+            
+        }
+
+    }
+
 }

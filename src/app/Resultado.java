@@ -88,5 +88,15 @@ public class Resultado {
         }
         return null;
     }
+
+    public boolean equals(Resultado resultado){
+
+        if(resultado.getAlgoritmo().equals(this.algoritmo) && resultado.getDataset().equals(this.dataset) && resultado.getAvaliacoes().equals(this.avaliacao)){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
    
 }
