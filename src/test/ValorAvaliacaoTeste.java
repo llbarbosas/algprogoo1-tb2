@@ -12,8 +12,13 @@ public class ValorAvaliacaoTeste {
     
         for(int i=0; i<casos; i++)
             teste.run(
+                // Objeto da classe testada
                 new ValorAvaliacao(
                     new MedidaAvaliacao(medidasNome[i], menoresValores[i], maioresValores[i])
+                ),
+                // Objetos que serão utilizados nos métodos testados
+                new ValorAvaliacao(
+                    new MedidaAvaliacao(medidasNome[2], menoresValores[2], maioresValores[2])
                 )
             );
     }

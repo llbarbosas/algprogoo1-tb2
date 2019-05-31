@@ -14,7 +14,10 @@ public class AlgoritmoTeste {
         
         for(int i=0; i<casos; i++)
             teste.run(
-                new Algoritmo(nomesTeste[i], parametrosTeste[i]) // Rodando teste num objeto instanciado
+                // Objeto da classe testada
+                new Algoritmo(nomesTeste[i], parametrosTeste[i]),
+                // Objetos que serão utilizados nos métodos testados
+                new Algoritmo(nomesTeste[2], parametrosTeste[2])
             );
     }
 }

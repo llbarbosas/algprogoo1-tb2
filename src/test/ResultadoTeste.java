@@ -2,6 +2,8 @@ package test;
 import app.Resultado;
 import app.Algoritmo;
 import app.Dataset;
+import app.ValorAvaliacao;
+import app.MedidaAvaliacao;
 
 public class ResultadoTeste {
     public static void main(String[] args) {
@@ -15,10 +17,20 @@ public class ResultadoTeste {
         
         for(int i=0; i<casos; i++)
             teste.run(
+                // Objeto da classe testada
                 new Resultado(
                     new Algoritmo(nomesTeste[i], parametrosTeste[i]),
                     new Dataset(nExemplosTeste[i], nAtributosTeste[i],
                         nClassesTeste[i], nomesTeste[i])
+                ),
+                // Objetos que serão utilizados nos métodos testados
+                new Resultado(
+                    new Algoritmo(nomesTeste[2], parametrosTeste[2]),
+                    new Dataset(nExemplosTeste[2], nAtributosTeste[2],
+                        nClassesTeste[2], nomesTeste[2])
+                ),
+                new ValorAvaliacao(
+                    new MedidaAvaliacao("Nome teste", 0.5f, 2f)
                 )
             );
     }

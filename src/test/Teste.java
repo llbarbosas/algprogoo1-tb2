@@ -6,17 +6,19 @@ import static util.Cores.*;
 
 public class Teste {
 	private Class classeTestada;
+	private Object[] objetosDependencias;
 	private static final String[] DEFAULT_STRINGS = {
 		"DEFAULT_STR1", "DEFAULT_STR2", "DEFAULT_STR3", "DEFAULT_STR4"
 	};
 
 	public Teste(Class classeTestada){
 		this.classeTestada = classeTestada;
+		this.objetosDependencias = null;
 		java.lang.reflect.Field[] atributos = classeTestada.getDeclaredFields();
 		Method[] metodos = classeTestada.getDeclaredMethods();
 
 		System.out.println(
-			FUNDO_ROXO.on("[Teste.java]")
+			FUNDO_ROXO.on("[Teste.java 2.0]")
 			+ " Iniciando teste da classe " 
 			+ ROXO.on(classeTestada.getName())
 		);
@@ -30,9 +32,13 @@ public class Teste {
 			+ " Identificando atributos"
 		);
 
+		int atbIndex = atributos.length;
 		for(java.lang.reflect.Field atributo: atributos)
 			System.out.println("\t\t" 
-				+ VERDE.on(atributo.getType().getSimpleName()) 
+				+ VERDE.on(
+					(--atbIndex > 0 ? "├── " : "└── ") 
+					+ atributo.getType().getSimpleName()
+				) 
 				+ " " + atributo.getName()
 			);
 
@@ -46,9 +52,13 @@ public class Teste {
 			+ " Identificando metodos"
 		);
 
+		int metIndex = metodos.length;
 		for(Method metodo: metodos){
 			System.out.print("\t\t" 
-				+ AMARELO.on(metodo.getReturnType().getSimpleName()) 
+				+ AMARELO.on(
+					(--metIndex > 0 ? "├── " : "└── ") 
+					+ metodo.getReturnType().getSimpleName()
+				) 
 				+ " " + metodo.getName()
 				+ "(" + (metodo.getParameterTypes().length==0?")\n":"")
 			);
@@ -59,6 +69,12 @@ public class Teste {
 				System.out.print(AMARELO.on(parametro.getSimpleName()) + (--index==0 ? ")\n" : ", "));
 		}
 
+	}
+
+	public void run(Object objetoTestado, Object... objetosDependencias){
+		this.objetosDependencias = objetosDependencias;
+
+		run(objetoTestado);
 	}
 	
 	public void run(Object objetoTestado){
@@ -77,20 +93,33 @@ public class Teste {
 			+ " Visibilidade dos atributos da instância"
 		);
 
-		for(java.lang.reflect.Field atributo: atributos)
-			try {
-				System.out.println("\t\t\t"
-					+ VERDE.on(atributo.getType().getSimpleName()) 
-					+ " " + atributo.getName() + ": "
-					+ (atributo.canAccess(objetoTestado) ? 
+		for(java.lang.reflect.Field atributo: atributos){
+			String tipoAtributo = atributo.getType().getSimpleName(),
+					nomeAtributo = atributo.getName();
+			boolean acessoAtributo = atributo.canAccess(objetoTestado);
+
+			System.out.print("\t\t\t"
+				+ "[" + (acessoAtributo ? 
 					FUNDO_VERDE.on("public")
-					: FUNDO_VERMELHO.on("private")) 
+					: FUNDO_VERMELHO.on("private")) + "] "
+				+ VERDE.on(tipoAtributo) 
+				+ " " + nomeAtributo
+			);
+
+			try {
+				System.out.print(": "
+					+ atributo.get(objetoTestado)
 				);
-			} catch (IllegalArgumentException e){
+			} catch (IllegalAccessException e){
+				/*
 				System.out.println("\t\t\t"
 					+ FUNDO_VERMELHO.on("erro ao obter atributo")
 				);
-			}
+				*/
+			} 
+
+			System.out.println();
+		}
 
 		System.out.println(
 			"\t\t"
@@ -102,15 +131,6 @@ public class Teste {
 			String nome = metodo.getName();
 			Class[] tipoParametros = metodo.getParameterTypes();
 			Object[] parametros = parametrosDefault(tipoParametros);
-			String parametrosString = "";
-			int index = tipoParametros.length;
-
-			for(Object tipo: parametros)
-				parametrosString += tipo + (--index==0 ? "" : ", ");
-
-			System.out.print(
-				"\t\t\t" + AMARELO.on(nome + "(" + parametrosString +"): ")
-			);
 
 			chamarMetodo(objetoTestado, metodo, parametros);
 		}
@@ -145,24 +165,78 @@ public class Teste {
 			return random.nextLong();
 		else if(classe.equals(int.class))
 			return random.nextInt();
-		else
-			return new Object();
+		else {
+			if(objetosDependencias != null){
+				for(Object obj: objetosDependencias)
+					if(classe.equals(obj.getClass()))
+						return obj;
+
+				
+				return new Object();
+			} else {
+
+				return new Object();
+				
+			}
+				
+		}
+			
 	}
 
-	private void chamarMetodo(Object objetoTestado, Method metodo, Object[] parametros){		
-		try {
-			Object retorno = metodo.invoke(objetoTestado, parametros);
+	private void chamarMetodo(Object objetoTestado, Method metodo, Object[] parametros){
+		String nome = metodo.getName();
+		Object retorno = null;
+		String parametrosString = "";
 
-			System.out.println( 
+		int index = parametros.length;
+		for(Object tipo: parametros)
+			parametrosString += tipo.getClass().getSimpleName() + (--index==0 ? "" : ", ");
+
+		System.out.print("\t\t\t" 
+			+ "["
+		); 
+
+		try {
+			retorno = metodo.invoke(objetoTestado, parametros);
+
+			System.out.println(
+				FUNDO_VERDE.on("✓")
+				+ "] " 
+				+ AMARELO.on(nome + "(" + parametrosString +")")
+				+ ": " +
 				AMARELO.on(retorno.getClass().getSimpleName())
 				+ " " + retorno
 			);
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+
+			System.out.println(
+				FUNDO_VERMELHO.on("private") + "] "
+				+ AMARELO.on(nome + "(" + parametrosString +") ")
+			);
+
 		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+
+			System.out.println(
+				FUNDO_VERMELHO.on("x") + "] "
+				+ AMARELO.on(nome + "(" + parametrosString +") ")
+				+ FUNDO_BRANCO.on(VERMELHO.on(parametrosString + " genérico")) + " "
+				+ FUNDO_VERMELHO.on(
+					"não é um parâmetro adequado para o método "
+					+ metodo.getName() 
+				)
+			);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+
+			System.out.println(
+				FUNDO_VERMELHO.on("x") + "] "
+				+ AMARELO.on(nome + "(" + parametrosString +")")
+				+ ": "
+				+ VERMELHO.on("Exception ")
+				+ e.getClass().getSimpleName()
+			);
 		}
 		
 	}
