@@ -204,7 +204,7 @@ public class Teste {
 				+ "] " 
 				+ AMARELO.on(nome + "(" + parametrosString +")")
 				+ ": " +
-				AMARELO.on(retorno.getClass().getSimpleName())
+				AMARELO.on((retorno != null ? retorno.getClass().getSimpleName() : "null")) 
 				+ " " + retorno
 			);
 		} catch (IllegalAccessException e) {

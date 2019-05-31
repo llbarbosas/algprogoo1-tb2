@@ -89,13 +89,7 @@ public class Resultado {
             }
         }
 
-        /*
-         * Precisamos resolver isso daqui. Quando o método retorna null
-         * o teste da erro. Coloquei isso daqui pra que funcione por enquanto.
-         */
-        // return null;
-
-        return new ValorAvaliacao(new MedidaAvaliacao("teste", 0.5f, 10f));
+        return null;
     }
 
     public boolean equals(Resultado resultado){
