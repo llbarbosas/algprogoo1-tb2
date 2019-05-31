@@ -9,9 +9,8 @@ public class Experimento {
     private Resultado[] resultados;
 
     public Experimento(int dia, int mes, int ano){
-        resultados = new Resultado[10];
-
         if(Validador.verificaData(dia, mes, ano)){
+            resultados = new Resultado[10];
             this.dia = dia;
             this.mes = mes;
             this.ano = ano;
