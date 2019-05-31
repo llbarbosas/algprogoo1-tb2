@@ -89,6 +89,7 @@ public class Resultado {
             }
         }
 
+        TratamentoErro.alerta("Nenhuma avaliação foi encontrada com a medida " + medida);
         return null;
     }
 

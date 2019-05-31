@@ -18,7 +18,7 @@ public class Teste {
 		Method[] metodos = classeTestada.getDeclaredMethods();
 
 		System.out.println(
-			FUNDO_ROXO.on("[Teste.java 2.0]")
+			FUNDO_ROXO.on("[Teste.java]")
 			+ " Iniciando teste da classe " 
 			+ ROXO.on(classeTestada.getName())
 		);
@@ -171,14 +171,9 @@ public class Teste {
 					if(classe.equals(obj.getClass()))
 						return obj;
 
-				
 				return new Object();
-			} else {
-
+			} else
 				return new Object();
-				
-			}
-				
 		}
 			
 	}
