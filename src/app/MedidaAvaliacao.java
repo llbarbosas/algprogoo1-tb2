@@ -35,16 +35,10 @@ public class MedidaAvaliacao {
     }
 
     public boolean equals(MedidaAvaliacao medida){
-
-        if(medida.getNome() == this.nome && medida.getMenorValor() == this.menorValor && medida.getMaiorValor() == this.maiorValor){
-
+        if(medida.getNome().equals(this.nome) && medida.getMenorValor() == this.menorValor && medida.getMaiorValor() == this.maiorValor){
             return true;
-
         }else{
-
-            return false;
-            
+            return false;  
         }
-
     }
 }

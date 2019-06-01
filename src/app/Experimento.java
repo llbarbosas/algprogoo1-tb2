@@ -14,8 +14,9 @@ public class Experimento {
             this.dia = dia;
             this.mes = mes;
             this.ano = ano;
-        } else
+        } else{
             TratamentoErro.erro("Data inválida.");
+        }
 
     }
 
