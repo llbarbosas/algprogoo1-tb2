@@ -41,17 +41,11 @@ public class ValorAvaliacao {
     }
     
     public boolean equals(ValorAvaliacao valorAvaliacao){
-        
         if(valorAvaliacao.getValor() == this.valor && valorAvaliacao.getMedida().equals(this.medida)){
-
             return true;
-
         }else{
-
             return false;
-            
         }
-
     }
 
 }

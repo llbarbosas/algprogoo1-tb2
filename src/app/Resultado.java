@@ -95,12 +95,19 @@ public class Resultado {
 
     public boolean equals(Resultado resultado){
 
-        if(resultado.getAlgoritmo().equals(this.algoritmo) && resultado.getDataset().equals(this.dataset) && resultado.getAvaliacoes().equals(this.avaliacao)){
-            return true;
-        }else{
-            return false;
+        if(resultado.getAlgoritmo().equals(this.algoritmo) && resultado.getDataset().equals(this.dataset)){//se algoritmo e dataset for igual
+            int avaliacoesIguais = 0;//auxiliar para comparar ValorAvaliacao[]
+            for(int i =0; i<3; i++){//percorre ValorAvaliacao[]
+                if(resultado.getAvaliacoes()[i].equals(this.avaliacao[i])){//compara todas as posicoes do ValorAvaliacao[]
+                    avaliacoesIguais++;
+                }
+            }
+            if(avaliacoesIguais == 3){//se todos os elementos de ValorAvaliacao[] forem iguais
+                return true;
+            }
         }
-
+        return false;//se algoritmo, dataset ou ValorAvaliacao forem diferentes
+        
     }
    
 }
