@@ -22,20 +22,21 @@ public class Experimento {
 
     public boolean addResultado(Resultado resultado){
         if(!Validador.verificaArrayCheio(this.resultados)){//verifica se há campo vazio
-            if(!Validador.verificaObjetoNoArray(resultado, this.resultados)){//verifica se o objeto já existe no array
-                for(int i=0; i<10; i++){//percorre o vetor até o campo vazio encontrado
-                    if(this.resultados[i]==null){
-                        if(this.resultados[i].equals(resultado)){
-                            return true;
-                        }
-                    }
+            for(Resultado obj: this.resultados ){
+                if(obj.equals(resultado)){
+                    System.out.println("Não foi possível cadastrar, objeto já cadastrado anteriormente.");
+                    return false;
                 }
             }
-            System.out.println("Não foi possível cadastrar, objeto já cadastrado anteriormente");
+            for(int i=0; i<10; i++){//percorre o vetor até o campo vazio encontrado
+                if(!Validador.verificaObjetoValido(this.resultados[i])){
+                    this.resultados[i] = resultado;
+                    return true;
+                }
+            }
         }
-        System.out.println("Não foi possível cadastrar, já foram cadastrados 10 resultados");
+        System.out.println("Não foi possível cadastrar, já foram cadastrados 10 resultados.");
         return false;
-    
     }
 
     public float[] getValoresResultados(String medida){
