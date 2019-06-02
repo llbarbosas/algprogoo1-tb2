@@ -86,6 +86,19 @@ public class Experimento {
     }
 
     public float getMediaResultadosPorAlgoritmo(String algoritmo, String medida){
+        float mediaResultados = 0;
+        int numeroDeResultados = 0;
+        for(Resultado resultado : resultados){
+            if(resultado.getAvaliacaoPorMedida(medida) != null && resultado.getAlgoritmo().equals(algoritmo)){
+                mediaResultados += resultado.getAvaliacaoPorMedida(medida).getValor();
+            }
+        }
+        if(numeroDeResultados!=0){
+            mediaResultados /= numeroDeResultados;
+            return mediaResultados;
+        }else{
+            return Float.MAX_VALUE;
+        }
     }
 
     public float getMediaResultadosPorDataset(String dataset, String medida){
