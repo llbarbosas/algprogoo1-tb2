@@ -113,9 +113,9 @@ public class Experimento {
             if(melhorResultado == null)
                 melhorResultado = resultado;
             else {
-                float melhorResultadoValor = melhorResultado.getAvaliacaoPorMedida(medida).getValor()/
+                float melhorValor = melhorResultado.getAvaliacaoPorMedida(medida).getValor()/
                 
-                if(melhorResultadoValor<novoValor)
+                if(melhorValor<novoValor)
                     melhorResultado = resultado;
             }
                 
@@ -181,15 +181,18 @@ public class Experimento {
 
         for(Resultado resultado: resultados){
             ValorAvaliacao avaliacao = resultado.getAvaliacaoPorMedida(medida);
-            float novoValor = avaliacao.getValor();
 
-            if(piorResultado == null)
-                piorResultado = resultado;
-            else {
-                float piorValor = piorResultado.getAvaliacaoPorMedida(medida).getValor()/
-                
-                if(piorValor>novoValor)
+            if(avaliacao != null){
+                float novoValor = avaliacao.getValor();
+
+                if(piorResultado == null)
                     piorResultado = resultado;
+                else {
+                    float piorValor = piorResultado.getAvaliacaoPorMedida(medida).getValor()/
+                    
+                    if(piorValor>novoValor)
+                        piorResultado = resultado;
+                }
             }
                 
         }
@@ -250,11 +253,32 @@ public class Experimento {
     }
 
     public Dataset getDatasetMelhorResultado(String medida){
-    
+        Dataset melhorDataset = null;
+        float melhorDatasetValor = 0;
+
+        for(Resultado resultado: resultados){
+            ValorAvaliacao avaliacao = resultado.getAvaliacaoPorMedida(medida);
+
+            if(avaliacao != null){
+                float novoValor = avaliacao.getValor();
+                Dataset novoDataset = resultado.getDataset();
+
+                if(melhorDataset == null){
+                    melhorDataset = novoDataset;
+                    melhorDatasetValor = novoValor;
+                } else if(melhorDatasetValor<novoValor)
+                    melhorDataset = novoDataset;
+            
+            }
+        }
+
+        return melhorDataset;
     }
 
     public Dataset getDatasetMelhorResultadoAlgoritmo(String algoritmo, String medida){
-    
+        Dataset melhorDataset = null;
+
+        return melhorDataset;
     }
 
     public String[] getNomesAlgoritmosUtilizados(){
@@ -267,11 +291,32 @@ public class Experimento {
     }
 
     public Algoritmo getAlgoritmoMelhorResultado(String medida){
-    
+        Algoritmo melhorAlgoritmo = null;
+        float melhorAlgoritmoValor = 0;
+
+        for(Resultado resultado: resultados){
+            ValorAvaliacao avaliacao = resultado.getAvaliacaoPorMedida(medida);
+
+            if(avaliacao != null){
+                float novoValor = avaliacao.getValor();
+                Algoritmo novoAlgoritmo = resultado.getAlgoritmo();
+
+                if(melhorAlgoritmo == null){
+                    melhorAlgoritmo = novoAlgoritmo;
+                    melhorAlgoritmoValor = novoValor;
+                } else if(melhorAlgoritmoValor<novoValor)
+                    melhorAlgoritmo = novoAlgoritmo;
+            
+            }
+        }
+
+        return melhorAlgoritmo;
     }
 
     public Algoritmo getAlgoritmoMelhorResultadoDataset(String dataset, String medida){
-    
+        Algoritmo melhorAlgoritmo = null;
+
+        return melhorAlgoritmo; 
     }
 
     public void imprimeResumoExperimento(){
