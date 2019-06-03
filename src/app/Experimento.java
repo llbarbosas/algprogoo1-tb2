@@ -37,8 +37,6 @@ public class Experimento {
     }
 
     public boolean addResultado(Resultado resultado){
-        System.out.println(resultado.getAlgoritmo().getNome());
-
         if(!Validador.verificaArrayCheio(this.resultados)){//verifica se há campo vazio
             for(Resultado obj: getResultadosValidos() ){
                 if(obj.equals(resultado)){
