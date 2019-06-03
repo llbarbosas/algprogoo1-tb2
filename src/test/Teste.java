@@ -23,10 +23,11 @@ public class Teste {
 			+ ROXO.on(classeTestada.getName())
 		);
 
-		/*
-	     * ATRIBUTOS
-		 */
+		identificaAtributos(atributos);
+		identificaMetodos(metodos);
+	}
 
+	private void identificaAtributos(java.lang.reflect.Field[] atributos){
 		System.out.println("\t"
 			+ FUNDO_VERDE.on("[Atributos]")
 			+ " Identificando atributos"
@@ -41,11 +42,9 @@ public class Teste {
 				) 
 				+ " " + atributo.getName()
 			);
+	}
 
-		/*
-	     * METODOS
-		 */
-
+	private void identificaMetodos(Method[] metodos){
 		System.out.println(
 			"\t"
 			+ FUNDO_AMARELO.on("[Metodos]")
@@ -68,7 +67,6 @@ public class Teste {
 			for(Class parametro: metodo.getParameterTypes())
 				System.out.print(AMARELO.on(parametro.getSimpleName()) + (--index==0 ? ")\n" : ", "));
 		}
-
 	}
 
 	public void run(Object objetoTestado, Object... objetosDependencias){
@@ -203,16 +201,12 @@ public class Teste {
 				+ " " + retorno
 			);
 		} catch (IllegalAccessException e) {
-			// e.printStackTrace();
-
 			System.out.println(
 				FUNDO_VERMELHO.on("private") + "] "
 				+ AMARELO.on(nome + "(" + parametrosString +") ")
 			);
 
 		} catch (IllegalArgumentException e) {
-			// e.printStackTrace();
-
 			System.out.println(
 				FUNDO_VERMELHO.on("x") + "] "
 				+ AMARELO.on(nome + "(" + parametrosString +") ")
@@ -223,7 +217,7 @@ public class Teste {
 				)
 			);
 		} catch (InvocationTargetException e) {
-			// e.printStackTrace();
+			StackTraceElement[] stackTraceElements = e.getCause().getStackTrace();
 
 			System.out.println(
 				FUNDO_VERMELHO.on("x") + "] "
@@ -231,6 +225,9 @@ public class Teste {
 				+ ": "
 				+ VERMELHO.on("Exception ")
 				+ e.getClass().getSimpleName()
+				+ VERMELHO.on(" caused by ")
+				
+				+ stackTraceElements[0]
 			);
 		}
 		
