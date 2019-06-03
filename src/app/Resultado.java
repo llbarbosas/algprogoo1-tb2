@@ -48,7 +48,7 @@ public class Resultado {
     }
     //Método para adicinar uma avaliacao no array de avaliações.
     public boolean addAvaliacao(ValorAvaliacao avaliacao){
-    	if(!Validador.verificaArrayCheio(this.avaliacao)){ // Verifica se o vetor está cheio.
+    	if(this.verificaPosicaoDeInsercao() > -1){ // Verifica se o vetor está cheio.
             if(this.verificaMedidaAvaliacaoIgual(avaliacao)){ // Verifica se possui medida de avaliação igual.
                 System.out.println("Impossivel adicionar avaliacao, pois ja existe esta medida de avaliacao");
                 return false;
