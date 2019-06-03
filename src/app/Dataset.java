@@ -8,54 +8,85 @@ public class Dataset {
     private int numClasses;
     private String nome;
 
+    // Método construtor responsável por invocar os métodos responsáveis pela validação e 
+    // inicialização dos atributos
     public Dataset(int nExemplos, int nAtributos, int nClasses, String nome){
-        // Verifica se o nExemplos é maior ou igual à zero
-        if (Validador.verificaValorInteiroMaiorIgualAZero(nExemplos)) {
-            this.numExemplos = nExemplos;
-        } else {
-            TratamentoErro.erro("Número de exemplos deve ser maior/igual à zero.");
-        }
-        
-        // Verifica se o nAtributos é maior ou igual à zero
-        if (Validador.verificaValorInteiroMaiorIgualAZero(nExemplos)) {
-            this.numAtributos = nAtributos;
-        } else {
-            TratamentoErro.erro("Número de atributos deve ser maior/igual à zero.");
-        }
+        this.verificaNumeroValido(nExemplos); // Invoca método responsável por verificar se o nExemplos é positivo
+        this.inicializaNumeroExemplos(nExemplos); // Invoca método responsável por inicializar o atributo numExemplos
 
-        // Verifica se o nClasses é maior ou igual à zero
-        if (Validador.verificaValorInteiroMaiorIgualAZero(nExemplos)) {
-            this.numClasses = nClasses;
-        } else {
-            TratamentoErro.erro("Número de classes deve ser maior/igual à zero.");
+        this.verificaNumeroValido(nAtributos); // Invoca método responsável por verificar se o nAtributos é positivo
+        this.inicializaNumeroAtributos(nAtributos); // Invoca método responsável por inicializar o atributo numAtributos
+
+        this.verificaNumeroValido(nClasses); // Invoca método responsável por verificar se o nClasses é positivo
+        this.inicializaNumeroClasses(nClasses); // Invoca método responsável por inicializar o atributo numClasses
+
+        this.verificaNomeValido(nome); // Invoca método responsável por verificar se o nome é válido
+        this.inicializaNome(nome); // Invoca método responsável por inicializar o atributo nome  
+    }
+
+    // Método responsável por validar o número passado como parâmetro
+    private void verificaNumeroValido(int numero) {
+        // Se o número for negativo, o programa irá tratar o erro por meio da invocação de outro
+        // método
+        if(!Validador.verificaValorInteiroPositivo(numero)) {
+            TratamentoErro.erro("O número informado deve ser maior/igual à zero.");
         }
+    }
+    
+    // Método responsável por inicializar o atributo numExemplos
+    private void inicializaNumeroExemplos(int nExemplos) {
+        this.numExemplos = nExemplos;
+    }
 
-        // Verifica se o nome do dataset é válido
-        if(Validador.verificaStringValida(nome))
-            this.nome = nome;
-        else
-            TratamentoErro.erro("Nome do dataset inválido: " + nome);  
-    } 
+    // Método responsável por inicializar o atributo numAtributos
+    private void inicializaNumeroAtributos(int nAtributos) {
+        this.numAtributos = nAtributos;
+    }
 
+    // Método responsável por inicializar o atributo numClasses
+    private void inicializaNumeroClasses(int nClasses) {
+        this.numClasses = nClasses;
+    }
+
+    // Método responsável por validar o nome
+    private void verificaNomeValido(String nome) {
+        // Se o nome não for válido, o programa irá tratar o erro por meio da invocação de outro
+        // método
+        if (!Validador.verificaStringValida(nome)) {
+            TratamentoErro.erro("Nome do dataset inválido: " + nome);
+        }
+    }
+
+    // Método responsável por inicializar o atributo nome
+    private void inicializaNome(String nome) {
+        this.nome = nome;
+    }
+
+    // Método responsável por retornar o valor do atributo numExemplos
     public int getNumExemplos(){
-        return numExemplos;
+        return this.numExemplos;
     }
 
+    // Método responsável por retornar o valor do atributo numAtributos
     public int getNumAtributos(){
-        return numAtributos;
+        return this.numAtributos;
     }
 
+    // Método responsável por retornar o valor do atributo numClasses
     public int getNumClasses(){
-        return numClasses;
+        return this.numClasses;
     }
 
+    // Método responsável por retornar o atributo nome
     public String getNome(){
         return nome; 
     }
 
+    // Método responsável por verificar se dois objetos da classe Dataset são iguais ou não
     public boolean equals(Dataset dataSet){
 
-        if(dataSet.getNumExemplos() == this.numExemplos && dataSet.getNumAtributos() == this.numAtributos && dataSet.getNumClasses() == this.numClasses && dataSet.getNome() == this.nome){
+        if(dataSet.getNumExemplos() == this.numExemplos && dataSet.getNumAtributos() == this.numAtributos &&
+            dataSet.getNumClasses() == this.numClasses && dataSet.getNome() == this.nome){
             return true;
         }else{
             return false;

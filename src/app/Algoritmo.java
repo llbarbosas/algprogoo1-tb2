@@ -9,11 +9,11 @@ public class Algoritmo {
     // Método construtor responsável por invocar os métodos responsáveis pela validação e 
     // inicialização dos atributos
     public Algoritmo(String nome, float[] parametros){
-        this.verificaNomeValido(nome);// Verificando se o atributo nome é uma String válida
-        this.inicializaNome(nome); // Inicializando atributo nome
+        this.verificaNomeValido(nome); // Invoca método responsável por verificar se o atributo nome é válido
+        this.inicializaNome(nome); // Invoca método responsável por inicializar o atributo nome
 
-        this.verificaParametrosValido(parametros); // Verificando se os parâmetros são válidos
-        this.inicializaParametros(parametros); // Inicializando atributo parametros
+        this.verificaParametrosValido(parametros); // Invoca método responsável por verificar se os parâmetros são válidos
+        this.inicializaParametros(parametros); // Invoca método responsável por inicializar o atributo parametros
     }
 
     // Método responsável por validar o nome
@@ -55,7 +55,7 @@ public class Algoritmo {
         return this.parametros;
     }
 
-    // Método equals, responsável por comparar se dois objetos são idênticos ou não
+    // Método responsável por verificar se dois objetos da classe Algoritmo são iguais ou não
     public boolean equals(Algoritmo algoritmo){
         if(algoritmo.getNome() == this.nome){
             int parametrosIguais=0;
