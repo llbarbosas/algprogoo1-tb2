@@ -3,9 +3,7 @@ import util.Validador;
 import util.TratamentoErro;
 
 public class Experimento {
-    private int dia;
-    private int mes;
-    private int ano;
+    private int dia, mes, ano;
     private Resultado[] resultados;
 
     public Experimento(int dia, int mes, int ano){
@@ -106,27 +104,149 @@ public class Experimento {
     }
 
     public Resultado getMelhorResultado(String medida){
-    
+        Resultado melhorResultado = null;
+
+        for(Resultado resultado: resultados){
+            ValorAvaliacao avaliacao = resultado.getAvaliacaoPorMedida(medida);
+            float novoValor = avaliacao.getValor();
+
+            if(melhorResultado == null)
+                melhorResultado = resultado;
+            else {
+                float melhorResultadoValor = melhorResultado.getAvaliacaoPorMedida(medida).getValor()/
+                
+                if(melhorResultadoValor<novoValor)
+                    melhorResultado = resultado;
+            }
+                
+        }
+
+        return melhorResultado;
     }
 
     public Resultado getMelhorResultadoPorAlgoritmo(String algoritmo, String medida){
-    
+        Resultado melhorResultado = null;
+
+        for(Resultado resultado: resultados){
+            String nomeAlgoritmo = resultado.getNomeDoAlgoritmo();
+
+            if(nomeAlgoritmo.equals(algoritmo)){
+                ValorAvaliacao avaliacao = resultado.getAvaliacaoPorMedida(medida);
+
+                if(avaliacao!=null){
+                    if(melhorResultado == null)
+                        melhorResultado = resultado;
+                    else{
+                        float melhorValor = melhorResultado.getAvaliacaoPorMedida(medida).getValor(),
+                                novoValor = avaliacao.getValor();
+
+                        if(melhorValor<novoValor)
+                            melhorResultado = resultado;
+                    }
+                }
+            }
+        }
+
+        return melhorResultado;
     }
 
     public Resultado getMelhorResultadoPorDataset(String dataset, String medida){
-    
+        Resultado melhorResultado = null;
+
+        for(Resultado resultado: resultados){
+            String nomeDataset = resultado.getNomeDoDataset();
+
+            if(nomeDataset.equals(dataset)){
+                ValorAvaliacao avaliacao = resultado.getAvaliacaoPorMedida(medida);
+
+                if(avaliacao!=null){
+                    if(melhorResultado == null)
+                        melhorResultado = resultado;
+                    else{
+                        float melhorValor = melhorResultado.getAvaliacaoPorMedida(medida).getValor(),
+                                novoValor = avaliacao.getValor();
+                                
+                        if(melhorValor<novoValor)
+                            melhorResultado = resultado;
+                    }
+                }
+            }
+        }
+
+        return melhorResultado;
     }
 
     public Resultado getPiorResultado(String medida){
-    
+        Resultado piorResultado = null;
+
+        for(Resultado resultado: resultados){
+            ValorAvaliacao avaliacao = resultado.getAvaliacaoPorMedida(medida);
+            float novoValor = avaliacao.getValor();
+
+            if(piorResultado == null)
+                piorResultado = resultado;
+            else {
+                float piorValor = piorResultado.getAvaliacaoPorMedida(medida).getValor()/
+                
+                if(piorValor>novoValor)
+                    piorResultado = resultado;
+            }
+                
+        }
+
+        return piorResultado;
     }
 
     public Resultado getPiorResultadoPorAlgoritmo(String algoritmo, String medida){
-    
+        Resultado piorResultado = null;
+
+        for(Resultado resultado: resultados){
+            String nomeAlgoritmo = resultado.getNomeDoAlgoritmo();
+
+            if(nomeAlgoritmo.equals(algoritmo)){
+                ValorAvaliacao avaliacao = resultado.getAvaliacaoPorMedida(medida);
+
+                if(avaliacao!=null){
+                    if(piorResultado == null)
+                        piorResultado = resultado;
+                    else{
+                        float piorValor = piorResultado.getAvaliacaoPorMedida(medida).getValor(),
+                                novoValor = avaliacao.getValor();
+
+                        if(piorValor>novoValor)
+                            piorResultado = resultado;
+                    }
+                }
+            }
+        }
+
+        return piorResultado;
     }
 
     public Resultado getPiorResultadoPorDataset(String dataset, String medida){
-    
+        Resultado piorResultado = null;
+
+        for(Resultado resultado: resultados){
+            String nomeDataset = resultado.getNomeDoDataset();
+
+            if(nomeDataset.equals(dataset)){
+                ValorAvaliacao avaliacao = resultado.getAvaliacaoPorMedida(medida);
+
+                if(avaliacao!=null){
+                    if(piorResultado == null)
+                        piorResultado = resultado;
+                    else{
+                        float piorValor = piorResultado.getAvaliacaoPorMedida(medida).getValor(),
+                                novoValor = avaliacao.getValor();
+
+                        if(piorValor>novoValor)
+                            piorResultado = resultado;
+                    }
+                }
+            }
+        }
+
+        return piorResultado;
     }
 
     public Dataset getDatasetMelhorResultado(String medida){
