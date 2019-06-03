@@ -120,9 +120,19 @@ public class Experimento {
     }
 
     public float getMediaResultadosPorDataset(String dataset, String medida){//vou fazer esse hoje, by Jorge
-        float media = 0;
-
-        return media;
+        float mediaResultados = 0;
+        int numeroDeResultados = 0;
+        for(Resultado resultado: getResultadosValidos()){
+            if(resultado.getAvaliacaoPorMedida(medida) != null && resultado.getDataset().equals(dataset)){
+                mediaResultados += resultado.getAvaliacaoPorMedida(medida).getValor();
+            }
+        }
+        if(numeroDeResultados!=0){
+            mediaResultados /= numeroDeResultados;
+            return mediaResultados;
+        }else{
+            return Float.MAX_VALUE;
+        }
     }
 
     public Resultado getMelhorResultado(String medida){
