@@ -23,10 +23,11 @@ public class Teste {
 			+ ROXO.on(classeTestada.getName())
 		);
 
-		/*
-	     * ATRIBUTOS
-		 */
+		identificaAtributos(atributos);
+		identificaMetodos(metodos);
+	}
 
+	private void identificaAtributos(java.lang.reflect.Field[] atributos){
 		System.out.println("\t"
 			+ FUNDO_VERDE.on("[Atributos]")
 			+ " Identificando atributos"
@@ -41,11 +42,9 @@ public class Teste {
 				) 
 				+ " " + atributo.getName()
 			);
+	}
 
-		/*
-	     * METODOS
-		 */
-
+	private void identificaMetodos(Method[] metodos){
 		System.out.println(
 			"\t"
 			+ FUNDO_AMARELO.on("[Metodos]")
@@ -68,7 +67,6 @@ public class Teste {
 			for(Class parametro: metodo.getParameterTypes())
 				System.out.print(AMARELO.on(parametro.getSimpleName()) + (--index==0 ? ")\n" : ", "));
 		}
-
 	}
 
 	public void run(Object objetoTestado, Object... objetosDependencias){
@@ -153,29 +151,31 @@ public class Teste {
 	private Object getRandom(Class classe){
 		Random random = new Random();
 
-		if(classe.equals(String.class))
-			return DEFAULT_STRINGS[random.nextInt(DEFAULT_STRINGS.length)];
-		else if(classe.equals(float.class))
-			return random.nextFloat();
-		else if(classe.equals(double.class))
-			return random.nextDouble();
-		else if(classe.equals(boolean.class))
-			return random.nextBoolean();
-		else if(classe.equals(long.class))
-			return random.nextLong();
-		else if(classe.equals(int.class))
-			return random.nextInt();
-		else {
-			if(objetosDependencias != null){
-				for(Object obj: objetosDependencias)
-					if(classe.equals(obj.getClass()))
-						return obj;
+		if(objetosDependencias != null)
+			for(Object obj: objetosDependencias){
+				if(obj.getClass().isArray()){
+					Object[] objArray = (Object[]) obj;
 
+					return objArray[random.nextInt(objArray.length)];
+				} else if(classe.equals(obj.getClass()))
+					return obj;
+			}
+
+			if(classe.equals(String.class))
+				return DEFAULT_STRINGS[random.nextInt(DEFAULT_STRINGS.length)];
+			else if(classe.equals(float.class))
+				return random.nextFloat();
+			else if(classe.equals(double.class))
+				return random.nextDouble();
+			else if(classe.equals(boolean.class))
+				return random.nextBoolean();
+			else if(classe.equals(long.class))
+				return random.nextLong();
+			else if(classe.equals(int.class))
+				return random.nextInt();
+			else
 				return new Object();
-			} else
-				return new Object();
-		}
-			
+
 	}
 
 	private void chamarMetodo(Object objetoTestado, Method metodo, Object[] parametros){
@@ -187,15 +187,12 @@ public class Teste {
 		for(Object tipo: parametros)
 			parametrosString += tipo.getClass().getSimpleName() + (--index==0 ? "" : ", ");
 
-		System.out.print("\t\t\t" 
-			+ "["
-		); 
-
 		try {
 			retorno = metodo.invoke(objetoTestado, parametros);
 
-			System.out.println(
-				FUNDO_VERDE.on("✓")
+			System.out.println("\t\t\t" 
+				+ "["
+				+ FUNDO_VERDE.on("✓")
 				+ "] " 
 				+ AMARELO.on(nome + "(" + parametrosString +")")
 				+ ": " +
@@ -203,16 +200,12 @@ public class Teste {
 				+ " " + retorno
 			);
 		} catch (IllegalAccessException e) {
-			// e.printStackTrace();
-
 			System.out.println(
 				FUNDO_VERMELHO.on("private") + "] "
 				+ AMARELO.on(nome + "(" + parametrosString +") ")
 			);
 
 		} catch (IllegalArgumentException e) {
-			// e.printStackTrace();
-
 			System.out.println(
 				FUNDO_VERMELHO.on("x") + "] "
 				+ AMARELO.on(nome + "(" + parametrosString +") ")
@@ -223,7 +216,7 @@ public class Teste {
 				)
 			);
 		} catch (InvocationTargetException e) {
-			// e.printStackTrace();
+			StackTraceElement[] stackTraceElements = e.getCause().getStackTrace();
 
 			System.out.println(
 				FUNDO_VERMELHO.on("x") + "] "
@@ -231,6 +224,10 @@ public class Teste {
 				+ ": "
 				+ VERMELHO.on("Exception ")
 				+ e.getClass().getSimpleName()
+				+ VERMELHO.on(" caused by ")
+				+ e.getCause().toString()
+				+ VERMELHO.on(" at ")
+				+ stackTraceElements[0]
 			);
 		}
 		
