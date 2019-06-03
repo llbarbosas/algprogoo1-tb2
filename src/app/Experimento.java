@@ -99,7 +99,7 @@ public class Experimento {
         }
     }
 
-    public float getMediaResultadosPorDataset(String dataset, String medida){
+    public float getMediaResultadosPorDataset(String dataset, String medida){//vou fazer esse hoje, by Jorge
     
     }
 
