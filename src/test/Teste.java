@@ -196,18 +196,19 @@ public class Teste {
 				+ "] " 
 				+ AMARELO.on(nome + "(" + parametrosString +")")
 				+ ": " +
-				AMARELO.on((retorno != null ? retorno.getClass().getSimpleName() : "null")) 
-				+ " " + retorno
+				(retorno != null ? 
+					AMARELO.on(retorno.getClass().getSimpleName()) + " " + retorno.toString() 
+					: AMARELO.on("null"))
 			);
 		} catch (IllegalAccessException e) {
-			System.out.println(
-				FUNDO_VERMELHO.on("private") + "] "
+			System.out.println("\t\t\t"
+				+ "[" + FUNDO_VERMELHO.on("private") + "] "
 				+ AMARELO.on(nome + "(" + parametrosString +") ")
 			);
 
 		} catch (IllegalArgumentException e) {
-			System.out.println(
-				FUNDO_VERMELHO.on("x") + "] "
+			System.out.println("\t\t\t"
+				+ "[" + FUNDO_VERMELHO.on("x") + "] "
 				+ AMARELO.on(nome + "(" + parametrosString +") ")
 				+ FUNDO_BRANCO.on(VERMELHO.on(parametrosString + " genérico")) + " "
 				+ FUNDO_VERMELHO.on(
@@ -218,8 +219,8 @@ public class Teste {
 		} catch (InvocationTargetException e) {
 			StackTraceElement[] stackTraceElements = e.getCause().getStackTrace();
 
-			System.out.println(
-				FUNDO_VERMELHO.on("x") + "] "
+			System.out.println("\t\t\t"
+				+ "[" + FUNDO_VERMELHO.on("x") + "] "
 				+ AMARELO.on(nome + "(" + parametrosString +")")
 				+ ": "
 				+ VERMELHO.on("Exception ")
