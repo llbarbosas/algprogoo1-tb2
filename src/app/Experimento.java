@@ -37,6 +37,8 @@ public class Experimento {
     }
 
     public boolean addResultado(Resultado resultado){
+        System.out.println(resultado.getAlgoritmo().getNome());
+
         if(!Validador.verificaArrayCheio(this.resultados)){//verifica se há campo vazio
             for(Resultado obj: getResultadosValidos() ){
                 if(obj.equals(resultado)){
@@ -321,7 +323,7 @@ public class Experimento {
     }
 
     public String[] getNomesAlgoritmosUtilizados(){
-        String[] nomesAlgoritmos = new String[resultados.length];
+        String[] nomesAlgoritmos = new String[getResultadosValidos().length];
 
         for(int i=0; i<nomesAlgoritmos.length; i++)
             nomesAlgoritmos[i] = resultados[i].getNomeDoAlgoritmo();

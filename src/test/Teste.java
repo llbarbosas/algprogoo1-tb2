@@ -151,29 +151,31 @@ public class Teste {
 	private Object getRandom(Class classe){
 		Random random = new Random();
 
-		if(classe.equals(String.class))
-			return DEFAULT_STRINGS[random.nextInt(DEFAULT_STRINGS.length)];
-		else if(classe.equals(float.class))
-			return random.nextFloat();
-		else if(classe.equals(double.class))
-			return random.nextDouble();
-		else if(classe.equals(boolean.class))
-			return random.nextBoolean();
-		else if(classe.equals(long.class))
-			return random.nextLong();
-		else if(classe.equals(int.class))
-			return random.nextInt();
-		else {
-			if(objetosDependencias != null){
-				for(Object obj: objetosDependencias)
-					if(classe.equals(obj.getClass()))
-						return obj;
+		if(objetosDependencias != null)
+			for(Object obj: objetosDependencias){
+				if(obj.getClass().isArray()){
+					Object[] objArray = (Object[]) obj;
 
+					return objArray[random.nextInt(objArray.length)];
+				} else if(classe.equals(obj.getClass()))
+					return obj;
+			}
+
+			if(classe.equals(String.class))
+				return DEFAULT_STRINGS[random.nextInt(DEFAULT_STRINGS.length)];
+			else if(classe.equals(float.class))
+				return random.nextFloat();
+			else if(classe.equals(double.class))
+				return random.nextDouble();
+			else if(classe.equals(boolean.class))
+				return random.nextBoolean();
+			else if(classe.equals(long.class))
+				return random.nextLong();
+			else if(classe.equals(int.class))
+				return random.nextInt();
+			else
 				return new Object();
-			} else
-				return new Object();
-		}
-			
+
 	}
 
 	private void chamarMetodo(Object objetoTestado, Method metodo, Object[] parametros){
@@ -185,15 +187,12 @@ public class Teste {
 		for(Object tipo: parametros)
 			parametrosString += tipo.getClass().getSimpleName() + (--index==0 ? "" : ", ");
 
-		System.out.print("\t\t\t" 
-			+ "["
-		); 
-
 		try {
 			retorno = metodo.invoke(objetoTestado, parametros);
 
-			System.out.println(
-				FUNDO_VERDE.on("✓")
+			System.out.println("\t\t\t" 
+				+ "["
+				+ FUNDO_VERDE.on("✓")
 				+ "] " 
 				+ AMARELO.on(nome + "(" + parametrosString +")")
 				+ ": " +
@@ -226,7 +225,8 @@ public class Teste {
 				+ VERMELHO.on("Exception ")
 				+ e.getClass().getSimpleName()
 				+ VERMELHO.on(" caused by ")
-				
+				+ e.getCause().toString()
+				+ VERMELHO.on(" at ")
 				+ stackTraceElements[0]
 			);
 		}
