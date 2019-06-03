@@ -92,10 +92,11 @@ public class Resultado {
         TratamentoErro.alerta("Nenhuma avaliação foi encontrada com a medida " + medida);
         return null;
     }
-
+    
+    //verifica se um objeto Resultado é igual ao objeto instanciado
     public boolean equals(Resultado resultado){
 
-        if(resultado.getAlgoritmo().equals(this.algoritmo) && resultado.getDataset().equals(this.dataset)){//se algoritmo e dataset for igual
+        if(resultado.getAlgoritmo().equals(this.algoritmo) && resultado.getDataset().equals(this.dataset)){//compara os algoritmos e os datasets
             int avaliacoesIguais = 0;//auxiliar para comparar ValorAvaliacao[]
             for(int i =0; i<3; i++){//percorre ValorAvaliacao[]
                 if(resultado.getAvaliacoes()[i].equals(this.avaliacao[i])){//compara todas as posicoes do ValorAvaliacao[]
