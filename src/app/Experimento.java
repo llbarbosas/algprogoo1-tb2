@@ -104,20 +104,31 @@ public class Experimento {
     }
 
     public Resultado getMelhorResultado(String medida){
+        // Caso o resultado não exista, retorna null
         Resultado melhorResultado = null;
 
         for(Resultado resultado: resultados){
+            // Tentando encontrar a avaliacao da medida passada
             ValorAvaliacao avaliacao = resultado.getAvaliacaoPorMedida(medida);
-            float novoValor = avaliacao.getValor();
 
-            if(melhorResultado == null)
-                melhorResultado = resultado;
-            else {
-                float melhorValor = melhorResultado.getAvaliacaoPorMedida(medida).getValor()/
-                
-                if(melhorValor<novoValor)
+             // Testando se a avaliacao realmente existe
+            if(avaliacao!=null){
+                float novoValor = avaliacao.getValor();
+
+                // Se o melhor resultado não foi definido ainda,
+                // ele recebe o resultado atual
+                if(melhorResultado == null)
                     melhorResultado = resultado;
-            }
+
+                // Caso ele já tenha sido definido, testa se o
+                // melhor valor atual é menor que o novo valor
+                else {
+                    float melhorValor = melhorResultado.getAvaliacaoPorMedida(medida).getValor()/
+                    
+                    if(melhorValor<novoValor)
+                        melhorResultado = resultado;
+                }
+           }
                 
         }
 
@@ -125,21 +136,29 @@ public class Experimento {
     }
 
     public Resultado getMelhorResultadoPorAlgoritmo(String algoritmo, String medida){
+        // Caso o resultado não exista, retorna null
         Resultado melhorResultado = null;
 
         for(Resultado resultado: resultados){
             String nomeAlgoritmo = resultado.getNomeDoAlgoritmo();
 
+            // Testa se o resultado atual é do algoritmo esperado
             if(nomeAlgoritmo.equals(algoritmo)){
                 ValorAvaliacao avaliacao = resultado.getAvaliacaoPorMedida(medida);
 
+                // Testa se esse resultado possui avaliacao com a medida passada
                 if(avaliacao!=null){
+
+                    // Se o melhor resultado ainda não tiver sido definido,
+                    // define com o resultado atual
                     if(melhorResultado == null)
                         melhorResultado = resultado;
                     else{
                         float melhorValor = melhorResultado.getAvaliacaoPorMedida(medida).getValor(),
                                 novoValor = avaliacao.getValor();
 
+                        // Caso contrário, testa se o valor atual é menor que
+                        // o novo valor
                         if(melhorValor<novoValor)
                             melhorResultado = resultado;
                     }
