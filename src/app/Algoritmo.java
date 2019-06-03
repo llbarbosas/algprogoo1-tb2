@@ -74,4 +74,29 @@ public class Algoritmo {
         
     }
 
+    // Método responsável por sobrescrever o método padrão de impressão do objeto
+    public String toString() {
+        String resposta = "Algoritmo\n";
+        resposta += this.atribuiNome();
+        resposta += this.atribuiParametros();
+
+        return resposta;
+    }
+
+    // Método responsável  por retornar o nome com formatação
+    private String atribuiNome() {
+        return "Nome: " + this.nome + "\n";
+    }
+
+    // Método responsável por retornar os parâmetros com formatação
+    private String atribuiParametros() {
+        String resposta = "Parâmetros: ";
+
+        for (int i = 0; i < this.parametros.length; i++) {
+            if (this.parametros[i] != Float.MAX_VALUE) {
+                resposta += this.parametros[i] + " "; 
+            }
+        }
+        return resposta + "\n";
+    }
 }

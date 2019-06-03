@@ -93,4 +93,35 @@ public class Dataset {
         }
 
     }
+
+    // Método responsável por sobrescrever o método padrão de impressão do objeto
+    public String toString() {
+        String resposta = "Dataset\n";
+        resposta += this.atribuiNome();
+        resposta += this.atribuiNumeroDeExemplos();
+        resposta += this.atribuiNumeroDeAtributos();
+        resposta += this.atribuiNumeroDeClasses();
+
+        return resposta;
+    }
+
+    // Método responsável  por retornar o nome com formatação
+    private String atribuiNome() {
+        return "Nome: " + this.nome + "\n";
+    }
+
+    // Método responsável  por retornar o número de exemplos com formatação
+    private String atribuiNumeroDeExemplos() {
+        return "Número de exemplos: " + this.numExemplos + "\n";
+    }
+
+    // Método responsável  por retornar o número atributos com formatação
+    private String atribuiNumeroDeAtributos() {
+        return "Número de atributos: " + this.numAtributos + "\n";
+    }
+
+    // Método responsável  por retornar o número de classes com formatação
+    private String atribuiNumeroDeClasses() {
+        return "Número de classes: " + this.numClasses + "\n";
+    }
 }

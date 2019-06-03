@@ -338,7 +338,48 @@ public class Experimento {
         return melhorAlgoritmo; 
     }
 
+    // Método responsável por imprimir o resumo completo do experimento
     public void imprimeResumoExperimento(){
-    
+        this.imprimeDataExperimento();
+        this.imprimeResultados();
+    }
+
+    // Método responsável por imprimir a data do experimento
+    private void imprimeDataExperimento() {
+        System.out.printf("Data do experimento: %d/%d/%d\n", this.dia, this.mes, this.ano);
+    }
+
+    // Método responsável por verificar se o objeto é válido e por invocar os métodos responsáveis por cada impressão
+    private void imprimeResultados() {
+        for (int i = 0; i < 10; i++) {
+            if (Validador.verificaObjetoValido(this.resultados[i])) {
+                this.imprimeInformacoesAlgoritmo(this.resultados[i].getAlgoritmo());
+                this.imprimeInformacoesDataset(this.resultados[i].getDataset());
+                this.imprimeInformacoesAvaliacao(this.resultados[i].getAvaliacoes()); 
+                
+                System.out.println(); // Pular uma linha após cada impressão
+            }
+        }
+    }
+
+    // Método responsável por imprimir as informações do algoritmo
+    private void imprimeInformacoesAlgoritmo(Algoritmo algoritmo) {
+        System.out.println(algoritmo);
+    }
+
+    // Método responsável por imprimir as informações do dataset
+    private void imprimeInformacoesDataset(Dataset dataset) {
+        System.out.println(dataset);
+    }
+
+    // Método responsável por imprimir as informações de cada avaliação
+    private void imprimeInformacoesAvaliacao(ValorAvaliacao[] avaliacao) {
+        System.out.println("Avaliação");
+        for (int i = 0; i < avaliacao.length; i++) {
+            if (Validador.verificaObjetoValido(avaliacao[i])) {
+                System.out.printf("Nome da medida de avaliação: %s\n", avaliacao[i].getMedida().getNome());
+                System.out.printf("Valor: %.2f\n", avaliacao[i].getValor());
+            }
+        }
     }
 }
