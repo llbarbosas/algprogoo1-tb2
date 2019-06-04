@@ -69,22 +69,7 @@ public class Teste {
 		}
 	}
 
-	public void run(Object objetoTestado, Object... objetosDependencias){
-		this.objetosDependencias = objetosDependencias;
-
-		run(objetoTestado);
-	}
-	
-	public void run(Object objetoTestado){
-		Method[] metodos = objetoTestado.getClass().getDeclaredMethods();
-		java.lang.reflect.Field[] atributos = objetoTestado.getClass().getDeclaredFields();
-
-		System.out.println(
-			"\t"
-			+ FUNDO_AZUL.on("[Objetos]")
-			+ " Iniciando teste num objeto instanciado da classe"
-		);
-
+	private void visibilidadeAtributos(java.lang.reflect.Field[] atributos, Object objetoTestado){
 		System.out.println(
 			"\t\t"
 			+ FUNDO_VERDE.on("[Atributos]")
@@ -118,7 +103,9 @@ public class Teste {
 
 			System.out.println();
 		}
+	}
 
+	private void printMetodos(Method[] metodos, Object objetoTestado){
 		System.out.println(
 			"\t\t"
 			+ FUNDO_AMARELO.on("[Metodos]")
@@ -132,6 +119,26 @@ public class Teste {
 
 			chamarMetodo(objetoTestado, metodo, parametros);
 		}
+	}
+
+	public void run(Object objetoTestado, Object... objetosDependencias){
+		this.objetosDependencias = objetosDependencias;
+
+		run(objetoTestado);
+	}
+	
+	public void run(Object objetoTestado){
+		Method[] metodos = objetoTestado.getClass().getDeclaredMethods();
+		java.lang.reflect.Field[] atributos = objetoTestado.getClass().getDeclaredFields();
+
+		System.out.println(
+			"\t"
+			+ FUNDO_AZUL.on("[Objetos]")
+			+ " Iniciando teste num objeto instanciado da classe"
+		);
+
+		visibilidadeAtributos(atributos, objetoTestado);
+		printMetodos(metodos, objetoTestado);
 
 		System.out.println("\t"
 			+ FUNDO_AZUL.on("[Objetos]")
