@@ -7,34 +7,15 @@ public class Experimento {
     private Resultado[] resultados;
 
     public Experimento(int dia, int mes, int ano){
+        // Validacao da data
         if(Validador.verificaData(dia, mes, ano)){
             resultados = new Resultado[10];
             this.dia = dia;
             this.mes = mes;
             this.ano = ano;
-        } else{
+        } else
             TratamentoErro.erro("Data inválida.");
-        }
 
-    }
-
-    private static Resultado[] append(Resultado[] arr, Resultado element){
-        Resultado[] newArray = new Resultado[arr.length+1];
-
-        for(int i=0; i<newArray.length; i++)
-            newArray[i] = (i<arr.length ? arr[i] : element);
-
-        return newArray;
-    }
-
-    private Resultado[] getResultadosValidos(){
-        Resultado[] resultados = {};
-
-        for(Resultado resultado: this.resultados)
-            if(resultado != null)
-                resultados = append(resultados, resultado);
-
-        return resultados;
     }
 
     public boolean addResultado(Resultado resultado){
@@ -52,7 +33,7 @@ public class Experimento {
                 }
             }
         }
-        
+
         TratamentoErro.alerta("Não foi possível cadastrar, já foram cadastrados 10 resultados.");
         return false;
     }
@@ -372,46 +353,74 @@ public class Experimento {
 
     // Método responsável por imprimir o resumo completo do experimento
     public void imprimeResumoExperimento(){
-        this.imprimeDataExperimento();
-        this.imprimeResultados();
+        System.out.println(
+            "Data do experimento: "
+            + formataDataExperimento()
+        );
+
+        imprimeResultados();
     }
 
-    // Método responsável por imprimir a data do experimento
-    private void imprimeDataExperimento() {
-        System.out.printf("Data do experimento: %d/%d/%d\n", this.dia, this.mes, this.ano);
+    /*
+     * Funções auxiliares
+     * ----------------------------
+     */
+
+    // Método responsável por formatar a data do experimento
+    private String formataDataExperimento() {
+        String data = (dia<10 ? "0"+dia : dia) + "/"
+                    + (mes<10 ? "0"+mes : mes) + "/"
+                    + ano;
+
+        return data;
     }
 
-    // Método responsável por verificar se o objeto é válido e por invocar os métodos responsáveis por cada impressão
+    // Método responsável por verificar se o objeto é válido e por invocar
+    // os métodos responsáveis por cada impressão
     private void imprimeResultados() {
-        for (int i = 0; i < 10; i++) {
-            if (Validador.verificaObjetoValido(this.resultados[i])) {
-                this.imprimeInformacoesAlgoritmo(this.resultados[i].getAlgoritmo());
-                this.imprimeInformacoesDataset(this.resultados[i].getDataset());
-                this.imprimeInformacoesAvaliacao(this.resultados[i].getAvaliacoes()); 
-                
+        for (Resultado resultado: this.resultados) {
+            if (Validador.verificaObjetoValido(resultado)) {
+                System.out.println(
+                    resultado.getAlgoritmo() + "\n"
+                    + resultado.getDataset()
+                );
+
+                System.out.println("Avaliação");
+                for(ValorAvaliacao avaliacao: resultado.getAvaliacoes())
+                    if(Validador.verificaObjetoValido(avaliacao))
+                        System.out.printf(
+                            "Nome da medida de avaliação: %s\n"
+                            + "Valor: %.2f\n",
+                            avaliacao.getMedida().getNome(),
+                            avaliacao.getValor()
+                        );
+
                 System.out.println(); // Pular uma linha após cada impressão
             }
         }
     }
 
-    // Método responsável por imprimir as informações do algoritmo
-    private void imprimeInformacoesAlgoritmo(Algoritmo algoritmo) {
-        System.out.println(algoritmo);
+    // Função auxiliar para acrescentar elementos num vetor
+    // de Resultado
+    private static Resultado[] append(Resultado[] arr, Resultado element){
+        Resultado[] newArray = new Resultado[arr.length+1];
+
+        for(int i=0; i<newArray.length; i++)
+            newArray[i] = (i<arr.length ? arr[i] : element);
+
+        return newArray;
     }
 
-    // Método responsável por imprimir as informações do dataset
-    private void imprimeInformacoesDataset(Dataset dataset) {
-        System.out.println(dataset);
+    // Função auxiliar para retornar apenas os resultados 
+    // validos no vetor this.resultados
+    private Resultado[] getResultadosValidos(){
+        Resultado[] resultados = {};
+
+        for(Resultado resultado: this.resultados)
+            if(resultado != null)
+                resultados = append(resultados, resultado);
+
+        return resultados;
     }
 
-    // Método responsável por imprimir as informações de cada avaliação
-    private void imprimeInformacoesAvaliacao(ValorAvaliacao[] avaliacao) {
-        System.out.println("Avaliação");
-        for (int i = 0; i < avaliacao.length; i++) {
-            if (Validador.verificaObjetoValido(avaliacao[i])) {
-                System.out.printf("Nome da medida de avaliação: %s\n", avaliacao[i].getMedida().getNome());
-                System.out.printf("Valor: %.2f\n", avaliacao[i].getValor());
-            }
-        }
-    }
 }
