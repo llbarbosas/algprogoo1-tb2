@@ -19,18 +19,20 @@ public class Experimento {
 
     }
 
-    private static <T> T[] append(T[] arr, T element) {
-        final int N = arr.length;
-        arr = Arrays.copyOf(arr, N + 1);
-        arr[N] = element;
-        return arr;
+    private static Resultado[] append(Resultado[] arr, Resultado element){
+        Resultado[] newArray = new Resultado[arr.length+1];
+
+        for(int i=0; i<newArray.length; i++)
+            newArray[i] = (i<arr.length ? arr[i] : element);
+
+        return newArray;
     }
 
     private Resultado[] getResultadosValidos(){
         Resultado[] resultados = {};
 
         for(Resultado resultado: this.resultados)
-            if(resultado!=null)
+            if(resultado != null)
                 resultados = append(resultados, resultado);
 
         return resultados;
