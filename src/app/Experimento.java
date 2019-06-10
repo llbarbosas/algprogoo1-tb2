@@ -309,6 +309,27 @@ public class Experimento {
 
     public Dataset getDatasetMelhorResultadoAlgoritmo(String algoritmo, String medida){
         Dataset melhorDataset = null;
+        float melhorDatasetValor = 0;
+
+        for(Resultado resultado: getResultadosValidos()){
+            String nomeAlgoritmo = resultado.getAlgoritmo().getNome();
+
+            if(algoritmo.equals(nomeAlgoritmo)){
+                ValorAvaliacao avaliacao = resultado.getAvaliacaoPorMedida(medida);
+
+                if(avaliacao != null){
+                    float novoValor = avaliacao.getValor();
+                    Dataset novoDataset = resultado.getDataset();
+
+                    if(melhorDataset == null){
+                        melhorDataset = novoDataset;
+                        melhorDatasetValor = novoValor;
+                    } else if(melhorDatasetValor<novoValor)
+                        melhorDataset = novoDataset;
+                }
+            }
+            
+        }
 
         return melhorDataset;
     }
@@ -347,6 +368,27 @@ public class Experimento {
 
     public Algoritmo getAlgoritmoMelhorResultadoDataset(String dataset, String medida){
         Algoritmo melhorAlgoritmo = null;
+        float melhorAlgoritmoValor = 0;
+
+        for(Resultado resultado: getResultadosValidos()){
+            String nomeDataset = resultado.getDataset().getNome();
+
+            if(dataset.equals(nomeDataset)){
+                ValorAvaliacao avaliacao = resultado.getAvaliacaoPorMedida(medida);
+
+                if(avaliacao != null){
+                    float novoValor = avaliacao.getValor();
+                    Algoritmo novoAlgoritmo = resultado.getAlgoritmo();
+
+                    if(melhorAlgoritmo == null){
+                        melhorAlgoritmo = novoAlgoritmo;
+                        melhorAlgoritmoValor = novoValor;
+                    } else if(melhorAlgoritmoValor<novoValor)
+                        melhorAlgoritmo = novoAlgoritmo;
+                }
+            }
+            
+        }
 
         return melhorAlgoritmo; 
     }
