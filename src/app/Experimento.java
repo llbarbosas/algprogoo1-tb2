@@ -1,7 +1,6 @@
 package app;
 import util.Validador;
 import util.TratamentoErro;
-import java.util.Arrays;
 
 public class Experimento {
     private int dia, mes, ano;
@@ -42,7 +41,7 @@ public class Experimento {
         if(!Validador.verificaArrayCheio(this.resultados)){//verifica se há campo vazio
             for(Resultado obj: getResultadosValidos() ){
                 if(obj.equals(resultado)){
-                    System.out.println("Não foi possível cadastrar, objeto já cadastrado anteriormente.");
+                    TratamentoErro.alerta("Não foi possível cadastrar, objeto já cadastrado anteriormente.");
                     return false;
                 }
             }
@@ -53,7 +52,8 @@ public class Experimento {
                 }
             }
         }
-        System.out.println("Não foi possível cadastrar, já foram cadastrados 10 resultados.");
+        
+        TratamentoErro.alerta("Não foi possível cadastrar, já foram cadastrados 10 resultados.");
         return false;
     }
 
