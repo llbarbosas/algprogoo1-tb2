@@ -1,5 +1,12 @@
 package util;
 
+    /**@Autores
+    * Carlos Eduardo Dias Giacomini
+    * Jorge Eduardo Dullius dos Santos
+    * Lucas Lima Barbosa Silva
+    * Lucas Vinicius Cardoso Moro
+    */
+
 public class Validador {
 
     /*

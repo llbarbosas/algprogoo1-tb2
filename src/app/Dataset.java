@@ -1,7 +1,14 @@
 package app;
 import util.Validador;
 import util.TratamentoErro;
-
+    
+    /**@Autores
+    * Carlos Eduardo Dias Giacomini
+    * Jorge Eduardo Dullius dos Santos
+    * Lucas Lima Barbosa Silva
+    * Lucas Vinicius Cardoso Moro
+    */
+    
 public class Dataset {
     private int numExemplos;
     private int numAtributos;

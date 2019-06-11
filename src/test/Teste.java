@@ -4,6 +4,13 @@ import java.lang.reflect.Method;
 import java.util.Random;
 import static util.Cores.*;
 
+	/**@Autores
+    * Carlos Eduardo Dias Giacomini
+    * Jorge Eduardo Dullius dos Santos
+    * Lucas Lima Barbosa Silva
+    * Lucas Vinicius Cardoso Moro
+    */
+
 public class Teste {
 	private Class classeTestada;
 	private Object[] objetosDependencias;

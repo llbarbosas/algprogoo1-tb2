@@ -1,6 +1,13 @@
 package test;
 import app.Algoritmo;
 
+    /**@Autores
+    * Carlos Eduardo Dias Giacomini
+    * Jorge Eduardo Dullius dos Santos
+    * Lucas Lima Barbosa Silva
+    * Lucas Vinicius Cardoso Moro
+    */
+
 public class AlgoritmoTeste {
     public static void main(String[] args) {
         /*

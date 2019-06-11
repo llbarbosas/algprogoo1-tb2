@@ -5,6 +5,13 @@ import app.Algoritmo;
 import app.Dataset;
 import app.ValorAvaliacao;
 import app.MedidaAvaliacao;
+    
+    /**@Autores
+    * Carlos Eduardo Dias Giacomini
+    * Jorge Eduardo Dullius dos Santos
+    * Lucas Lima Barbosa Silva
+    * Lucas Vinicius Cardoso Moro
+    */
 
 public class ExperimentoTeste {
     public static void main(String[] args) {
