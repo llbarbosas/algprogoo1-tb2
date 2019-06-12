@@ -1,7 +1,14 @@
 package app;
 import util.Validador;// Import da Classe Validador
 import util.TratamentoErro;// Import da Classe TratamentoErro
-
+    
+    /**@Autores
+    * Carlos Eduardo Dias Giacomini
+    * Jorge Eduardo Dullius dos Santos
+    * Lucas Lima Barbosa Silva
+    * Lucas Vinicius Cardoso Moro
+    */
+    
 public class Resultado {
     
     //Declaração de atributos

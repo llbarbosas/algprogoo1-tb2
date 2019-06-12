@@ -1,5 +1,5 @@
 package util;
-
+    
 /*
  * Uso:
  *  import static util.Cores.*;
