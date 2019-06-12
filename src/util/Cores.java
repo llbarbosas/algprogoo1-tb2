@@ -25,6 +25,9 @@ public final class Cores{
     public static final String _FUNDO_ROXO = "\u001B[45m";
     public static final String _FUNDO_CIANO = "\u001B[46m";
     public static final String _FUNDO_BRANCO = "\u001B[47m";
+    public static final String _ITALICO = "\033[3m";
+    public static final String _NEGRITO = "\033[1m";
+
 
     public interface Colorir {
         public String on(String msg);
@@ -46,6 +49,8 @@ public final class Cores{
     public static final Colorir FUNDO_ROXO = (String str) -> _FUNDO_ROXO + str + _RESET;
     public static final Colorir FUNDO_CIANO = (String str) -> _FUNDO_CIANO + str + _RESET;
     public static final Colorir FUNDO_BRANCO = (String str) -> _FUNDO_BRANCO + str + _RESET;
+    public static final Colorir ITALICO = (String str) -> _ITALICO + str + _RESET;
+    public static final Colorir NEGRITO = (String str) -> _NEGRITO + str + _RESET;
     
     private Cores() {}
 }

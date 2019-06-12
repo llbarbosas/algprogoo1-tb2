@@ -31,7 +31,8 @@ public class ResultadoTeste {
                 ),
                 new ValorAvaliacao(
                     new MedidaAvaliacao("Nome teste", 0.5f, 2f)
-                )
+                ),
+                new String[]{"Nome teste", nomesTeste[2]}
             );
     }
 }
