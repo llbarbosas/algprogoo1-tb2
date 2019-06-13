@@ -15,7 +15,7 @@ import app.MedidaAvaliacao;
 
 public class ExperimentoTeste {
     public static void main(String[] args) {
-        int casos = 3;
+        final int casos = 3;
         
         // Agoritmo
         String[] nomesTeste = {"Teste 1", "Teste 2", "hey"};
@@ -55,7 +55,6 @@ public class ExperimentoTeste {
         Experimento[] experimentos = new Experimento[casos];
         for(int i=0; i<experimentos.length; i++)
             experimentos[i] = new Experimento(dia[i], mes[i], ano[i]);
-
 
         Teste teste = new Teste(Experimento.class);
         
