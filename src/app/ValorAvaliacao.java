@@ -69,6 +69,9 @@ public class ValorAvaliacao {
     
     // Método responsável por verificar se dois objetos da classe ValorAvaliacao são iguais ou não
     public boolean equals(ValorAvaliacao valorAvaliacao){
+        if(!Validador.verificaObjetoValido(valorAvaliacao)){
+            TratamentoErro.erro("O objeto informado não pode ser nulo.");
+        } 
         if(valorAvaliacao.getValor() == this.valor && valorAvaliacao.getMedida().equals(this.medida)){
             return true;
         }else{

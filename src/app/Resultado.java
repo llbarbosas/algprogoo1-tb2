@@ -107,7 +107,9 @@ public class Resultado {
     }
     //Método para comparar todos os objetos desta classe Resultado  
     public boolean equals(Resultado resultado){
-
+        if(!Validador.verificaObjetoValido(resultado)){
+            TratamentoErro.erro("O objeto informado não pode ser nulo.");
+        }
         if(resultado.getAlgoritmo().equals(this.algoritmo) && resultado.getDataset().equals(this.dataset)){//compara os algoritmos e os datasets
             int avaliacoesIguais = 0;//auxiliar para comparar ValorAvaliacao[]
             for(int i =0; i<3; i++){//percorre ValorAvaliacao[]
