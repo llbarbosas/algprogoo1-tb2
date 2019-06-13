@@ -92,7 +92,7 @@ public class Dataset {
     // Método responsável por verificar se dois objetos da classe Dataset são iguais ou não
     public boolean equals(Dataset dataSet){
         if(!Validador.verificaObjetoValido(dataSet)){
-            TratamentoErro.erro("O objeto informado não pode ser nulo.");
+            return false;
         }
         if(dataSet.getNumExemplos() == this.numExemplos && dataSet.getNumAtributos() == this.numAtributos &&
             dataSet.getNumClasses() == this.numClasses && dataSet.getNome().equals(this.nome)){

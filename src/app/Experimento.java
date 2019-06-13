@@ -26,7 +26,8 @@ public class Experimento {
     }
 
     public boolean addResultado(Resultado resultado){
-        if(!Validador.verificaArrayCheio(this.resultados)){//verifica se há campo vazio
+        if(Validador.verificaObjetoValido(resultado) && // Verifica se o objeto não é nulo
+            !Validador.verificaArrayCheio(this.resultados)){//verifica se há campo vazio
             for(Resultado obj: getResultadosValidos() ){
                 if(obj.equals(resultado)){
                     TratamentoErro.alerta("Não foi possível cadastrar, objeto já cadastrado anteriormente.");
@@ -318,24 +319,25 @@ public class Experimento {
         Dataset melhorDataset = null;
         float melhorDatasetValor = 0;
 
-        for(Resultado resultado: getResultadosValidos()){
-            String nomeAlgoritmo = resultado.getAlgoritmo().getNome();
+        if (Validador.verificaStringValida(algoritmo)) {
+            for(Resultado resultado: getResultadosValidos()){
+                String nomeAlgoritmo = resultado.getAlgoritmo().getNome();
 
-            if(algoritmo.equals(nomeAlgoritmo)){
-                ValorAvaliacao avaliacao = resultado.getAvaliacaoPorMedida(medida);
+                if(algoritmo.equals(nomeAlgoritmo)){
+                    ValorAvaliacao avaliacao = resultado.getAvaliacaoPorMedida(medida);
 
-                if(avaliacao != null){
-                    float novoValor = avaliacao.getValor();
-                    Dataset novoDataset = resultado.getDataset();
+                    if(avaliacao != null){
+                        float novoValor = avaliacao.getValor();
+                        Dataset novoDataset = resultado.getDataset();
 
-                    if(melhorDataset == null){
-                        melhorDataset = novoDataset;
-                        melhorDatasetValor = novoValor;
-                    } else if(melhorDatasetValor<novoValor)
-                        melhorDataset = novoDataset;
-                }
+                        if(melhorDataset == null){
+                            melhorDataset = novoDataset;
+                            melhorDatasetValor = novoValor;
+                        } else if(melhorDatasetValor<novoValor)
+                            melhorDataset = novoDataset;
+                    }
+                }       
             }
-            
         }
 
         return melhorDataset;
@@ -377,24 +379,25 @@ public class Experimento {
         Algoritmo melhorAlgoritmo = null;
         float melhorAlgoritmoValor = 0;
 
-        for(Resultado resultado: getResultadosValidos()){
-            String nomeDataset = resultado.getDataset().getNome();
+        if (Validador.verificaStringValida(dataset)) {
+            for(Resultado resultado: getResultadosValidos()){
+                String nomeDataset = resultado.getDataset().getNome();
 
-            if(dataset.equals(nomeDataset)){
-                ValorAvaliacao avaliacao = resultado.getAvaliacaoPorMedida(medida);
+                if(dataset.equals(nomeDataset)){
+                    ValorAvaliacao avaliacao = resultado.getAvaliacaoPorMedida(medida);
 
-                if(avaliacao != null){
-                    float novoValor = avaliacao.getValor();
-                    Algoritmo novoAlgoritmo = resultado.getAlgoritmo();
+                    if(avaliacao != null){
+                        float novoValor = avaliacao.getValor();
+                        Algoritmo novoAlgoritmo = resultado.getAlgoritmo();
 
-                    if(melhorAlgoritmo == null){
-                        melhorAlgoritmo = novoAlgoritmo;
-                        melhorAlgoritmoValor = novoValor;
-                    } else if(melhorAlgoritmoValor<novoValor)
-                        melhorAlgoritmo = novoAlgoritmo;
-                }
+                        if(melhorAlgoritmo == null){
+                            melhorAlgoritmo = novoAlgoritmo;
+                            melhorAlgoritmoValor = novoValor;
+                        } else if(melhorAlgoritmoValor<novoValor)
+                            melhorAlgoritmo = novoAlgoritmo;
+                    }
+                }       
             }
-            
         }
 
         return melhorAlgoritmo; 

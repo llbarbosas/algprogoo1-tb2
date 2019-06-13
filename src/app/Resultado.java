@@ -55,7 +55,8 @@ public class Resultado {
     }
     //Método para adicinar uma avaliacao no array de avaliações.
     public boolean addAvaliacao(ValorAvaliacao avaliacao){
-    	if(this.verificaPosicaoDeInsercao() > -1){ // Verifica se o vetor está cheio.
+        if(Validador.verificaObjetoValido(avaliacao) &&
+            this.verificaPosicaoDeInsercao() > -1){ // Verifica se o vetor está cheio.
             if(this.verificaMedidaAvaliacaoIgual(avaliacao)){ // Verifica se possui medida de avaliação igual.
                 System.out.println("Impossivel adicionar avaliacao, pois ja existe esta medida de avaliacao");
                 return false;
@@ -67,7 +68,7 @@ public class Resultado {
                 return true;
             }
         }
-        TratamentoErro.alerta("Não foi possível adicionar avaliação, pois o vetor esta cheio.");
+        TratamentoErro.alerta("Não foi possível adicionar avaliação.");
         return false;// Caso o array de avaliacao estiver cheio, então retorna false.
     }
     //Método privado para retorna a posicao vazia do array
@@ -83,6 +84,7 @@ public class Resultado {
     private boolean verificaMedidaAvaliacaoIgual(ValorAvaliacao avaliacao){
         for(int i = 0; i < this.avaliacao.length; i++){//Laço de repetição para percorrer as avaliacões.
             if(Validador.verificaObjetoValido(this.avaliacao[i]) &&
+                Validador.verificaObjetoValido(avaliacao) &&
                 this.avaliacao[i].getMedida().equals(avaliacao.getMedida())){// Verifica se possui medidade de avaliação igual.
                 return true;// Existe medida de avaliação igual.
             }
@@ -97,6 +99,7 @@ public class Resultado {
     public ValorAvaliacao getAvaliacaoPorMedida(String medida){
     	for(int i = 0; i < this.avaliacao.length; i++){// Laço para percorrer o vetor de avaliações.
             if(Validador.verificaObjetoValido(this.avaliacao[i]) && // Verifica se o objeto é valido e Verificar se existe a medida, caso exista retorna a avaliação.
+                Validador.verificaStringValida(medida) && // Verifica se a string é válida
                 this.avaliacao[i].getMedida().getNome().equalsIgnoreCase(medida)){ 
                 return avaliacao[i];// Retorna a avaliação.
             }
@@ -108,7 +111,7 @@ public class Resultado {
     //Método para comparar todos os objetos desta classe Resultado  
     public boolean equals(Resultado resultado){
         if(!Validador.verificaObjetoValido(resultado)){
-            TratamentoErro.erro("O objeto informado não pode ser nulo.");
+            return false;
         }
         if(resultado.getAlgoritmo().equals(this.algoritmo) && resultado.getDataset().equals(this.dataset)){//compara os algoritmos e os datasets
             int avaliacoesIguais = 0;//auxiliar para comparar ValorAvaliacao[]

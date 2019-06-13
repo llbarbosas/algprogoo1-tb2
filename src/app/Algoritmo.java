@@ -65,7 +65,7 @@ public class Algoritmo {
     // Método responsável por verificar se dois objetos da classe Algoritmo são iguais ou não
     public boolean equals(Algoritmo algoritmo){
         if(!Validador.verificaObjetoValido(algoritmo)){
-            TratamentoErro.erro("O objeto informado não pode ser nulo.");
+            return false;
         }
         if(algoritmo.getNome().equals(this.nome)){
             int parametrosIguais=0;

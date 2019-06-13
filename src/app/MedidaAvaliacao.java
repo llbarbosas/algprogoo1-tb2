@@ -75,7 +75,7 @@ public class MedidaAvaliacao {
     // Método responsável por verificar se dois objetos da classe MedidaAvaliacao são iguais ou não
     public boolean equals(MedidaAvaliacao medida){
         if(!Validador.verificaObjetoValido(medida)){
-            TratamentoErro.erro("O objeto informado não pode ser nulo.");
+            return false;
         }
         if (medida.getNome().equals(this.nome) && medida.getMenorValor() == this.menorValor && medida.getMaiorValor() == this.maiorValor){
             return true;
