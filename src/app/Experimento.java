@@ -92,7 +92,7 @@ public class Experimento {
         }
     }
 
-    public float getMediaResultadosPorDataset(String dataset, String medida){//vou fazer esse hoje, by Jorge
+    public float getMediaResultadosPorDataset(String dataset, String medida){
         float mediaResultados = 0;
         int numeroDeResultados = 0;
         for(Resultado resultado: getResultadosValidos()){
