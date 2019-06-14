@@ -35,7 +35,7 @@ public class Dataset {
     private void verificaNumeroValido(int numero) {
         // Se o número for negativo, o programa irá tratar o erro por meio da invocação de outro
         // método
-        if(!Validador.verificaValorInteiroPositivo(numero)) {
+        if(!Validador.verificaValorInteiroValido(numero)) {
             TratamentoErro.erro("O número informado deve ser maior/igual à zero.");
         }
     }
