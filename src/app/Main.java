@@ -30,6 +30,11 @@ public class Main {
          */
 
         testeAddResultados();
+
+        /*
+         * Teste da função GetAlgoritmoMelhorResultado
+         */
+        testeGetAlgoritmoMelhorResultado();
     }
 
     private static void testeGetMelhorPiorResultado(){
@@ -418,6 +423,65 @@ public class Main {
             retorno3
         );
     }
+
+    public static void testeGetAlgoritmoMelhorResultado(){
+        final String MEDIDA = "Medida teste";
+        final float melhorValor = 8, piorValor = 2;
+        final Algoritmo melhorAlgoritmo = new Algoritmo("Algoritmo 1", new float[]{1, 2, 3});
+
+        Experimento experimento = new Experimento(14, 6, 2019);
+
+        Resultado melhorResultado = new Resultado(
+            melhorAlgoritmo,
+            new Dataset(3, 2, 1, "Dataset 1")
+        );
+        Resultado piorResultado = new Resultado(
+            melhorAlgoritmo,
+            new Dataset(3, 2, 1, "Dataset 2")
+        );
+
+        ValorAvaliacao melhorAvaliacao = new ValorAvaliacao(
+            new MedidaAvaliacao(MEDIDA, 0f, 10f)
+        );
+        ValorAvaliacao piorAvaliacao = new ValorAvaliacao(
+            new MedidaAvaliacao(MEDIDA, 0f, 10f)
+        );
+
+        melhorAvaliacao.setValor(melhorValor);
+        piorAvaliacao.setValor(piorValor);
+
+        melhorResultado.addAvaliacao(melhorAvaliacao);
+        piorResultado.addAvaliacao(piorAvaliacao);
+
+        Algoritmo retornoEsperado1 = null;
+        Algoritmo retornoObtido1 = experimento.getAlgoritmoMelhorResultado(MEDIDA);
+        boolean saoIguais1 = (retornoObtido1 == retornoEsperado1);
+
+        // Primeiro caso de teste
+        casoTeste(
+            "Executando getAlgoritmoMelhorResultado num experimento sem resultados",
+            saoIguais1,
+            retornoEsperado1,
+            retornoObtido1
+        );
+        
+        // Adiconando os resultados
+        experimento.addResultado(melhorResultado);
+        experimento.addResultado(piorResultado);
+
+        Algoritmo retornoEsperado2 = melhorAlgoritmo ;
+        Algoritmo retornoObtido2 = experimento.getAlgoritmoMelhorResultado(MEDIDA);
+        boolean saoIguais2 = (retornoObtido2.equals(retornoEsperado2));
+
+        // Segundo caso de teste
+        casoTeste(
+            "Executando getAlgoritmoMelhorResultado num experimento com avaliações",
+            saoIguais2,
+            retornoEsperado2,
+            retornoObtido2
+        );
+    }
+
 
     /*
      * Funções auxiliares para organizar os testes
