@@ -49,10 +49,8 @@ public class Algoritmo {
 
     // Método responsável por inicializar a quantidade de parâmetros
     private void inicializaParametros(float[] parametros) {
-        this.parametros=new float[]{Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE};
-        for(int i = 0; i < 2; i++){
-            this.parametros[i] = parametros[i]; 
-        }
+        for(int i=0; i<3; i++)
+            this.parametros[i] = (parametros.length>i ? parametros[i] : Float.MAX_VALUE);
     }
     // Método responsável por retornar o nome do objeto algoritmo
     public String getNome(){
