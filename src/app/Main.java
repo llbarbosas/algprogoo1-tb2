@@ -4,7 +4,7 @@ import static util.Cores.*;
 public class Main {
     public static void main(String[] args) {
         /*
-         * Teste das funcões relacionadas as médias
+         * Teste das funcões relacionadas as médias e getValoresResultados
          */
 
         // Colocando teste num metodo pra não ter varios
@@ -24,16 +24,17 @@ public class Main {
         // ...
 
         /*
-         * Teste da função getValoresResultados e addResultados
+         * Teste da função addResultados
          */
 
-        // ...
+        testeAddResultados();
     }
 
     private static void testeMedias(){
-        Experimento experimento = new Experimento(14, 6, 2019);
         final String MEDIDA = "Medida teste";
         final float VALOR1 = 8, VALOR2 = 2;
+
+        Experimento experimento = new Experimento(14, 6, 2019);
 
         Resultado resultado1 = new Resultado(
             new Algoritmo("Algoritmo 1", new float[]{1, 2, 3}),
@@ -84,11 +85,52 @@ public class Main {
             retornoObtido2
         );
 
+        String retornoEsperado3 = "" + VALOR1 + " " + VALOR2 + " ";
+        for(int i=0; i<8; i++)
+            retornoEsperado3 += Float.MAX_VALUE + " ";
+
+        String retornoObtido3 = "";
+        for(float valor: experimento.getValoresResultados(MEDIDA))
+            retornoObtido3 += valor + " ";
+
+        boolean saoIguais3 = retornoEsperado3.equals(retornoObtido3);
+
         casoTeste(
-            "Exemplo: apenas exibindo dois retornos que não sabemos como comparar",
-            retornoEsperado2,
-            retornoObtido2
+            "Executando getValoresResultados num experimento com avaliações",
+            saoIguais3,
+            retornoEsperado3,
+            retornoObtido3
         );
+    }
+
+    private static void testeAddResultados(){
+        Experimento experimento = new Experimento(14, 6, 2019);
+        Resultado resultado = new Resultado(
+            new Algoritmo("Algoritmo 1", new float[]{1, 2, 3}),
+            new Dataset(1, 2, 3, "Dataset 1")
+        );
+
+        boolean retorno1 = experimento.addResultado(resultado);
+
+        casoTeste(
+            "Adicionando um resultado a um experimento vazio",
+            (retorno1 == true),
+            true,
+            retorno1
+        );
+
+        for(int i=0; i<9; i++)
+            experimento.addResultado(resultado);
+
+        boolean retorno2 = experimento.addResultado(resultado);
+            
+        casoTeste(
+            "Adicionando um resultado a um experimento com 10 resultados",
+            (retorno2 == false),
+            false,
+            retorno2
+        );
+        
     }
 
     /*
@@ -97,6 +139,17 @@ public class Main {
     
     private static final String OK = VERDE.on("✓"), ERRO = VERMELHO.on("x"), INDEFINIDO = AMARELO.on("?");
 
+    /*
+     * Para casos que sabemos como comparar os retornos
+     * 
+     * USO:
+     *      casoTeste(
+     *          String nomeDoTeste,
+     *          boolean condicaoIgualdade,
+     *          QualquerTipo retornoEsperado,
+     *          QualquerTipo retornoObtido
+     *      );
+     */
     private static void casoTeste(String nome, boolean condicaoIgualdade, Object retornoEsperado, Object retornoObtido){
         System.out.println(
             "[" + (condicaoIgualdade ? OK : ERRO) +"] "
@@ -105,6 +158,16 @@ public class Main {
         );
     }
 
+    /*
+     * Para casos que não sabemos como comparar os retornos
+     * 
+     * USO:
+     *      casoTeste(
+     *          String nomeDoTeste,
+     *          QualquerTipo retornoEsperado,
+     *          QualquerTipo retornoObtido
+     *      );
+     */
     private static void casoTeste(String nome, Object retornoEsperado, Object retornoObtido){
         System.out.println(
             "[" + INDEFINIDO +"] "
