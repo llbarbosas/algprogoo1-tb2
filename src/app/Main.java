@@ -15,7 +15,7 @@ public class Main {
          * Teste das funcões relacionadas aos melhores resultados
          */
 
-        testeGetMelhorResultado();
+        testeGetMelhorPiorResultado();
         testeGetMelhorPiorResultadoPorAlgoritmo();
         testeGetMelhorPiorResultadoPorDataset();
 
@@ -32,42 +32,42 @@ public class Main {
         testeAddResultados();
     }
 
-    private static void testeGetMelhorResultado(){
+    private static void testeGetMelhorPiorResultado(){
         final String MEDIDA = "Medida teste";
-        final float VALOR1 = 8, VALOR2 = 2, VALOR3 = 9;
+        final float VALOR = 8, PIOR_VALOR = 2, MELHOR_VALOR = 9;
 
         Experimento experimento = new Experimento(14, 6, 2019);
 
-        Resultado resultado1 = new Resultado(
+        Resultado resultado = new Resultado(
             new Algoritmo("Algoritmo 1", new float[]{1, 2, 3}),
             new Dataset(3, 2, 1, "Dataset 1")
         );
-        Resultado resultado2 = new Resultado(
+        Resultado piorResultado = new Resultado(
             new Algoritmo("Algoritmo 2", new float[]{1, 2, 3}),
             new Dataset(3, 2, 1, "Dataset 2")
         );
-        Resultado resultado3 = new Resultado(
+        Resultado melhorResultado = new Resultado(
             new Algoritmo("Algoritmo 3", new float[]{1, 2, 3}),
             new Dataset(3, 2, 1, "Dataset 3")
         );
 
-        ValorAvaliacao valorAvaliacao1 = new ValorAvaliacao(
+        ValorAvaliacao avaliacao = new ValorAvaliacao(
             new MedidaAvaliacao(MEDIDA, 0f, 10f)
         );
-        ValorAvaliacao valorAvaliacao2 = new ValorAvaliacao(
+        ValorAvaliacao piorAvaliacao = new ValorAvaliacao(
             new MedidaAvaliacao(MEDIDA, 0f, 10f)
         );
-        ValorAvaliacao valorAvaliacao3 = new ValorAvaliacao(
+        ValorAvaliacao melhorAvaliacao = new ValorAvaliacao(
             new MedidaAvaliacao(MEDIDA, 0f, 10f)
         );
 
-        valorAvaliacao1.setValor(VALOR1);
-        valorAvaliacao2.setValor(VALOR2);
-        valorAvaliacao3.setValor(VALOR3);
+        avaliacao.setValor(VALOR);
+        piorAvaliacao.setValor(PIOR_VALOR);
+        melhorAvaliacao.setValor(MELHOR_VALOR);
 
-        resultado1.addAvaliacao(valorAvaliacao1);
-        resultado2.addAvaliacao(valorAvaliacao2);
-        resultado3.addAvaliacao(valorAvaliacao3);
+        resultado.addAvaliacao(avaliacao);
+        piorResultado.addAvaliacao(piorAvaliacao);
+        melhorResultado.addAvaliacao(melhorAvaliacao);
 
         Resultado retornoEsperado1 = null;
         Resultado retornoObtido1 = experimento.getMelhorResultado(MEDIDA);
@@ -82,11 +82,11 @@ public class Main {
         );
         
         // Adiconando os resultados com valores setados
-        experimento.addResultado(resultado1);
-        experimento.addResultado(resultado2);
-        experimento.addResultado(resultado3);
+        experimento.addResultado(resultado);
+        experimento.addResultado(piorResultado);
+        experimento.addResultado(melhorResultado);
 
-        Resultado retornoEsperado2 = resultado3;
+        Resultado retornoEsperado2 = melhorResultado;
         Resultado retornoObtido2 = experimento.getMelhorResultado(MEDIDA);
         boolean saoIguais2 = (retornoObtido2.equals(retornoEsperado2));
 
@@ -96,6 +96,13 @@ public class Main {
             saoIguais2,
             retornoEsperado2,
             retornoObtido2
+        );
+
+            casoTeste(
+            "Executando getPiorResultado num experimento com avaliações",
+            experimento.getPiorResultado(MEDIDA).equals(piorResultado),
+            true,
+            experimento.getPiorResultado(MEDIDA)
         );
     }
 
