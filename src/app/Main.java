@@ -49,18 +49,6 @@ public class Main{
             false,
             experimento.addResultado(resultado)
         ));
-
-        /*
-         * Testando getValoresResultados
-         * Caso 1.:   A um experimento com menos de 10 resultados
-         * Caso 2.:   A um experimento com mais de 10 resultados
-        */
-
-        teste.adicionaCaso(new Caso(
-            "Recebendo os valores de um resultado pela sua medida",
-            new float[]{8f, 8f, 8f, 8f, 8f, 8f, 8f, 8f, 8f, 8f},
-            experimento.getValoresResultados("Medida")
-        ));
         
         // Após adicionar todos os casos de teste,
         // exibe o resultado obtido do teste
