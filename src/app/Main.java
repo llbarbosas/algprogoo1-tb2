@@ -16,6 +16,7 @@ public class Main {
          */
 
         // ...
+        
 
         /*
          * Teste da função getNomeAlgoritmos
@@ -73,7 +74,7 @@ public class Main {
             resultadoObtido2
         );
 
-        
+
 
     }
 

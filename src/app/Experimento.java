@@ -350,19 +350,14 @@ public class Experimento {
         for(int i=0; i<nomesAlgoritmos.length; i++){
             if(this.resultados[i] != null){
                 nomesAlgoritmos[i] = this.resultados[i].getNomeDoAlgoritmo();
-
-                /*for(int j=0; j<nomesAlgoritmos.length; j++)
-                    if(nomesAlgoritmos[j] == null && 
-                    nomesAlgoritmos[i].equals(nomesAlgoritmos[j]))
-                        nomesAlgoritmos[i] = null;*/
             }
         }
-        
+
         for (int i = 0; i < nomesAlgoritmos.length; i++) {
             if(nomesAlgoritmos[i] != null){
                 for (int j = 0; j < nomesAlgoritmos.length; j++) {
                     if(nomesAlgoritmos[j] != null){
-                        if (nomesAlgoritmos[j].equals(nomesAlgoritmos[i])) {
+                        if (i != j && nomesAlgoritmos[j].equals(nomesAlgoritmos[i])) {
                             nomesAlgoritmos[j] = null; // há um valor repetido
                         }
                     }
