@@ -11,6 +11,13 @@ public class Main{
             new Algoritmo("Algoritmo", new float[]{1,3,4}),
             new Dataset(1, 2, 3, "Dataset")
         );
+
+        ValorAvaliacao avaliacao = new ValorAvaliacao(
+            new MedidaAvaliacao("Medida", 0f, 10f)
+        );
+        avaliacao.setValor(8);
+
+        resultado.addAvaliacao(avaliacao);
         Teste teste = new Teste();
 
         /*
@@ -41,6 +48,18 @@ public class Main{
             "Adicionar um resultado a um experimento com mais de 10 resultados",
             false,
             experimento.addResultado(resultado)
+        ));
+
+        /*
+         * Testando getValoresResultados
+         * Caso 1.:   A um experimento com menos de 10 resultados
+         * Caso 2.:   A um experimento com mais de 10 resultados
+        */
+
+        teste.adicionaCaso(new Caso(
+            "Recebendo os valores de um resultado pela sua medida",
+            new float[]{8f, 8f, 8f, 8f, 8f, 8f, 8f, 8f, 8f, 8f},
+            experimento.getValoresResultados("Medida")
         ));
         
         // Após adicionar todos os casos de teste,
