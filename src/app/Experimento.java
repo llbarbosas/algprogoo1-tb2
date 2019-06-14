@@ -47,31 +47,15 @@ public class Experimento {
     }
 
     public float[] getValoresResultados(String medida){
-        // Percorrer this.resultados procurando pelo ValorAvaliacao com 
-        // medida igual a medida do parametro.
-        float[] valores;
-        int numeroDeValores = 0;
+        float[] valores = new float[10];
 
-        // Percorre os resultados procurando por avaliacoes com a medida passada
-        for(Resultado resultado: getResultadosValidos())
-            if(resultado != null && resultado.getAvaliacaoPorMedida(medida) != null)
-                numeroDeValores++;
-
-        // Se nenhuma avaliacao foi encontrada, retorna um float[] vazio
-        if(numeroDeValores == 0)
-            return new float[]{};
-        else
-            // Senão, inicializa o vetor de valores que será retornado com o
-            // numero de valores encontrados
-            valores = new float[numeroDeValores];
- 
-        // Percorre os resultados novamente, incluindo os valores no vetor que será retornado
-        for(Resultado resultado: getResultadosValidos())
-            if(resultado.getAvaliacaoPorMedida(medida) != null){
-                valores[valores.length - numeroDeValores] = 
-                    resultado.getAvaliacaoPorMedida(medida).getValor();
-                numeroDeValores--;
-            }
+        for(int i=0; i<resultados.length; i++)
+            if(resultados[i] != null 
+            && resultados[i].getAvaliacaoPorMedida(medida) != null)
+                valores[i] = resultados[i].getAvaliacaoPorMedida(medida).getValor();
+            else 
+                valores[i] = Float.MAX_VALUE;
+    
 
         return valores;
     }
@@ -79,15 +63,22 @@ public class Experimento {
     public float getMediaResultados(String medida){
         float mediaResultados = 0;
         int numeroDeResultados = 0;
+
         for(Resultado resultado: getResultadosValidos()){
-            if(resultado.getAvaliacaoPorMedida(medida) != null){
-                mediaResultados += resultado.getAvaliacaoPorMedida(medida).getValor();
+
+            if(resultado.getAvaliacaoPorMedida(medida) != null 
+                && resultado.getAvaliacaoPorMedida(medida).getValor() != Float.MAX_VALUE){
+                float valor = resultado.getAvaliacaoPorMedida(medida).getValor();
+
+                mediaResultados += valor;
+                numeroDeResultados++;
             }
         }
+
         if(numeroDeResultados!=0){
             mediaResultados /= numeroDeResultados;
             return mediaResultados;
-        }else{
+        } else{
             return Float.MAX_VALUE;
         }
     }
@@ -95,25 +86,35 @@ public class Experimento {
     public float getMediaResultadosPorAlgoritmo(String algoritmo, String medida){
         float mediaResultados = 0;
         int numeroDeResultados = 0;
+
         for(Resultado resultado: getResultadosValidos()){
-            if(resultado.getAvaliacaoPorMedida(medida) != null && resultado.getAlgoritmo().equals(algoritmo)){
-                mediaResultados += resultado.getAvaliacaoPorMedida(medida).getValor();
+            if(resultado.getAvaliacaoPorMedida(medida) != null 
+            && resultado.getAlgoritmo().getNome().equals(algoritmo)){
+                float valor = resultado.getAvaliacaoPorMedida(medida).getValor();
+
+                mediaResultados += valor;
+                numeroDeResultados++;
             }
         }
+
         if(numeroDeResultados!=0){
             mediaResultados /= numeroDeResultados;
             return mediaResultados;
-        }else{
+        } else{
             return Float.MAX_VALUE;
         }
     }
 
-    public float getMediaResultadosPorDataset(String dataset, String medida){//vou fazer esse hoje, by Jorge
+    public float getMediaResultadosPorDataset(String dataset, String medida){
         float mediaResultados = 0;
         int numeroDeResultados = 0;
         for(Resultado resultado: getResultadosValidos()){
-            if(resultado.getAvaliacaoPorMedida(medida) != null && resultado.getDataset().equals(dataset)){
-                mediaResultados += resultado.getAvaliacaoPorMedida(medida).getValor();
+            if(resultado.getAvaliacaoPorMedida(medida) != null 
+            && resultado.getDataset().getNome().equals(dataset)){
+                float valor = resultado.getAvaliacaoPorMedida(medida).getValor();
+
+                mediaResultados += valor;
+                numeroDeResultados++;
             }
         }
         if(numeroDeResultados!=0){

@@ -32,6 +32,9 @@ public class Main {
 
     private static void testeMedias(){
         Experimento experimento = new Experimento(14, 6, 2019);
+        final String MEDIDA = "Medida teste";
+        final float VALOR1 = 8, VALOR2 = 2;
+
         Resultado resultado1 = new Resultado(
             new Algoritmo("Algoritmo 1", new float[]{1, 2, 3}),
             new Dataset(3, 2, 1, "Dataset 1")
@@ -42,66 +45,67 @@ public class Main {
         );
 
         ValorAvaliacao valorAvaliacao1 = new ValorAvaliacao(
-            new MedidaAvaliacao("Medida top", 0f, 10f)
+            new MedidaAvaliacao(MEDIDA, 0f, 10f)
         );
 
         ValorAvaliacao valorAvaliacao2 = new ValorAvaliacao(
-            new MedidaAvaliacao("Medida top", 0f, 10f)
+            new MedidaAvaliacao(MEDIDA, 0f, 10f)
         );
 
-        valorAvaliacao1.setValor(8);
-        valorAvaliacao2.setValor(2);
+        valorAvaliacao1.setValor(VALOR1);
+        valorAvaliacao2.setValor(VALOR2);
         
         resultado1.addAvaliacao(valorAvaliacao1);
         resultado2.addAvaliacao(valorAvaliacao2);
 
+        float retornoEsperado1 = Float.MAX_VALUE;
+        float retornoObtido1 = experimento.getMediaResultados(MEDIDA);
+        boolean saoIguais1 = (retornoEsperado1 == retornoObtido1);
+
+        casoTeste(
+            "Executando getMediaResultados num experimento sem avaliações",
+            saoIguais1,
+            retornoEsperado1,
+            retornoObtido1
+        );
+
+        // Adiconando os resultados com valores setados
         experimento.addResultado(resultado1);
         experimento.addResultado(resultado2);
 
+        float retornoEsperado2 = (VALOR1+VALOR2)/2;
+        float retornoObtido2 = experimento.getMediaResultados(MEDIDA);
+        boolean saoIguais2 = (retornoEsperado2 == retornoObtido2);
+
         casoTeste(
-            "Testando getMediaResultados",
-            (float) (8+2)/2,
-            experimento.getMediaResultados("Medida top")
+            "Executando getMediaResultados num experimento com avaliações",
+            saoIguais2,
+            retornoEsperado2,
+            retornoObtido2
         );
 
         casoTeste(
-            "Testando asdaasfa",
-            new float[]{1, 2, 3},
-            new float[]{1, 2, 3}
+            "Exemplo: apenas exibindo dois retornos que não sabemos como comparar",
+            retornoEsperado2,
+            retornoObtido2
+        );
+    }
+
+    private static final String OK = VERDE.on("✓"), ERRO = VERMELHO.on("x"), INDEFINIDO = AMARELO.on("?");
+
+    private static void casoTeste(String nome, boolean condicaoIgualdade, Object retornoEsperado, Object retornoObtido){
+        System.out.println(
+            "[" + (condicaoIgualdade ? OK : ERRO) +"] "
+            + "\"" + nome + "\"\n\t"
+            + retornoEsperado + " == " + retornoObtido
         );
     }
 
     private static void casoTeste(String nome, Object retornoEsperado, Object retornoObtido){
-        // Um resultado pode ser: 
-        //      OK: os dois retornos são iguais
-        //      ERRO: os dois valores são diferentes
-        //      INDEFINIDO: não dá pra comparar os valores   
-        Retorno resultado;
-
-        // Se os retornos são arrays, não temos como comparar
-        // usando o toString()
-        if(retornoEsperado.getClass().isArray() || retornoObtido.getClass().isArray())
-            resultado = Retorno.INDEFINIDO;
-
-        // Senão, comparamos com toString()
-        else if (retornoObtido.toString().equals(retornoEsperado.toString()))
-            resultado = Retorno.OK;
-
-        // Se nem com toString() forem iguais, determinamos
-        // que são diferentes
-        else
-            resultado = Retorno.ERRO;
-
-        String resultadoString = (resultado == Retorno.OK ? VERDE.on("✓") : (resultado == Retorno.ERRO ? VERMELHO.on("x") : AMARELO.on("?")));
-
         System.out.println(
-            "[" + resultadoString +"] "
+            "[" + INDEFINIDO +"] "
             + "\"" + nome + "\"\n\t"
-            + retornoObtido + ITALICO.on(" (esperado: " + retornoEsperado + ")")
+            + retornoEsperado + " == " + retornoObtido
         );
     }
-
-    enum Retorno {
-        OK, ERRO, INDEFINIDO
-    };
 }
