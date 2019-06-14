@@ -220,8 +220,8 @@ public class Main {
     private static void testeAddResultados(){
         Experimento experimento = new Experimento(14, 6, 2019);
         Resultado resultado = new Resultado(
-            new Algoritmo("Algoritmo 1", new float[]{1, 2, 3}),
-            new Dataset(1, 2, 3, "Dataset 1")
+            new Algoritmo("Algoritmo inicial", new float[]{1, 2, 3}),
+            new Dataset(1, 2, 3, "Dataset inicial")
         );
 
         boolean retorno1 = experimento.addResultado(resultado);
@@ -233,18 +233,36 @@ public class Main {
             retorno1
         );
 
-        for(int i=0; i<9; i++)
-            experimento.addResultado(resultado);
-
         boolean retorno2 = experimento.addResultado(resultado);
-            
+
         casoTeste(
-            "Adicionando um resultado a um experimento com 10 resultados",
+            "Adicionando um resultado já cadastrado num experimento",
             (retorno2 == false),
             false,
             retorno2
         );
-        
+
+        for(int i=0; i<9; i++)
+            experimento.addResultado(
+                new Resultado(
+                    new Algoritmo("Algoritmo " + i, new float[]{1, 2, 3}),
+                    new Dataset(1, 2, 3, "Dataset " + i)
+                )
+            );
+
+        Resultado resultado2 = new Resultado(
+            new Algoritmo("Algoritmo final", new float[]{1, 2, 3}),
+            new Dataset(1, 2, 3, "Dataset final")
+        );
+
+        boolean retorno3 = experimento.addResultado(resultado2);
+            
+        casoTeste(
+            "Adicionando um resultado a um experimento com 10 resultados",
+            (retorno3 == false),
+            false,
+            retorno3
+        );
     }
 
     /*
