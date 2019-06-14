@@ -19,6 +19,8 @@ public class Main {
         testeGetMelhorPiorResultadoPorAlgoritmo();
         testeGetMelhorPiorResultadoPorDataset();
 
+        testeGetDatasetMelhorResultado();
+
         /*
          * Teste da função getNomeAlgoritmos
          */
@@ -35,6 +37,86 @@ public class Main {
          * Teste da função GetAlgoritmoMelhorResultado
          */
         testeGetAlgoritmoMelhorResultado();
+    }
+
+    private static void testeGetDatasetMelhorResultado(){
+        final String MEDIDA = "Medida teste";
+        final float VALOR = 8, PIOR_VALOR = 2, MELHOR_VALOR = 9;
+        final Dataset MELHOR_DATASET = new Dataset(3, 2, 1, "Dataset melhor");
+        final Dataset DATASET = new Dataset(3, 2, 1, "Dataset");
+
+        Experimento experimento = new Experimento(14, 6, 2019);
+
+        Resultado resultado = new Resultado(
+            new Algoritmo("Algoritmo 1", new float[]{1, 2, 3}),
+            DATASET
+        );
+        Resultado piorResultado = new Resultado(
+            new Algoritmo("Algoritmo 2", new float[]{1, 2, 3}),
+            new Dataset(3, 2, 1, "Dataset 2")
+        );
+        Resultado melhorResultado = new Resultado(
+            new Algoritmo("Algoritmo 3", new float[]{1, 2, 3}),
+            MELHOR_DATASET
+        );
+
+        ValorAvaliacao avaliacao = new ValorAvaliacao(
+            new MedidaAvaliacao(MEDIDA, 0f, 10f)
+        );
+        ValorAvaliacao piorAvaliacao = new ValorAvaliacao(
+            new MedidaAvaliacao(MEDIDA, 0f, 10f)
+        );
+        ValorAvaliacao melhorAvaliacao = new ValorAvaliacao(
+            new MedidaAvaliacao(MEDIDA, 0f, 10f)
+        );
+
+        avaliacao.setValor(VALOR);
+        piorAvaliacao.setValor(PIOR_VALOR);
+        melhorAvaliacao.setValor(MELHOR_VALOR);
+
+        resultado.addAvaliacao(avaliacao);
+        piorResultado.addAvaliacao(piorAvaliacao);
+        melhorResultado.addAvaliacao(melhorAvaliacao);
+
+        Dataset retornoEsperado1 = null;
+        Dataset retornoObtido1 = experimento.getDatasetMelhorResultado(MEDIDA);
+        boolean saoIguais1 = (retornoObtido1 == retornoEsperado1);
+
+        // Primeiro caso de teste
+        casoTeste(
+            "Executando getDatasetMelhorResultado num experimento sem resultados",
+            saoIguais1,
+            retornoEsperado1,
+            retornoObtido1
+        );
+        
+        // Adiconando os resultados com valores setados
+        experimento.addResultado(resultado);
+        experimento.addResultado(piorResultado);
+        experimento.addResultado(melhorResultado);
+
+        Dataset retornoEsperado2 = MELHOR_DATASET;
+        Dataset retornoObtido2 = experimento.getDatasetMelhorResultado(MEDIDA);
+        boolean saoIguais2 = (retornoObtido2.equals(retornoEsperado2));
+
+        // Segundo caso de teste
+        casoTeste(
+            "Executando getDatasetMelhorResultado num experimento com avaliações",
+            saoIguais2,
+            retornoEsperado2,
+            retornoObtido2
+        );
+
+        Dataset retornoEsperado3 = DATASET;
+        Dataset retornoObtido3 = experimento.getDatasetMelhorResultadoAlgoritmo("Algoritmo 1", MEDIDA);
+        boolean saoIguais3 = (retornoObtido3.equals(retornoEsperado3));
+
+        casoTeste(
+            "Executando getDatasetMelhorResultadoAlgoritmo num experimento com avaliações",
+            saoIguais3,
+            retornoEsperado3,
+            retornoEsperado3
+        );
     }
 
     private static void testeGetMelhorPiorResultado(){
@@ -103,7 +185,7 @@ public class Main {
             retornoObtido2
         );
 
-            casoTeste(
+        casoTeste(
             "Executando getPiorResultado num experimento com avaliações",
             experimento.getPiorResultado(MEDIDA).equals(piorResultado),
             true,
