@@ -91,6 +91,10 @@ public class Main {
         );
     }
 
+    /*
+     * Funções auxiliares para organizar os testes
+     */
+    
     private static final String OK = VERDE.on("✓"), ERRO = VERMELHO.on("x"), INDEFINIDO = AMARELO.on("?");
 
     private static void casoTeste(String nome, boolean condicaoIgualdade, Object retornoEsperado, Object retornoObtido){
