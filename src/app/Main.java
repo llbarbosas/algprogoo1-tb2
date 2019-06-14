@@ -9,6 +9,8 @@ public class Main {
         ValorAvaliacao valorAvaliacao = new ValorAvaliacao(medidaAvaliacao);
         Experimento experimento = new Experimento(13, 06, 2019);
 
+        valorAvaliacao.setValor(5);
+        resultado.addAvaliacao(valorAvaliacao);
         System.out.println("Adicionando resultado: " + experimento.addResultado(resultado));
         float[] valoresResultados = experimento.getValoresResultados("Medida de Avaliação 1");
         System.out.println(valoresResultados.length);
