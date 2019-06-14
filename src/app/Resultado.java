@@ -116,7 +116,8 @@ public class Resultado {
         if(resultado.getAlgoritmo().equals(this.algoritmo) && resultado.getDataset().equals(this.dataset)){//compara os algoritmos e os datasets
             int avaliacoesIguais = 0;//auxiliar para comparar ValorAvaliacao[]
             for(int i =0; i<3; i++){//percorre ValorAvaliacao[]
-                if(resultado.getAvaliacoes()[i].equals(this.avaliacao[i])){//compara todas as posicoes do ValorAvaliacao[]
+                if(Validador.verificaObjetoValido(resultado.getAvaliacoes()[i]) && 
+                    resultado.getAvaliacoes()[i].equals(this.avaliacao[i])){//compara todas as posicoes do ValorAvaliacao[]
                     avaliacoesIguais++;
                 }
             }
