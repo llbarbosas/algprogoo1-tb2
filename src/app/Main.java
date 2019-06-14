@@ -1,5 +1,53 @@
 package app;
 import util.TratamentoErro;
+import static util.Cores.*;
+
+public class Main{
+    public static void main(String[] args){
+        Experimento experimento = new Experimento(
+            31, 1, 2019
+        );
+        Resultado resultado = new Resultado(
+            new Algoritmo("Algoritmo", new float[]{1,3,4}),
+            new Dataset(1, 2, 3, "Dataset")
+        );
+        Teste teste = new Teste();
+
+        /*
+         * Testando a funcionalidade de adicionar resultados
+         * Caso 1.:   A um experimento com menos de 10 resultados
+         * Caso 2.:   A um experimento com mais de 10 resultados
+        */
+
+        // Adicionando o caso 1 ao teste 
+        teste.adicionaCaso(
+            // Instanciando um caso de teste já como parametro
+            new Caso(
+                // Nome do caso de teste
+                "Adicionar um resultado a um experimento com menos de 10 resultados",
+                // Resultado esperado
+                true,
+                // Resultado obtido
+                experimento.addResultado(resultado)
+            )
+        );
+
+        // Adicionando mais 9 resultados
+        for(int i=0; i<9; i++)
+            experimento.addResultado(resultado);
+
+        // Adicionando o caso 2 ao teste 
+        teste.adicionaCaso(new Caso(
+            "Adicionar um resultado a um experimento com mais de 10 resultados",
+            false,
+            experimento.addResultado(resultado)
+        ));
+        
+        // Após adicionar todos os casos de teste,
+        // exibe o resultado obtido do teste
+        teste.imprimeResultadoDetalhado();
+    }
+}
 
 /*
  * Um teste é composto por vários casos de teste.
@@ -33,9 +81,9 @@ class Caso{
 
     public void imprimeResultadoDetalhado(){
         System.out.println(
-            "\"" + nome + "\"" + "\n"
-            + "Resultado: " + (resultado ? "ok" : "erro") + "\n"
-            + retornoEsperado + (resultado ? " = " : " != ") + retornoObtido
+            "[" + (resultado ? VERDE.on("✓") : VERMELHO.on("x")) + "]"
+            + " \"" + nome + "\"" + "\n\t"
+            + retornoObtido + ITALICO.on(" (esperado: " + retornoEsperado + ")") 
         );
     }
 }
@@ -56,47 +104,9 @@ class Teste{
     }
 
     public void imprimeResultadoDetalhado(){
-        for(Caso caso: casos)
+        for(Caso caso: casos){
             caso.imprimeResultadoDetalhado();
-    }
-}
-
-public class Main{
-    public static void main(String[] args){
-        Experimento experimento = new Experimento(
-            31, 1, 2019
-        );
-        Resultado resultado = new Resultado(
-            new Algoritmo("Algoritmo", new float[]{1,3,4}),
-            new Dataset(1, 2, 3, "Dataset")
-        );
-        Teste teste = new Teste();
-
-        /*
-         * Adicionar resultados
-         * 1.   A um experimento com menos de 10 resultados
-         * 2.   A um experimento com mais de 10 resultados
-        */
-
-        teste.adicionaCaso(new Caso(
-            // Nome do caso de teste
-            "Adicionar um resultado a um experimento com menos de 10 resultados",
-            // Resultado esperado
-            true,
-            // Resultado obtido
-            experimento.addResultado(resultado)
-        ));
-
-        // Adicionando mais 9 resultados
-        for(int i=0; i<9; i++)
-            experimento.addResultado(resultado);
-
-        teste.adicionaCaso(new Caso(
-            "Adicionar um resultado a um experimento com mais de 10 resultados",
-            false,
-            experimento.addResultado(resultado)
-        ));
-        
-        teste.imprimeResultadoDetalhado();
+            System.out.println();
+        }
     }
 }
