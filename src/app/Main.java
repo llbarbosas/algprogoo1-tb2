@@ -21,13 +21,44 @@ public class Main {
          * Teste da função getNomeAlgoritmos
          */
 
-        // ...
+        testeGetNomeAlgoritmos();
 
         /*
          * Teste da função addResultados
          */
 
         testeAddResultados();
+    }
+
+    private static void testeGetNomeAlgoritmos(){
+        Experimento experimento = new Experimento(14, 6, 2019);
+
+        Resultado resultado1 = new Resultado(
+            new Algoritmo("Algoritmo 1", new float[]{1, 2, 3}),
+            new Dataset(3, 2, 1, "Dataset 1")
+        );
+        Resultado resultado2 = new Resultado(
+            new Algoritmo("Algoritmo 2", new float[]{1, 2, 3}),
+            new Dataset(3, 2, 1, "Dataset 2")
+        );
+
+        experimento.addResultado(resultado1);
+        experimento.addResultado(resultado2);
+
+        String resultadoEsperado = "Algoritmo 1Algoritmo 2";
+        String resultadoObtido = "";
+
+        for(String nome: experimento.getNomesAlgoritmosUtilizados())
+            resultadoObtido += nome;
+
+        casoTeste(
+            "Testando getNomesAlgoritmos",
+            resultadoEsperado.equals(resultadoObtido),
+            resultadoEsperado,
+            resultadoObtido
+        );
+        
+
     }
 
     private static void testeMedias(){
