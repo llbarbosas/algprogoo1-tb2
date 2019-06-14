@@ -1,119 +1,107 @@
 package app;
-import util.TratamentoErro;
 import static util.Cores.*;
 
-public class Main{
-    public static void main(String[] args){
-        Experimento experimento = new Experimento(
-            31, 1, 2019
-        );
-        Resultado resultado = new Resultado(
-            new Algoritmo("Algoritmo", new float[]{1,3,4}),
-            new Dataset(1, 2, 3, "Dataset")
-        );
+public class Main {
+    public static void main(String[] args) {
+        /*
+         * Teste das funcões relacionadas as médias
+         */
 
-        ValorAvaliacao avaliacao = new ValorAvaliacao(
-            new MedidaAvaliacao("Medida", 0f, 10f)
-        );
-        avaliacao.setValor(8);
+        // Colocando teste num metodo pra não ter varios
+        // valores/resultados/experimentos no mesmo escopo
+        testeMedias();
+        
+        /*
+         * Teste das funcões relacionadas aos melhores resultados
+         */
 
-        resultado.addAvaliacao(avaliacao);
-        Teste teste = new Teste();
+        // ...
 
         /*
-         * Testando a funcionalidade de adicionar resultados
-         * Caso 1.:   A um experimento com menos de 10 resultados
-         * Caso 2.:   A um experimento com mais de 10 resultados
-        */
+         * Teste da função getNomeAlgoritmos
+         */
 
-        // Adicionando o caso 1 ao teste 
-        teste.adicionaCaso(
-            // Instanciando um caso de teste já como parametro
-            new Caso(
-                // Nome do caso de teste
-                "Adicionar um resultado a um experimento com menos de 10 resultados",
-                // Resultado esperado
-                true,
-                // Resultado obtido
-                experimento.addResultado(resultado)
-            )
+        // ...
+
+        /*
+         * Teste da função getValoresResultados e addResultados
+         */
+
+        // ...
+    }
+
+    private static void testeMedias(){
+        Experimento experimento = new Experimento(14, 6, 2019);
+        Resultado resultado1 = new Resultado(
+            new Algoritmo("Algoritmo 1", new float[]{1, 2, 3}),
+            new Dataset(3, 2, 1, "Dataset 1")
+        );
+        Resultado resultado2 = new Resultado(
+            new Algoritmo("Algoritmo 2", new float[]{1, 2, 3}),
+            new Dataset(3, 2, 1, "Dataset 2")
         );
 
-        // Adicionando mais 9 resultados
-        for(int i=0; i<9; i++)
-            experimento.addResultado(resultado);
+        ValorAvaliacao valorAvaliacao1 = new ValorAvaliacao(
+            new MedidaAvaliacao("Medida top", 0f, 10f)
+        );
 
-        // Adicionando o caso 2 ao teste 
-        teste.adicionaCaso(new Caso(
-            "Adicionar um resultado a um experimento com mais de 10 resultados",
-            false,
-            experimento.addResultado(resultado)
-        ));
+        ValorAvaliacao valorAvaliacao2 = new ValorAvaliacao(
+            new MedidaAvaliacao("Medida top", 0f, 10f)
+        );
+
+        valorAvaliacao1.setValor(8);
+        valorAvaliacao2.setValor(2);
         
-        // Após adicionar todos os casos de teste,
-        // exibe o resultado obtido do teste
-        teste.imprimeResultadoDetalhado();
-    }
-}
+        resultado1.addAvaliacao(valorAvaliacao1);
+        resultado2.addAvaliacao(valorAvaliacao2);
 
-/*
- * Um teste é composto por vários casos de teste.
- * Cada caso de teste é composto por um retorno
- * esperado e o retorno obtido.
- * Se o retorno esperado for igual ao retorno
- * obtido, o caso de teste foi bem sucedido
- */
-class Caso{
-    private String nome;
-    private Object retornoEsperado, retornoObtido;
-    private boolean resultado;
+        experimento.addResultado(resultado1);
+        experimento.addResultado(resultado2);
 
-    public Caso(String nome, Object retornoEsperado, Object retornoObtido){
-        if(retornoEsperado != null && retornoObtido != null && nome != null){
-            this.nome = nome;
-            this.retornoEsperado = retornoEsperado;
-            this.retornoObtido = retornoObtido;
-            this.resultado = retornoEsperado.equals(retornoObtido);
-        } else
-            TratamentoErro.erro("Testes mal declarados");
-    }
+        casoTeste(
+            "Testando getMediaResultados",
+            (float) (8+2)/2,
+            experimento.getMediaResultados("Medida top")
+        );
 
-    public boolean getResultado(){
-        return resultado;
-    }
-
-    public String getNome(){
-        return nome;
-    }
-
-    public void imprimeResultadoDetalhado(){
-        System.out.println(
-            "[" + (resultado ? VERDE.on("✓") : VERMELHO.on("x")) + "]"
-            + " \"" + nome + "\"" + "\n\t"
-            + retornoObtido + ITALICO.on(" (esperado: " + retornoEsperado + ")") 
+        casoTeste(
+            "Testando asdaasfa",
+            new float[]{1, 2, 3},
+            new float[]{1, 2, 3}
         );
     }
-}
 
-class Teste{
-    private Caso[] casos;
+    private static void casoTeste(String nome, Object retornoEsperado, Object retornoObtido){
+        // Um resultado pode ser: 
+        //      OK: os dois retornos são iguais
+        //      ERRO: os dois valores são diferentes
+        //      INDEFINIDO: não dá pra comparar os valores   
+        Retorno resultado;
 
-    public Teste(){
-        casos = new Caso[0];
+        // Se os retornos são arrays, não temos como comparar
+        // usando o toString()
+        if(retornoEsperado.getClass().isArray() || retornoObtido.getClass().isArray())
+            resultado = Retorno.INDEFINIDO;
+
+        // Senão, comparamos com toString()
+        else if (retornoObtido.toString().equals(retornoEsperado.toString()))
+            resultado = Retorno.OK;
+
+        // Se nem com toString() forem iguais, determinamos
+        // que são diferentes
+        else
+            resultado = Retorno.ERRO;
+
+        String resultadoString = (resultado == Retorno.OK ? VERDE.on("✓") : (resultado == Retorno.ERRO ? VERMELHO.on("x") : AMARELO.on("?")));
+
+        System.out.println(
+            "[" + resultadoString +"] "
+            + "\"" + nome + "\"\n\t"
+            + retornoObtido + ITALICO.on(" (esperado: " + retornoEsperado + ")")
+        );
     }
 
-    public void adicionaCaso(Caso caso){
-        Caso[] casosAux = casos.clone();
-        casos = new Caso[casos.length+1];
-
-        for(int i=0; i<casos.length; i++)
-            casos[i] = (i<casosAux.length ? casosAux[i] : caso);
-    }
-
-    public void imprimeResultadoDetalhado(){
-        for(Caso caso: casos){
-            caso.imprimeResultadoDetalhado();
-            System.out.println();
-        }
-    }
+    enum Retorno {
+        OK, ERRO, INDEFINIDO
+    };
 }
