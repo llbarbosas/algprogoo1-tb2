@@ -14,8 +14,9 @@ Segundo trabalho da disciplina de Algoritmos e Programação Orientada a Objetos
 * [X] Implementação da classe Dataset
 * [X] Implementação da classe ValorAvaliacao
 * [X] Implementação da classe Resultado
-* [ ] Implementação da classe Experimento
+* [X] Implementação da classe Experimento
 * [X] Implementação da classe de teste
+* [ ] Implementação da main do projeto
 
 <br />
 

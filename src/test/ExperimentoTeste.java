@@ -29,12 +29,15 @@ public class ExperimentoTeste {
         // ValorAvaliacao
         String[] medidasNome = {"Medida 1", "Medida 2", "Medida 3"};
         float[] menoresValores = {23.5f, 15f, 2.5f},
-        maioresValores = {50f, 35f, 4.5f};
+            maioresValores = {50f, 35f, 4.5f},
+            valores = {30, 36, 3};
         ValorAvaliacao[] avaliacoes = new ValorAvaliacao[casos];
-        for(int i=0; i<avaliacoes.length; i++)
+        for(int i=0; i<avaliacoes.length; i++){
            avaliacoes[i] = new ValorAvaliacao(
                 new MedidaAvaliacao(medidasNome[i], menoresValores[i], maioresValores[i])
-            );
+            ); 
+            avaliacoes[i].setValor(valores[i]);
+        }
 
         // Resultados
         Resultado[] resultados = new Resultado[casos];

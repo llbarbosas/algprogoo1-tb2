@@ -14,7 +14,7 @@ public class Validador {
      */
 
     //  Verifica se um valor inteiro é maior ou igual à zero
-    public static boolean verificaValorInteiroPositivo(int numero) {
+    public static boolean verificaValorInteiroValido(int numero) {
         if (numero >= 0) {
             return true;
         } else {
