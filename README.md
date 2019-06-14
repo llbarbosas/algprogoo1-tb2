@@ -1,13 +1,26 @@
 # algprogoo1-tb2
 Segundo trabalho da disciplina de Algoritmos e Programação Orientada a Objetos 1 da UFMS. O trabalho visa o desenvolvimento de um sistema fictício de apoio a pesquisadores de Aprendizado de Máquina em java.
 
-**Grupo:** @EduardoGiacomini, @JorgeDullius, @LucasMoro01, @llbarbosas.
+**Observações:**
+  * Arquitetura do projeto:
+    * `src/util`: Classes auxiliares
+      * `Validador`: Valida regras de negócio
+      * `TratamentoErro`: Exibe mensagens de erro e exibe alertas
+      * `Cores`: Colore textos
+    * `src/test`: Classes de testes automatizados
+      * `Teste`
+    * `src/app`: Classes principais do programa
+      * `Main`: Executa toda a aplicação
+  * Codificação do texto:
+    * Algumas classes (como a TratamentoErro, Cores e a Main) utilizam codificação UTF-8 para exibir informações na tela.
+
+**Grupo:** [Eduardo Giacomini](https://github.com/EduardoGiacomini), [Jorge Dullius](https://github.com/JorgeDullius), [Lucas Moro](https://github.com/LucasMoro01), [Lucas Barbosa](https://github.com/llbarbosas).
 
 **Data de entrega:** 14/06/2019 às 23h55.
 
 **Critérios de avaliação:** Completude do modelo (peso 4), corretude de funcionalidades (peso 5), classe de teste com todos os métodos sendo testados (peso 1).
 
-## Tarefas restantes
+## Tarefas Executadas
 * [X] Criação das classes com seus atributos e métodos referentes ao diagrama de classe do trabalho
 * [X] Implementação da classe Algoritmo
 * [X] Implementação da classe MedidaAvaliacao
@@ -16,7 +29,7 @@ Segundo trabalho da disciplina de Algoritmos e Programação Orientada a Objetos
 * [X] Implementação da classe Resultado
 * [X] Implementação da classe Experimento
 * [X] Implementação da classe de teste
-* [ ] Implementação da main do projeto
+* [X] Implementação da main do projeto
 
 <br />
 
