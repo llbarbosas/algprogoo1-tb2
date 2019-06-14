@@ -1,106 +1,16 @@
 package app;
-import java.util.Random;
+import static util.Cores.*;
 
 public class Main {
     public static void main(String[] args) {
-        Random random = new Random();
-
-        String[] nomeAlgoritmo = {"Algoritmo 1", "Algoritmo 2", "Algoritmo 3"},
-                nomeDataset = {"Dataset 1", "Dataset 2", "Dataset 3"};
-        float[][] parametros = {{2.1f, 5.1f, 8.1f}, {1.3f, 4.1f, 123.f}, {1.2f, 3.3f}};
-        int[] nExemplosTeste = {1, 4, 5};
-        int[] nAtributosTeste = {4, 6, 5};
-        int[] nClassesTeste = {0, 2, 11};
-        
-        Algoritmo[] algoritmos = new Algoritmo[nomeAlgoritmo.length];
-        for(int i=0; i<algoritmos.length; i++)
-            algoritmos[i] = new Algoritmo(nomeAlgoritmo[i], parametros[i]);
-
-        Dataset[] datasets = new Dataset[nomeDataset.length];
-        for(int i=0; i<datasets.length; i++)
-            datasets[i] = new Dataset(nExemplosTeste[i], nAtributosTeste[i], nClassesTeste[i], nomeDataset[i]);
-
-        Resultado[] resultados = new Resultado[algoritmos.length];
-        for(int i=0; i<resultados.length; i++)
-            resultados[i] = new Resultado(algoritmos[i], datasets[i]);
-        
-        String[] medidasNome = {"Medida 1", "Medida 2", "Medida 3"};
-        float[] menoresValores = {23.5f, 15f, 2.5f},
-                maioresValores = {50f, 35f, 4.5f},
-                valores = {30, 36, 3, 4, 51, 13, 15};
-
-        MedidaAvaliacao[] medidasAvaliacao = new MedidaAvaliacao[medidasNome.length];
-        for(int i=0; i<medidasAvaliacao.length; i++)
-            medidasAvaliacao[i] = new MedidaAvaliacao(medidasNome[i], menoresValores[i], maioresValores[i]);
-
-        ValorAvaliacao[] valoresAvaliacao = new ValorAvaliacao[medidasAvaliacao.length];
-        for(int i=0; i<valoresAvaliacao.length; i++){
-            valoresAvaliacao[i] = new ValorAvaliacao(medidasAvaliacao[i]);
-            valoresAvaliacao[i].setValor(valores[random.nextInt(valores.length)]);
-            
-        }
-
-        for(Resultado resultado: resultados)
-            for(int i=0; i<3; i++)
-                resultado.addAvaliacao(valoresAvaliacao[random.nextInt(valoresAvaliacao.length)]);
-
-        Experimento experimento = new Experimento(13, 06, 2019);
-
-        for(Resultado resultado: resultados)
-            experimento.addResultado(resultado);
-
-        experimento.imprimeResumoExperimento();
-
-        System.out.println(
-            experimento.getMediaResultados("Medida 1") + "\n"
-            + experimento.getMediaResultadosPorAlgoritmo("Algoritmo 1", "Medida 3") + "\n"
-            + experimento.getMediaResultadosPorDataset("Dataset 1", "Medida 3")
-        );
-
         /*
-         * Teste das funcões relacionadas as médias
+         * Teste das funcões relacionadas as médias e getValoresResultados
          */
 
-        Experimento funcionaPorFavor = new Experimento(14, 6, 2019);
-        Resultado oResultado = new Resultado(
-            new Algoritmo("Vai funcionar", new float[]{1, 2, 3}),
-            new Dataset(3, 2, 1, "Dataset boladão")
-        );
-        Resultado oOutroResultado = new Resultado(
-            new Algoritmo("Vai funcionar", new float[]{1, 2, 3}),
-            new Dataset(3, 2, 1, "Dataset boladão")
-        );
-        ValorAvaliacao valorzao = new ValorAvaliacao(
-            new MedidaAvaliacao("Medida top", 0f, 10f)
-        );
-
-        ValorAvaliacao outroValorzao = new ValorAvaliacao(
-            new MedidaAvaliacao("Medida top", 0f, 10f)
-        );
-
-        valorzao.setValor(8);
-        outroValorzao.setValor(2);
+        // Colocando teste num metodo pra não ter varios
+        // valores/resultados/experimentos no mesmo escopo
+        testeMedias();
         
-        oResultado.addAvaliacao(
-            valorzao
-        );
-        oOutroResultado.addAvaliacao(
-            outroValorzao
-        );
-
-        funcionaPorFavor.addResultado(
-            oResultado
-        );
-        funcionaPorFavor.addResultado(
-            oOutroResultado
-        );
-
-        System.out.println(
-            "TÔ FUNCIONANDO = "
-            + funcionaPorFavor.getMediaResultados("Medida top")
-            
-        );
-
         /*
          * Teste das funcões relacionadas aos melhores resultados
          */
@@ -111,12 +21,202 @@ public class Main {
          * Teste da função getNomeAlgoritmos
          */
 
-        // ...
+        testeGetNomeAlgoritmos();
 
         /*
-         * Teste da função getValoresResultados e addResultados
+         * Teste da função addResultados
          */
 
-        // ...
+        testeAddResultados();
+    }
+
+    private static void testeGetNomeAlgoritmos(){
+        Experimento experimento = new Experimento(14, 6, 2019);
+
+        Resultado resultado1 = new Resultado(
+            new Algoritmo("Algoritmo 1", new float[]{1, 2, 3}),
+            new Dataset(3, 2, 1, "Dataset 1")
+        );
+        Resultado resultado2 = new Resultado(
+            new Algoritmo("Algoritmo 2", new float[]{1, 2, 3}),
+            new Dataset(3, 2, 1, "Dataset 2")
+        );
+
+        experimento.addResultado(resultado1);
+        experimento.addResultado(resultado2);
+
+        String resultadoEsperado = "Algoritmo 1Algoritmo 2";
+        for(int i=0; i<8; i++)
+            resultadoEsperado += null;
+
+        String resultadoObtido = "";
+        for(String nome: experimento.getNomesAlgoritmosUtilizados())
+            resultadoObtido += nome;
+
+        casoTeste(
+            "Testando getNomesAlgoritmos",
+            resultadoEsperado.equals(resultadoObtido),
+            resultadoEsperado,
+            resultadoObtido
+        );
+
+        experimento.addResultado(resultado2);
+
+        String resultadoObtido2 = "";
+        for(String nome: experimento.getNomesAlgoritmosUtilizados())
+            resultadoObtido2 += nome;
+
+        casoTeste(
+            "Testando getNomesAlgoritmos com algoritmos repetidos",
+            resultadoEsperado.equals(resultadoObtido2),
+            resultadoEsperado,
+            resultadoObtido2
+        );
+    }
+
+    private static void testeMedias(){
+        final String MEDIDA = "Medida teste";
+        final float VALOR1 = 8, VALOR2 = 2;
+
+        Experimento experimento = new Experimento(14, 6, 2019);
+
+        Resultado resultado1 = new Resultado(
+            new Algoritmo("Algoritmo 1", new float[]{1, 2, 3}),
+            new Dataset(3, 2, 1, "Dataset 1")
+        );
+        Resultado resultado2 = new Resultado(
+            new Algoritmo("Algoritmo 2", new float[]{1, 2, 3}),
+            new Dataset(3, 2, 1, "Dataset 2")
+        );
+
+        ValorAvaliacao valorAvaliacao1 = new ValorAvaliacao(
+            new MedidaAvaliacao(MEDIDA, 0f, 10f)
+        );
+
+        ValorAvaliacao valorAvaliacao2 = new ValorAvaliacao(
+            new MedidaAvaliacao(MEDIDA, 0f, 10f)
+        );
+
+        valorAvaliacao1.setValor(VALOR1);
+        valorAvaliacao2.setValor(VALOR2);
+        
+        resultado1.addAvaliacao(valorAvaliacao1);
+        resultado2.addAvaliacao(valorAvaliacao2);
+
+        float retornoEsperado1 = Float.MAX_VALUE;
+        float retornoObtido1 = experimento.getMediaResultados(MEDIDA);
+        boolean saoIguais1 = (retornoEsperado1 == retornoObtido1);
+
+        casoTeste(
+            "Executando getMediaResultados num experimento sem avaliações",
+            saoIguais1,
+            retornoEsperado1,
+            retornoObtido1
+        );
+
+        // Adiconando os resultados com valores setados
+        experimento.addResultado(resultado1);
+        experimento.addResultado(resultado2);
+
+        float retornoEsperado2 = (VALOR1+VALOR2)/2;
+        float retornoObtido2 = experimento.getMediaResultados(MEDIDA);
+        boolean saoIguais2 = (retornoEsperado2 == retornoObtido2);
+
+        casoTeste(
+            "Executando getMediaResultados num experimento com avaliações",
+            saoIguais2,
+            retornoEsperado2,
+            retornoObtido2
+        );
+
+        String retornoEsperado3 = "" + VALOR1 + " " + VALOR2 + " ";
+        for(int i=0; i<8; i++)
+            retornoEsperado3 += Float.MAX_VALUE + " ";
+
+        String retornoObtido3 = "";
+        for(float valor: experimento.getValoresResultados(MEDIDA))
+            retornoObtido3 += valor + " ";
+
+        boolean saoIguais3 = retornoEsperado3.equals(retornoObtido3);
+
+        casoTeste(
+            "Executando getValoresResultados num experimento com avaliações",
+            saoIguais3,
+            retornoEsperado3,
+            retornoObtido3
+        );
+    }
+
+    private static void testeAddResultados(){
+        Experimento experimento = new Experimento(14, 6, 2019);
+        Resultado resultado = new Resultado(
+            new Algoritmo("Algoritmo 1", new float[]{1, 2, 3}),
+            new Dataset(1, 2, 3, "Dataset 1")
+        );
+
+        boolean retorno1 = experimento.addResultado(resultado);
+
+        casoTeste(
+            "Adicionando um resultado a um experimento vazio",
+            (retorno1 == true),
+            true,
+            retorno1
+        );
+
+        for(int i=0; i<9; i++)
+            experimento.addResultado(resultado);
+
+        boolean retorno2 = experimento.addResultado(resultado);
+            
+        casoTeste(
+            "Adicionando um resultado a um experimento com 10 resultados",
+            (retorno2 == false),
+            false,
+            retorno2
+        );
+        
+    }
+
+    /*
+     * Funções auxiliares para organizar os testes
+     */
+    
+    private static final String OK = VERDE.on("✓"), ERRO = VERMELHO.on("x"), INDEFINIDO = AMARELO.on("?");
+
+    /*
+     * Para casos que sabemos como comparar os retornos
+     * 
+     * USO:
+     *      casoTeste(
+     *          String nomeDoTeste,
+     *          boolean condicaoIgualdade,
+     *          QualquerTipo retornoEsperado,
+     *          QualquerTipo retornoObtido
+     *      );
+     */
+    private static void casoTeste(String nome, boolean condicaoIgualdade, Object retornoEsperado, Object retornoObtido){
+        System.out.println(
+            "[" + (condicaoIgualdade ? OK : ERRO) +"] "
+            + "\"" + nome + "\"\n\t"
+            + retornoEsperado + " == " + retornoObtido
+        );
+    }
+
+    /*
+     * Para casos que não sabemos como comparar os retornos
+     * 
+     * USO:
+     *      casoTeste(
+     *          String nomeDoTeste,
+     *          QualquerTipo retornoEsperado,
+     *          QualquerTipo retornoObtido
+     *      );
+     */
+    private static void casoTeste(String nome, Object retornoEsperado, Object retornoObtido){
+        System.out.println(
+            "[" + INDEFINIDO +"] "
+            + "\"" + nome + "\"\n\t"
+            + retornoEsperado + " == " + retornoObtido
+        );
     }
 }
