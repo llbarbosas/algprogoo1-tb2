@@ -41,17 +41,19 @@ public class Algoritmo {
     private void verificaParametrosValido(float[] parametros) {
         // Se a quantidade de parâmetros for diferente de 3, o programa irá tratar o erro por meio
         // da invocação de outro método
-        if(parametros.length != 3) {
+        if(parametros.length > 3) {
             TratamentoErro.erro(parametros.length + " foram passados. "
-                + "3 parametros eram esperados.");
+                + "De 0 a 3 parametros eram esperados.");
         }
     }
 
     // Método responsável por inicializar a quantidade de parâmetros
     private void inicializaParametros(float[] parametros) {
-        this.parametros = parametros.clone();
+        this.parametros=new float[]{Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE};
+        for(int i = 0; i < 2; i++){
+            this.parametros[i] = parametros[i]; 
+        }
     }
-
     // Método responsável por retornar o nome do objeto algoritmo
     public String getNome(){
         return this.nome;
