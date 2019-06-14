@@ -345,10 +345,18 @@ public class Experimento {
     }
 
     public String[] getNomesAlgoritmosUtilizados(){
-        String[] nomesAlgoritmos = new String[getResultadosValidos().length];
+        String[] nomesAlgoritmos = new String[10];
 
-        for(int i=0; i<nomesAlgoritmos.length; i++)
-            nomesAlgoritmos[i] = resultados[i].getNomeDoAlgoritmo();
+        for(int i=0; i<nomesAlgoritmos.length; i++){
+            if(this.resultados[i] != null){
+                nomesAlgoritmos[i] = this.resultados[i].getNomeDoAlgoritmo();
+
+                for(int j=0; j<nomesAlgoritmos.length; j++)
+                    if(nomesAlgoritmos[j] == null && 
+                    nomesAlgoritmos[i].equals(nomesAlgoritmos[j]))
+                        nomesAlgoritmos[i] = null;
+            }
+        }
 
         return nomesAlgoritmos;
     }

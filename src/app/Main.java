@@ -46,8 +46,10 @@ public class Main {
         experimento.addResultado(resultado2);
 
         String resultadoEsperado = "Algoritmo 1Algoritmo 2";
-        String resultadoObtido = "";
+        for(int i=0; i<8; i++)
+            resultadoEsperado += null;
 
+        String resultadoObtido = "";
         for(String nome: experimento.getNomesAlgoritmosUtilizados())
             resultadoObtido += nome;
 
@@ -57,8 +59,19 @@ public class Main {
             resultadoEsperado,
             resultadoObtido
         );
-        
 
+        experimento.addResultado(resultado2);
+
+        String resultadoObtido2 = "";
+        for(String nome: experimento.getNomesAlgoritmosUtilizados())
+            resultadoObtido2 += nome;
+
+        casoTeste(
+            "Testando getNomesAlgoritmos com algoritmos repetidos",
+            resultadoEsperado.equals(resultadoObtido2),
+            resultadoEsperado,
+            resultadoObtido2
+        );
     }
 
     private static void testeMedias(){
