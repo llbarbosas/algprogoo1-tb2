@@ -119,6 +119,9 @@ public class Resultado {
                 if(Validador.verificaObjetoValido(resultado.getAvaliacoes()[i]) && 
                     resultado.getAvaliacoes()[i].equals(this.avaliacao[i])){//compara todas as posicoes do ValorAvaliacao[]
                     avaliacoesIguais++;
+                }else if(!Validador.verificaObjetoValido(resultado.getAvaliacoes()[i]) && 
+                    !Validador.verificaObjetoValido(avaliacao[i])){//verifica se os dois arrays não tem objetos na iézima posição
+                    avaliacoesIguais++;
                 }
             }
             if(avaliacoesIguais == 3){//se todos os elementos de ValorAvaliacao[] forem iguais
