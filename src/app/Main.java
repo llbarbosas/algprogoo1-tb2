@@ -72,6 +72,9 @@ public class Main {
             resultadoEsperado,
             resultadoObtido2
         );
+
+        
+
     }
 
     private static void testeMedias(){
