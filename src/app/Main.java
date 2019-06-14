@@ -1,7 +1,10 @@
 package app;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
+        Random random = new Random();
+
         String[] nomeAlgoritmo = {"Algoritmo 1", "Algoritmo 2", "Algoritmo 3"},
                 nomeDataset = {"Dataset 1", "Dataset 2", "Dataset 3"};
         float[][] parametros = {{2.1f, 5.1f, 8.1f}, {1.3f, 4.1f, 123.f}, {1.2f, 3.3f}};
@@ -24,7 +27,7 @@ public class Main {
         String[] medidasNome = {"Medida 1", "Medida 2", "Medida 3"};
         float[] menoresValores = {23.5f, 15f, 2.5f},
                 maioresValores = {50f, 35f, 4.5f},
-                valores = {30, 36, 3};
+                valores = {30, 36, 3, 4, 51, 13, 15};
 
         MedidaAvaliacao[] medidasAvaliacao = new MedidaAvaliacao[medidasNome.length];
         for(int i=0; i<medidasAvaliacao.length; i++)
@@ -33,12 +36,13 @@ public class Main {
         ValorAvaliacao[] valoresAvaliacao = new ValorAvaliacao[medidasAvaliacao.length];
         for(int i=0; i<valoresAvaliacao.length; i++){
             valoresAvaliacao[i] = new ValorAvaliacao(medidasAvaliacao[i]);
-            valoresAvaliacao[i].setValor(valores[i]);
+            valoresAvaliacao[i].setValor(valores[random.nextInt(valores.length)]);
+            
         }
 
         for(Resultado resultado: resultados)
-            for(ValorAvaliacao avaliacao: valoresAvaliacao)
-                resultado.addAvaliacao(avaliacao);
+            for(int i=0; i<3; i++)
+                resultado.addAvaliacao(valoresAvaliacao[random.nextInt(valoresAvaliacao.length)]);
 
         Experimento experimento = new Experimento(13, 06, 2019);
 
@@ -47,15 +51,72 @@ public class Main {
 
         experimento.imprimeResumoExperimento();
 
+        System.out.println(
+            experimento.getMediaResultados("Medida 1") + "\n"
+            + experimento.getMediaResultadosPorAlgoritmo("Algoritmo 1", "Medida 3") + "\n"
+            + experimento.getMediaResultadosPorDataset("Dataset 1", "Medida 3")
+        );
+
         /*
-        valorAvaliacao.setValor(5);
-        resultado.addAvaliacao(valorAvaliacao);
-        System.out.println("Adicionando resultado: " + experimento.addResultado(resultado));
-        float[] valoresResultados = experimento.getValoresResultados("Medida de Avaliação 1");
-        System.out.println(valoresResultados.length);
-        for (int i = 0; i < valoresResultados.length; i++) {
-            System.out.println(valoresResultados[i]);
-        }
-        */
+         * Teste das funcões relacionadas as médias
+         */
+
+        Experimento funcionaPorFavor = new Experimento(14, 6, 2019);
+        Resultado oResultado = new Resultado(
+            new Algoritmo("Vai funcionar", new float[]{1, 2, 3}),
+            new Dataset(3, 2, 1, "Dataset boladão")
+        );
+        Resultado oOutroResultado = new Resultado(
+            new Algoritmo("Vai funcionar", new float[]{1, 2, 3}),
+            new Dataset(3, 2, 1, "Dataset boladão")
+        );
+        ValorAvaliacao valorzao = new ValorAvaliacao(
+            new MedidaAvaliacao("Medida top", 0f, 10f)
+        );
+
+        ValorAvaliacao outroValorzao = new ValorAvaliacao(
+            new MedidaAvaliacao("Medida top", 0f, 10f)
+        );
+
+        valorzao.setValor(8);
+        outroValorzao.setValor(2);
+        
+        oResultado.addAvaliacao(
+            valorzao
+        );
+        oOutroResultado.addAvaliacao(
+            outroValorzao
+        );
+
+        funcionaPorFavor.addResultado(
+            oResultado
+        );
+        funcionaPorFavor.addResultado(
+            oOutroResultado
+        );
+
+        System.out.println(
+            "TÔ FUNCIONANDO = "
+            + funcionaPorFavor.getMediaResultados("Medida top")
+            
+        );
+
+        /*
+         * Teste das funcões relacionadas aos melhores resultados
+         */
+
+        // ...
+
+        /*
+         * Teste da função getNomeAlgoritmos
+         */
+
+        // ...
+
+        /*
+         * Teste da função getValoresResultados e addResultados
+         */
+
+        // ...
     }
 }
